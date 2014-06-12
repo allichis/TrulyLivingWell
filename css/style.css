@@ -2,40 +2,6 @@ body {
 	font-family: sans-serif;
 }
 
-img#logo {
-	padding: 10px;
-}
-
-.title {
-	color: green;
-	padding-left: 20px;
-}
-
-table#header {
-	text-align: left;
-}
-
-table#content{
-	text-align: left;
-}
-
-td.tablelabel {
-	text-align: right;
-}
-
-td.buttons {
-	text-align: left;
-}
-
-button {
-	padding: 15px;
+.btn {
 	margin: 5px;
-}
-
-div#formdiv {
-	text-align: center;
-}
-
-input {
-	margin: 10px;
 }

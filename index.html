@@ -11,7 +11,10 @@
     
     	<div class="navbar navbar-inverse navbar-fixed-top">
         	<div class="container">
-        		<a href="#" class="navbar-brand">Truly Living Well</a>
+        		<a href="#" class="navbar-brand">
+                	<span class="glyphicon glyphicon-leaf"></span>
+                    Truly Living Well
+                </a>
                 
                 <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
                 	<span class="icon-bar"></span>
@@ -21,54 +24,63 @@
                 
                 <div class="collapse navbar-collapse navHeaderCollapse">
                 	<ul class="nav navbar-nav navbar-right">
+                    
                     	<li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Admin</a></li>
+                        <li><a href="admin/adminindex.html">Admin</a></li>
+                        <li><a href="#contact" data-toggle="modal">Contact TLW</a></li>
+                        
                     </ul>
                 </div>
         	</div>        
         </div>
         
-		<table id="header" align="center">
-			<tr>
-				<td>
-					<a href="index.html"><img id="logo" src="tlwlogo.png" /></a>
-				</td>
-				<td>
-					<h1 class="title" id="title_tlw">Truly Living Well</h1>
-					<h2 class="title" id="title_cnua">Center for Natural Urban Agriculture</h2>
-				</td>
-			</tr>
-		</table>
-		<table id="content" align="center">
-			<tr>
-				<td class="tablelabel">
-					<h3>Volunteers</h2>
-				</td>
-				<td class="buttons">
-					<a href="volunteersignin.html"><button id="volunteersigninbutton" type="button" >Volunteer Sign In</button></a>
-					<a href="volunteersignout.html"><button id="volunteersignoutbutton" type="button">Volunteer Sign Out</button></a>
-					<a href="newvolunteerform.html"><button id="newvolunteerbutton" type="button">New Volunteer</button></a>
-				</td>
-			</tr>
-			<tr>
-				<td class="tablelabel">
-					<h3>Visitors</h2>
-				</td>
-				<td class="buttons">
-					<a href="visitorsignin.html"><button id="visitorsigninbutton" type="button">Visitor Sign In</button></a>
-					<a href="form.html"><button id="campersigninbutton" type="button">Camper Sign In</button></a>
-				</td>
-			</tr>
-			<tr>
-				<td class="tablelabel">
-					<h3>Admin</h2>
-				</td>
-				<td class="buttons">
-					<a href="admin/adminindex.html"><button id="adminbutton" type="button">Admin</button></a>
-				</td>
-			</tr>
-		</table>
-		
+        <div class="container">
+            <div class="jumbotron text-center">
+                <div class="row">
+                	<div class="col-md-2">
+                    	<a href="#"><img id="logo" src="tlwlogo.png" /></a>
+                    </div>
+                    <div class="col-md-10">
+                    	<h2>Welcome to Truly Living Well!</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+        	
+            <dl class="text-center">
+              <dt><h3>Volunteers</h3></dt>
+              <dd> 
+                <a href="volunteersignin.html" class="btn btn-success btn-lg">Volunteer Sign In</a>
+                <a href="volunteersignout.html" class="btn btn-success btn-lg">Volunteer Sign Out</a>
+                <a href="newvolunteerform.html" class="btn btn-primary btn-lg">New Volunteer</a>
+                <br>
+              </dd>
+              <dt><h3>Visitors</h3></dt>
+              <dd> 
+              	<a href="visitorsignin.html" class="btn btn-success btn-lg">Visitor Sign In</a>
+                <a href="form.html" class="btn btn-success btn-lg">Camper Sign In</a>
+                <br>
+              </dd>
+            </dl>
+
+		</div>
+        
+        <div class="modal fade" id="contact" role="dialog">
+        	<div class="modal-dialog">
+            	<div class="modal-content">
+                	<div class="modal-header">
+                    	<h3>Contact Truly Living Well</h3>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
         <script type="text/javascript" src="js/script.js"></script>
         <script type="text/javascript" src="js/bootstrap.js"></script>
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
