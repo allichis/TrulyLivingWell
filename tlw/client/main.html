@@ -1,22 +1,79 @@
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
   <title>Home | Truly Living Well</title>
 </head>
 
-<body>
-  <!-- template loads header.html in client/views -->
-  <!-- header, navbar, same thing... -->
-  {{> navbar}}
-  
+<template name="layout">
+  <header>
+    {{> yield region='header'}}
+  </header>
+
+  {{> yield}}
+</template>
+
+<template name="vols">
+  <p>temp vols template</p>
+</template>
+
+<template name="farmops">
+  <div class="container">
+    {{#if currentUser}}
+      <p>ok you can see this</p>
+    {{else}}
+      <p>log in, please</p>
+      {{> loginButtons}}
+    {{/if}}
+  </div><!-- /.container -->
+</template>
+
+<template name="dashboard">
   <div class="container">
     <div class="row">
-      <div class="jumbotron">
-        <h1>Title message</h1>
-        <p>main image / header for TLW</p>
-      </div><!-- /.jumbotron -->
-    </div><!-- /.row -->
-    <div class="row">
-      <p>buttons and links to interactive parts...</p>
+      <p>just a "dashboard" placeholder.</p>
+      <p>this is where you get redirected after logging in.</p>
     </div><!-- /.row -->
   </div><!-- /.container -->
-  
-</body>
+</template>
+
+<template name="about">
+  <div class="container">
+    <div class="row">
+      <p>just an "about" placeholder</p>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+</template>
+
+<template name="newVolunteerForm">
+  <div class="container">
+    <div class="row">
+      <h1>New volunteer</h1>
+      {{> quickForm collection="Volunteers" id="insertVolunteer" type="insert"}}
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+</template>
+
+
+<template name="harvestedTemplate">
+  <h1>Harvest requests</h1>
+  <table class="table table-striped">
+  <tbody>
+      
+    {{#each mktrequests}}
+    <tr>
+      <td><span class="itemname">{{itemname}}</span></td>
+      <td><span class="amount">{{amount}}</span></td>
+      <td><span class="timestamp">{{timestamp}}</span></td>
+    </tr>
+    {{/each}}
+
+  </tbody>
+  </table>
+</template>
+
+<template name="hvstFormTemplate">
+  {{> quickForm collection="Requests" id="insertRequestForm" type="insert"}}
+</template>
+
+<template name="myFooter">
+<p>haha lol</p>
+</template>

@@ -1,0 +1,29 @@
+<template name="home">
+  <div class="container">
+    <div class="row">
+      <div class="jumbotron">
+        <h1>Nidaba</h1>
+        <p class="lead">Every new software project needs a corny name.</p>
+        <blockquote>
+          <p>Nidaba was originally an agricultural deity, more specifically a goddess of grain. The intricate connection between agriculture and accounting/writing implied that it was not long before Nidaba became the goddess of writing.</p>
+          <footer><cite title="Ancient Mesopotamian Gods and Goddesses"><a href="http://oracc.museum.upenn.edu/amgg/listofdeities/nidaba/" target="_blank">Ancient Mesopotamian Gods and Goddesses</a></cite></footer>
+        </blockquote>
+      </div><!-- /.jumbotron -->
+    </div><!-- /.row -->
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Volunteers / visitors</h2>
+        <p>This is mostly public-accessible stuff.</p>
+        <a href="{{ pathFor 'newVolunteer' }}"><button type="button" class="btn btn-success btn-lg">Volunteer!</button></a>
+      </div><!-- /.col-md-6 -->
+      <div class="col-md-6">
+        <h2>Farm operations</h2>
+        <p>This is for stuff that requires some login, usually.</p>
+        <a href="{{ pathFor 'farmops' }}"><button type="button" class="btn btn-success btn-lg">Operate!</button></a>
+        <p>This is for ADMIN stuff that definitely requires login.</p>
+        <a href="{{ pathFor 'admin' }}"><button type="button" class="btn btn-danger btn-lg">ADMIN!</button></a>
+      </div><!-- /.col-md-6 -->
+    </div><!-- /.row -->
+  </div><!--/.container -->
+</template>
+

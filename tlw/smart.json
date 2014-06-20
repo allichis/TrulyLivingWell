@@ -4,6 +4,10 @@
     "accounts-ui-bootstrap-3": {},
     "collection2": {},
     "autoform": {},
-    "event-hooks": {}
+    "iron-router": {},
+    "event-hooks": {},
+    "accounts-entry": {},
+    "roles": {},
+    "accounts-admin-ui-bootstrap-3": {}
   }
 }

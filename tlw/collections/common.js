@@ -10,9 +10,19 @@ Schema.Volunteers = new SimpleSchema({
 		type: Date,
 		label: "Date of birth",
 		// some limitations on dob here...
-	}
-	// still to come:
+	},
 	// volunteer contact info
+	email: {
+		type: String,
+		label: "Email address",
+		// schema for matching email addresses...
+	},
+	phone: {	
+		type: String,
+		label: "Phone number",
+		// validate as phone number...
+	},
+	// still to come:
 	// emergency contact info
 	// ...
 	// isVeteran
@@ -93,5 +103,10 @@ Schema.Tasks = new SimpleSchema({
 });
 
 // set up the Collections and relate to a Schema
+Volunteers = new Meteor.Collection("volunteers");
+Volunteers.attachSchema(Schema.Volunteers);
 Requests = new Meteor.Collection("mktrequests");
 Requests.attachSchema(Schema.Requests);
+
+// contexts for validation...
+var vContext = Schema.Volunteers.namedContext("newVolForm");

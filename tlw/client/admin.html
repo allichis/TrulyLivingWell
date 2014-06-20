@@ -1,0 +1,26 @@
+<template name="admin">
+  <div class="container">
+    <div class="row">
+      <h1>Admin zone!!!!11</h1>
+    </div><!-- /.row -->
+    <div class="row">
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#">Users</a></li>
+        <li><a href="#">Products</a></li>
+        <li><a href="#">Volunteers</a></li>
+      </ul>
+    </div><!-- /.row -->
+    <div class="row">
+      {{#if isAdminUser}}
+        {{> adminUsers }}
+      {{else}}
+        <!-- redirect... -->
+        <p>u no admin</p>
+      {{/if}}
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+</template>
+
+<template name="adminUsers">
+  {{> accountsAdmin}}
+</template>
