@@ -21,6 +21,7 @@
   {{/if}}
 
   {{> yield}}
+
 </template>
 
 <template name="farmops">
@@ -43,35 +44,3 @@
   </div><!-- /.container -->
 </template>
 
-<template name="about">
-  <div class="container">
-    <div class="row">
-      <p>just an "about" placeholder</p>
-    </div><!-- /.row -->
-  </div><!-- /.container -->
-</template>
-
-<template name="harvestedTemplate">
-  <h1>Harvest requests</h1>
-  <table class="table table-striped">
-  <tbody>
-      
-    {{#each mktrequests}}
-    <tr>
-      <td><span class="itemname">{{itemname}}</span></td>
-      <td><span class="amount">{{amount}}</span></td>
-      <td><span class="timestamp">{{timestamp}}</span></td>
-    </tr>
-    {{/each}}
-
-  </tbody>
-  </table>
-</template>
-
-<template name="hvstFormTemplate">
-  {{> quickForm collection="Requests" id="insertRequestForm" type="insert"}}
-</template>
-
-<template name="myFooter">
-<p>haha lol</p>
-</template>
