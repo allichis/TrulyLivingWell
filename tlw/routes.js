@@ -3,7 +3,8 @@ Router.configure({
 	loadingTemplate: 'loading',
 	notFoundTemplate: 'notFound',
 	yieldTemplates: {
-		'navbar': {to: 'header'}
+		'navbar': {to: 'header'},
+		'navAdmin': {to: 'headerAdmin'}
 	}
 });
 
@@ -12,9 +13,26 @@ Router.map(function() {
 		path: '/',
 	});
 	this.route('farmops');
-	this.route('admin');
+	this.route('admin', {
+		layoutTemplate: 'layoutAdmin',
+	});
+	this.route('accountsAdmin', {
+		layoutTemplate: 'layoutAdmin',
+	});
+	this.route('locationsAdmin', {
+		layoutTemplate: 'layoutAdmin',
+	});
+	this.route('requestsAdmin', {
+		layoutTemplate: 'layoutAdmin',
+	});
+	this.route('volunteersAdmin', {
+		layoutTemplate: 'layoutAdmin',
+	});
 	this.route('dashboard');
 	this.route('vols');
+	this.route('newvol');
+	this.route('volsignin');
+	this.route('volsignout');
 	this.route('newVolunteer', {
 		path: '/newvolunteer',
 		template: 'newVolunteerForm'

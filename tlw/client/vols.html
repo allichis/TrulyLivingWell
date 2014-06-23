@@ -1,0 +1,35 @@
+<template name="vols">
+  <div class="container">
+    <div class="row">
+      <h1>Volunteers</h1>
+    </div><!-- /.row -->
+    <div class="row">
+      <h2>Sign In / Sign Out</h2>
+      <a href="{{pathFor 'volsignin'}}"><button type="button" class="btn btn-default btn-large">Sign In</button></a>
+      <a href="{{pathFor 'volsignout'}}"><button type="button" class="btn btn-default btn-large">Sign Out</button></a>
+    </div><!-- /.row -->
+    <div class="row">
+      <h2>New volunteers</h2>
+      <a href="{{pathFor 'newvol'}}"><button type="button" class="btn btn-info btn-large">New volunteer</button></a>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+</template>
+
+<template name="newvol">
+  <div class="container">
+    <div class="row">
+      <h1>New volunteer registration page</h1>
+    </div><!-- /.row -->
+    <div class="row">
+      {{>quickForm collection="Volunteers" id="insertVolunteer" type="insert"}}
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+</template>
+
+<template name="volsignin">
+  <h1>Volunteer sign in page</h1>
+</template>
+
+<template name="volsignout">
+  <h1>Volunteer sign out page</h1>
+</template>

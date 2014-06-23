@@ -1,26 +1,115 @@
-<template name="admin">
+<template name="navAdmin">
   <div class="container">
     <div class="row">
-      <h1>Admin zone!!!!11</h1>
+      <h1>Administrator views</h1>
     </div><!-- /.row -->
     <div class="row">
       <ul class="nav nav-pills">
-        <li class="active"><a href="#">Users</a></li>
+        <li class="{{activeIfTemplateIs 'admin'}}"><a href="{{pathFor 'admin'}}">Admin Home</a></li>
+        <li class="{{activeIfTemplateIs 'accountsAdmin'}}"><a href="{{pathFor 'accountsAdmin'}}">Users</a></li>
         <li><a href="#">Products</a></li>
-        <li><a href="#">Volunteers</a></li>
+        <li class="{{activeIfTemplateIs 'locationsAdmin'}}"><a href="{{pathFor 'locationsAdmin'}}">Locations</a></li>
+        <li class="{{activeIfTemplateIs 'volunteersAdmin'}}"><a href="{{pathFor 'volunteersAdmin'}}">Volunteers</a></li>
+        <li class="{{activeIfTemplateIs 'requestsAdmin'}}"><a href="{{pathFor 'requestsAdmin'}}">Requests</a></li>
       </ul>
-    </div><!-- /.row -->
-    <div class="row">
-      {{#if isAdminUser}}
-        {{> adminUsers }}
-      {{else}}
-        <!-- redirect... -->
-        <p>u no admin</p>
-      {{/if}}
     </div><!-- /.row -->
   </div><!-- /.container -->
 </template>
 
-<template name="adminUsers">
-  {{> accountsAdmin}}
+<template name="admin">
+  <div class="container">
+    <div class="row">
+      <h2>Lists that admin will be able to access/edit:</h2>
+      <ul>
+        <li><a href="{{pathFor 'accountsAdmin'}}">User accounts (staff)</a></li>
+        <li>Products</li>
+        <li><a href="{{pathFor 'volunteersAdmin'}}">Volunteers</a></li>
+        <li><a href="{{pathFor 'locationsAdmin'}}">Locations</a></li>
+        <li><a href="{{pathFor 'requestsAdmin'}}">Requests</a></li>
+      </ul>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+</template>
+
+<template name="volunteersAdmin">
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+        <th>Phone number</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each volunteers}}
+        <tr>
+          <td>
+            <span data-toggle="modal" href="#" class="glyphicon glyphicon-trash clickable"></span>
+            <span data-toggle="modal" href="#" class="glyphicon glyphicon-pencil clickable"></span>
+            <span data-toggle="modal" href="#" class="glyphicon glyphicon-info-sign clickable"></span>
+          </td>
+          <td>{{name}}</td>
+          <td>{{email}}</td>
+          <td>{{dob}}</td>
+          <td>{{phone}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+</template>
+
+<template name="locationsAdmin">
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each locations}}
+        <tr>
+          <td>
+            <span data-toggle="modal" href="#" class="glyphicon glyphicon-trash clickable"></span>
+            <span data-toggle="modal" href="#" class="glyphicon glyphicon-pencil clickable"></span>
+            <span data-toggle="modal" href="#" class="glyphicon glyphicon-info-sign clickable"></span>
+          </td>
+          <td>{{name}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+</template>
+
+<template name="requestsAdmin">
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Item name</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each requests}}
+        <tr>
+          <td>
+            <span data-toggle="modal" href="#" class="glyphicon glyphicon-trash clickable"></span>
+            <span data-toggle="modal" href="#" class="glyphicon glyphicon-pencil clickable"></span>
+            <span data-toggle="modal" href="#" class="glyphicon glyphicon-info-sign clickable"></span>
+          </td>
+          <td>{{itemname}}</td>
+          <td>{{amount}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
 </template>

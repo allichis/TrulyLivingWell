@@ -27,6 +27,14 @@ if (Meteor.isClient) {
 		}
 	});
 
+	Template.navAdmin.helpers({
+		activeIfTemplateIs: function (template) {
+			var currentRoute = Router.current();
+			return currentRoute &&
+				template === currentRoute.lookupTemplate() ? 'active' : '';
+		}
+	});
+
 	// this is for accounts-admin-ui-bootstrap-3:
 	Template.admin.helpers({
 		// check if user is an admin
@@ -35,10 +43,28 @@ if (Meteor.isClient) {
 		}
 	});
 
-	Template.harvestedTemplate.mktrequests = function () {
-		return Requests.find();
-	}
+	Template.locationsAdmin.helpers({
+		locations: function() {
+			return Locations.find();
+		}
+	});
 
+	Template.volunteersAdmin.helpers({
+		volunteers: function() {
+			return Volunteers.find();
+		}
+	});
+
+	Template.requestsAdmin.helpers({
+		requests: function() {
+			return Requests.find();
+		}
+	});
+
+	// need a generic kind of template helper...
+	// since we'll want to fetch/display all the documents
+	// for most Collections via the admin interface
+	
 	/*
 	Template.hello.greeting = function () {
 	   return "Welcome to tlw.";

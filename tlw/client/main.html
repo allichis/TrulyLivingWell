@@ -1,5 +1,5 @@
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Home | Truly Living Well</title>
 </head>
 
@@ -11,14 +11,22 @@
   {{> yield}}
 </template>
 
-<template name="vols">
-  <p>temp vols template</p>
+<template name="layoutAdmin">
+  <header>
+    {{> yield region='header'}}
+  </header>
+
+  {{#if currentUser}}
+    {{> yield region='headerAdmin'}}
+  {{/if}}
+
+  {{> yield}}
 </template>
 
 <template name="farmops">
   <div class="container">
     {{#if currentUser}}
-      <p>ok you can see this</p>
+      <p>You are allowed to see this text if you are logged in.</p>
     {{else}}
       <p>log in, please</p>
       {{> loginButtons}}
@@ -42,16 +50,6 @@
     </div><!-- /.row -->
   </div><!-- /.container -->
 </template>
-
-<template name="newVolunteerForm">
-  <div class="container">
-    <div class="row">
-      <h1>New volunteer</h1>
-      {{> quickForm collection="Volunteers" id="insertVolunteer" type="insert"}}
-    </div><!-- /.row -->
-  </div><!-- /.container -->
-</template>
-
 
 <template name="harvestedTemplate">
   <h1>Harvest requests</h1>

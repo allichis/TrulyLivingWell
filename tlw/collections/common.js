@@ -102,10 +102,27 @@ Schema.Tasks = new SimpleSchema({
 	// this one needs a lot more thinking...
 });
 
+Schema.Locations = new SimpleSchema({
+	// location name
+	name: {
+		type: String,
+		label: "Location name",
+		max: 256
+	},
+	// lat/long? (maybe useful for mapping in the future)
+});
+
 // set up the Collections and relate to a Schema
+
+// Locations
+Locations = new Meteor.Collection("locations");
+Locations.attachSchema(Schema.Locations);
+
+// Volunteers
 Volunteers = new Meteor.Collection("volunteers");
 Volunteers.attachSchema(Schema.Volunteers);
-Requests = new Meteor.Collection("mktrequests");
+
+Requests = new Meteor.Collection("requests");
 Requests.attachSchema(Schema.Requests);
 
 // contexts for validation...
