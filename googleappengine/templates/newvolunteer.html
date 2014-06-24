@@ -1,0 +1,40 @@
+{% extends "templates/base.html" %}
+{% block content %}
+
+{% set active_page = "volunteers" %}
+
+<div class="container">
+    <div class="page-header text-center">
+    	<img id="logo" src="/static/tlwlogo.png" />
+    	<h1>New Volunteer</h1>
+    </div>
+</div>
+
+<div class="container">
+    <table align="center">
+        <form>
+        	<tr>
+                <td colspan="2">
+                    <h3>Welcome to Truly Living Well!</h3>
+                    <p>Hi! Before you start, we need to collect some information. Fields marked with a * are required.</p>
+                    <p>Note: Your name will be used to sign in and sign out.</p>
+                    <br>
+            	</td>
+            </tr>
+            <tr>
+            <td>*First Name: </td>
+            <td><input type="text" name="firstname"></td>
+            </tr>
+            <tr>
+            <td>*Last Name: </td>
+            <td><input type="text" name="lastname"></td>
+            </tr>
+            <tr>
+            <td>*Date of Birth: </td>
+            <td><input type="date" name="dob"></td>
+            </tr>
+        </form>
+        <table>
+</div>
+
+{% endblock %}

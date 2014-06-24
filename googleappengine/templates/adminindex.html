@@ -1,0 +1,39 @@
+{% extends "templates/base.html" %}
+{% block content %}
+
+{% set active_page = "admin" %}
+
+<div class="container">
+    <div class="page-header text-center">
+    	<img id="logo" src="/static/tlwlogo.png" />
+    	<h1>Admin</h1>
+    </div>
+</div>
+
+<div class="container">
+    <dl class="text-center">
+        <dt><h3>Staff</h3></dt>
+        <dd class="buttons">
+            <button href="staffsignin.html" type="button" class="btn btn-success btn-lg">Staff Sign In</button>
+            <button href="staffsignout.html" type="button" class="btn btn-success btn-lg">Staff Sign Out</button>
+            <button href="tasks.html" type="button" class="btn btn-success btn-lg">Tasks</button>
+        </dd>
+        <dt><h3>Harvest</h3></dt>
+        <dd class="buttons">
+            <button href="harvest.html" type="button" class="btn btn-success btn-lg">Harvest Requests</button>
+            <button href="harvest.html" type="button" class="btn btn-success btn-lg">Harvest Log</button>
+        </dd>
+        <dt><h3>CSA</h3></dt>
+        <dd>
+            <button href="newcsa.html" type="button" class="btn btn-success btn-lg">New CSA Subscription</button>
+            <button href="currentcsa.html" type="button" class="btn btn-success btn-lg">Current CSA Subscriptions</button>
+            <button href="csa.html" type="button" class="btn btn-success btn-lg">CSA Pickup</button>
+        </dd>
+        <dt><h3>Reports</h3></dt>
+        <dd class="buttons">
+            <button href="reports.html" type="button" class="btn btn-primary btn-lg">Monthly Snapshot</button>
+        </dd>
+    </dl>
+</div>
+
+{% endblock %}
