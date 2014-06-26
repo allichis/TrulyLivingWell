@@ -7,7 +7,7 @@
       <ul class="nav nav-pills">
         <li class="{{activeIfTemplateIs 'admin'}}"><a href="{{pathFor 'admin'}}">Admin Home</a></li>
         <li class="{{activeIfTemplateIs 'accountsAdmin'}}"><a href="{{pathFor 'accountsAdmin'}}">Users</a></li>
-        <li><a href="#">Products</a></li>
+        <li class="{{activeIfTemplateIs 'productsAdmin'}}"><a href="{{pathFor 'productsAdmin'}}">Products</a></li>
         <li class="{{activeIfTemplateIs 'locationsAdmin'}}"><a href="{{pathFor 'locationsAdmin'}}">Locations</a></li>
         <li class="{{activeIfTemplateIs 'volunteersAdmin'}}"><a href="{{pathFor 'volunteersAdmin'}}">Volunteers</a></li>
         <li class="{{activeIfTemplateIs 'requestsAdmin'}}"><a href="{{pathFor 'requestsAdmin'}}">Requests</a></li>
@@ -58,20 +58,33 @@
 
 <template name="locationsAdmin">
 <div class="container">
+
+<div class="row locations-add">
+    <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
+      <h4>Add New Location</h4>
+      <div class="input-group">
+        <input type="text" id="input-locationname" class="form-control">
+        <span class="input-group-btn">
+          <button type="submit" id="btn-addlocation" class="btn btn-success" >Add Location</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
   <table class="table table-striped">
     <thead>
       <tr>
         <th></th>
-        <th>Name</th>
+        <th>Location name</th>
       </tr>
     </thead>
     <tbody>
       {{#each locations}}
         <tr>
           <td>
-            <span data-toggle="modal" href="#" class="glyphicon glyphicon-trash clickable"></span>
-            <span data-toggle="modal" href="#" class="glyphicon glyphicon-pencil clickable"></span>
-            <span data-toggle="modal" href="#" class="glyphicon glyphicon-info-sign clickable"></span>
+            <span data-toggle="modal" href="#deletelocation" class="glyphicon glyphicon-trash clickable"></span>
+            <span data-toggle="modal" href="#updatelocation" class="glyphicon glyphicon-pencil clickable"></span>
+            <!-- <span data-toggle="modal" href="#" class="glyphicon glyphicon-info-sign clickable"></span> -->
           </td>
           <td>{{name}}</td>
         </tr>
@@ -79,6 +92,9 @@
     </tbody>
   </table>
 </div>
+
+{{> deleteLocationModal}}
+{{> updateLocationModal}}
 </template>
 
 <template name="requestsAdmin">
@@ -106,4 +122,57 @@
     </tbody>
   </table>
 </div>
+</template>
+
+<template name="productsAdmin">
+<div class="container">
+  
+  <div class="row products-add">
+    <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
+      <h4>Add New Product</h4>
+      <div class="input-group">
+        <input type="text" id="input-productname" class="form-control">
+        <span class="input-group-btn">
+          <button type="submit" id="btn-addproduct" class="btn btn-success" >Add Product</button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row products-search">
+    <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
+      <h4>Product Search</h4>
+      <div class="input-group">
+        <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
+        <span class="input-group-btn">
+            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Item name</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each products}}
+        <tr>
+          <td>
+            <span data-toggle="modal" href="#deleteproduct" class="glyphicon glyphicon-trash clickable"></span>
+            <span data-toggle="modal" href="#updateproduct" class="glyphicon glyphicon-pencil clickable"></span>
+            <!-- <span data-toggle="modal" href="#" class="glyphicon glyphicon-info-sign clickable"></span> -->
+          </td>
+          <td>{{itemname}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{> deleteProductModal}}
+{{> updateProductModal}}
 </template>

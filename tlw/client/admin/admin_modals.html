@@ -1,0 +1,106 @@
+<!-- PRODUCTS -->
+
+<template name="deleteProductModal">
+	<div id="deleteproduct" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> deleteProductModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="deleteProductModalInner">
+	{{#with productInScope}}
+	 	<div class="modal-body">
+	 		<h4>Are you sure you want to delete {{itemname}}?</h4>
+	 	</div>
+	 	<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+			<button type="button" class="btn btn-danger">Delete</button>
+		</div>
+	{{/with}}
+</template>
+
+<template name="updateProductModal">
+	<div id="updateproduct" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> updateProductModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="updateProductModalInner">
+	{{#with productInScope}}
+		<div class="modal-header">
+			<h4>Update {{itemname}}</h4>
+		</div>
+		<div class="modal-body">
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">Item Name</span>
+					<input data-product-id="{{_id}}" class="form-control admin-product-info" name="itemname" value="{{itemname}}" placeholder="{{itemname}}">
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-primary">Done</button>
+		</div>
+	{{/with}}
+</template>
+
+
+<!-- LOCATIONS -->
+
+<template name="deleteLocationModal">
+	<div id="deletelocation" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> deleteLocationModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="deleteLocationModalInner">
+	{{#with locationInScope}}
+	 	<div class="modal-body">
+	 		<h4>Are you sure you want to delete {{name}}?</h4>
+	 	</div>
+	 	<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+			<button type="button" class="btn btn-danger">Delete</button>
+		</div>
+	{{/with}}
+</template>
+
+<template name="updateLocationModal">
+	<div id="updatelocation" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> updateLocationModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="updateLocationModalInner">
+	{{#with locationInScope}}
+		<div class="modal-header">
+			<h4>Update {{name}}</h4>
+		</div>
+		<div class="modal-body">
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon">Location Name</span>
+					<input data-product-id="{{_id}}" class="form-control admin-location-info" name="name" value="{{name}}" placeholder="{{name}}">
+				</div>
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-primary">Done</button>
+		</div>
+	{{/with}}
+</template>
