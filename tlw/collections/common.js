@@ -1,9 +1,14 @@
 var Schema = {};
 
 Schema.Volunteers = new SimpleSchema({
-	name: {
+	firstname: {
 		type: String,
-		label: "Name",
+		label: "First name",
+		max: 256
+	},
+	lastname: {
+		type: String,
+		label: "Last name",
 		max: 256
 	},
 	dob: {
@@ -22,6 +27,10 @@ Schema.Volunteers = new SimpleSchema({
 		label: "Phone number",
 		// validate as phone number...
 	},
+	isVeteran: {
+		type: Boolean,
+		label: "Veteran status",
+	},
 	// still to come:
 	// emergency contact info
 	// ...
@@ -29,7 +38,7 @@ Schema.Volunteers = new SimpleSchema({
 });
 
 Schema.VolunteerTimecards = new SimpleSchema({
-	// relate to Volunteers?...
+	// relate to Volunteers?... phone+fname
 	// timestamp of entry event
 	// date/time of clockin/clockout
 	// in/out var
@@ -56,6 +65,11 @@ Schema.StaffTimecards = new SimpleSchema({
 
 Schema.Products = new SimpleSchema({
 	// this is just a list...? might need tho.
+	itemname: {
+		type: String,
+		label: "Product name",
+		max: 256
+	}
 });
 
 Schema.Requests = new SimpleSchema({
@@ -112,7 +126,11 @@ Schema.Locations = new SimpleSchema({
 	// lat/long? (maybe useful for mapping in the future)
 });
 
-// set up the Collections and relate to a Schema
+// set up Collections and relate them to some Schema
+
+// Products
+Products = new Meteor.Collection("products");
+Products.attachSchema(Schema.Products);
 
 // Locations
 Locations = new Meteor.Collection("locations");
@@ -121,6 +139,10 @@ Locations.attachSchema(Schema.Locations);
 // Volunteers
 Volunteers = new Meteor.Collection("volunteers");
 Volunteers.attachSchema(Schema.Volunteers);
+
+// Volunteer Timecards
+VolunteerTimecards = new Meteor.Collection("volTimecards");
+//VolunteerTimecards.attachSchema(Schema.VolunteerTimecards);
 
 Requests = new Meteor.Collection("requests");
 Requests.attachSchema(Schema.Requests);

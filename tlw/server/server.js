@@ -1,3 +1,4 @@
+	/*
 Meteor.startup(function () {
 	// add some stuff for accounts-admin-ui-bootstrap-3
 	if (Meteor.users.findOne("7LzGojX2nrxhhD2EG"))
@@ -10,5 +11,6 @@ Meteor.startup(function () {
 
 // removed temp/test event-hooks stuff such as
 // Hooks.onLoggedOut and Hooks.onCloseSession...
+		*/
 
 		

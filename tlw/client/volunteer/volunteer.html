@@ -1,4 +1,4 @@
-<template name="vols">
+<template name="volunteer">
   <div class="container">
     <div class="row">
       <h1>Volunteers</h1>
@@ -27,7 +27,20 @@
 </template>
 
 <template name="volsignin">
-  <h1>Volunteer sign in page</h1>
+  <div class="container">
+    <h1>Volunteer sign in page</h1>
+    <p>How to display timecards?</p>
+    <p>fields and button: enter your phone number and fname</p>
+
+    <div class="row">
+      <div class="input-group">
+        <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
+      </div><!-- /.input-group -->
+    </div><!-- /.row -->
+  </div><!-- /.container -->
 </template>
 
 <template name="volsignout">
