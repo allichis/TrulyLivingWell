@@ -1,35 +1,69 @@
+function getMaxDate() {
+	var minAge = 18;
+	var maxDate = new Date();
+	maxDate.setFullYear(maxDate.getFullYear() - minAge);
+	return maxDate;
+}
+
 var Schema = {};
 
 Schema.Volunteers = new SimpleSchema({
 	firstname: {
 		type: String,
-		label: "First name",
-		max: 256
+		label: "* First name",
+		max: 45
 	},
 	lastname: {
 		type: String,
-		label: "Last name",
-		max: 256
+		label: "* Last name",
+		max: 45
 	},
 	dob: {
 		type: Date,
-		label: "Date of birth",
+		label: "* Date of birth",
 		// some limitations on dob here...
+		max: getMaxDate,
 	},
 	// volunteer contact info
 	email: {
 		type: String,
-		label: "Email address",
+		label: "* Email address",
 		// schema for matching email addresses...
+		regEx: SimpleSchema.RegEx.Email,
 	},
 	phone: {	
 		type: String,
-		label: "Phone number",
+		label: "* Phone number",
 		// validate as phone number...
+		max: 15,
 	},
 	isVeteran: {
 		type: Boolean,
 		label: "Veteran status",
+	}
+	organization: {
+		type: String,
+		label: "Organization",
+		max: 45,
+		optional: true,
+	},
+	emergencyName: {
+		type: String,
+		label: "Emergency Contact - Name",
+		max: 45,
+		optional: true,
+	},
+	emergencyPhone: {
+		type: String,
+		label: "Emergency Contact - Phone number",
+		max: 15,
+		optional: true,
+	},
+	notes: {
+		type: String,
+		label: "Additional Information (training, limitations, etc)",
+		max: 256,
+		optional: true,
 	},
 	// still to come:
 	// emergency contact info
@@ -144,6 +178,7 @@ Volunteers.attachSchema(Schema.Volunteers);
 VolunteerTimecards = new Meteor.Collection("volTimecards");
 //VolunteerTimecards.attachSchema(Schema.VolunteerTimecards);
 
+// Requests
 Requests = new Meteor.Collection("requests");
 Requests.attachSchema(Schema.Requests);
 
