@@ -33,6 +33,9 @@ Router.map(function() {
 	this.route('volunteersAdmin', {
 		layoutTemplate: 'layoutAdmin',
 	});
+	this.route('productsAdmin', {
+		layoutTemplate: 'layoutAdmin',
+	});
 	this.route('dashboard');
 	this.route('sign-in', {
 		path: '/sign-in',
