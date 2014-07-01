@@ -42,8 +42,10 @@
 				</div> -->
 				{{> afQuickField name='notes'}}
 		    </fieldset>
-		    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-		    <button type="submit" class="btn btn-success" onclick="$('#insertrequest').modal('hide');">Submit</button>
+		    <div class="modal-footer">
+			    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+			    <button type="submit" class="btn btn-success" onclick="$('#insertrequest').modal('hide');">Submit</button>
+			</div>
 		    {{/autoForm}}
 		</div>
 	</div>
@@ -252,8 +254,10 @@
 		        {{> afFieldLabel name='location'}}
         		{{> afFieldInput name='location' options=locationOptions}}
 		    </fieldset>
-		    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-		    <button type="submit" class="btn btn-success" onclick="$('#insertharvestlog').modal('hide');">Submit</button>
+		    <div class="modal-footer">
+			    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+			    <button type="submit" class="btn btn-success" onclick="$('#insertharvestlog').modal('hide');">Submit</button>
+		    </div>
 		    {{/autoForm}}
 		</div>
 	</div>
