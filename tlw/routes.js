@@ -4,7 +4,8 @@ Router.configure({
 	notFoundTemplate: 'notFound',
 	yieldTemplates: {
 		'navbar': {to: 'header'},
-		'navAdmin': {to: 'headerAdmin'}
+		'navAdmin': {to: 'headerAdmin'},
+		'navFarmops': {to: 'headerFarmops'}
 	}
 });
 
@@ -17,7 +18,16 @@ Router.map(function() {
 	this.route('volsignin');	
 	this.route('volsignout');	
 
-	this.route('farmops');
+	this.route('farmops', {
+		layoutTemplate: 'layoutFarmops',
+	});
+	this.route('harvestRequests', {
+		layoutTemplate: 'layoutFarmops',
+	});
+	this.route('harvestLog', {
+		layoutTemplate: 'layoutFarmops',
+	});
+
 	this.route('admin', {
 		layoutTemplate: 'layoutAdmin',
 	});
