@@ -1,8 +1,18 @@
-
 var today = function() {
 	var date = new Date();
-	date.setHours(0,0,0,0);
+	date.setUTCHours(0,0,0,0);
 	return date;
+};
+
+var dateHelpers = {
+	displaydate: function(date) {
+		return moment.utc(date).format("LL");
+	},
+	today: function() {
+		var date = new Date();
+		date.setUTCHours(0,0,0,0);
+		return date;
+	}
 };
 
 var optionsHelpers = {
@@ -27,31 +37,42 @@ var optionsHelpers = {
 };
 
 var harvestHelpers = {
-	todayrequests: function(template) {
+	todayrequests: function() {
 		var start = today();
 		var end = new Date(start);
-		end.setHours(24);
+		end.setUTCHours(24);
 		return Requests.find({date: {$gte: start, $lt: end}}, {sort: {itemname:1}});
 	},
-	futurerequests: function(template) {
+	futurerequests: function() {
 		var start = today();
 		var end = new Date(start);
-		end.setHours(24);
+		end.setUTCHours(24);
 		return Requests.find({date: {$gte: end}}, {sort: {date:1, itemname:1}});
 	},
-	requests: function(template) {
+	requests: function() {
 		return Requests.find({}, {sort: {date:1, itemname:1}});
 	},
-	harvestlog: function(template) {
+	harvestlog: function() {
 		return HarvestLog.find({}, {sort: {date:-1, itemname:1}});
 	},
-	todayharvestlog: function(template) {
+	todayharvestlog: function() {
 		var start = today();
 		var end = new Date(start);
-		end.setHours(24);
+		end.setUTCHours(24);
 		return HarvestLog.find({date: {$gte: start, $lt: end}}, {sort: {itemname:1}});
 	},
+	displaydate: function(date) {
+		return moment.utc(date).format("LL");
+	},
+};
 
+var modalHelpers = {
+	itemInScope: function() {
+		return Session.get('itemInScope');
+	},
+	displaydate: function(date) {
+		return moment.utc(date).format("LL");
+	},
 };
 
 var clickEvents = {
@@ -63,7 +84,7 @@ var clickEvents = {
     },
 };
 
-Template.harvestRequests.rendered = function() {
+Template.insertRequestModalInner.rendered = function() {
     $('.datetimepicker').datetimepicker({
     	pickTime: false,
     	showToday: true,
@@ -84,11 +105,9 @@ Template.displayRequests.events(
 	clickEvents
 );
 
-Template.deleteRequestModalInner.helpers({
-	itemInScope: function() {
-		return Session.get('itemInScope');
-	},
-});
+Template.deleteRequestModalInner.helpers(
+	modalHelpers
+);
 
 Template.deleteRequestModalInner.events({
 	'click .btn-danger': function(event, template) {
@@ -106,29 +125,9 @@ Template.deleteRequestModalInner.events({
 	}
 });
 
-Template.updateRequestModalInner.helpers({
-	itemname: function () {
-		if (this.itemname && this.itemname.length)
-			return this.itemname;
-		return "";
-	},
-	amount: function () {
-		return this.amount;
-	},
-	date: function () {
-		if (this.date)
-			return this.date;
-		return "";
-	},
-	notes: function () {
-		if (this.notes && this.notes.length)
-			return this.notes;
-		return "";
-	},
-	itemInScope: function() {
-		return Session.get('itemInScope');
-	}
-});
+Template.updateRequestModalInner.helpers(
+	modalHelpers
+);
 
 Template.updateRequestModalInner.events({
 	'click .btn-primary': function(event, template) {
@@ -172,11 +171,9 @@ Template.displayHarvestLog.events(
 	clickEvents
 );
 
-Template.deleteHarvestItemModalInner.helpers({
-	itemInScope: function() {
-		return Session.get('itemInScope');
-	},
-});
+Template.deleteHarvestItemModalInner.helpers(
+	modalHelpers
+);
 
 Template.deleteHarvestItemModalInner.events({
 	'click .btn-danger': function(event, template) {

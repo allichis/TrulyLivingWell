@@ -35,7 +35,7 @@
 		        {{> afQuickField name='amount'}}
 		        {{> afQuickField name='strip'}}
 		        {{> afFieldLabel name='date'}}
-		        {{> afFieldInput name='date' placeholder="YYYY-MM-DD"}}
+		        {{> afFieldInput name='date'}}
 		        <!-- <div class="input-group datetimepicker">
 		    		<input name='date' class="set-due-date form-control" type="text"/>
 		    		<span class="input-group-addon glyphicon glyphicon-calendar"></span>
@@ -76,7 +76,7 @@
 						<td>{{itemname}}</td>
 						<td>{{amount}}</td>
 						<td>{{strip}}</td>
-						<td>{{date.toString}}</td>
+						<td>{{displaydate date}}</td>
 						<td>{{notes}}</td>
 			        </tr>
 			      {{/each}}
@@ -107,7 +107,7 @@
 						<td>{{itemname}}</td>
 						<td>{{amount}}</td>
 						<td>{{strip}}</td>
-						<td>{{date.toString}}</td>
+						<td>{{displaydate date}}</td>
 						<td>{{notes}}</td>
 			        </tr>
 			      {{/each}}
@@ -133,7 +133,7 @@
 <template name="deleteRequestModalInner">
 	{{#with itemInScope}}
 	 	<div class="modal-body">
-	 		<h4>Are you sure you want to delete the request for <strong>{{itemname}}</strong> on {{date.toDateString}}?</h4>
+	 		<h4>Are you sure you want to delete the request for <strong>{{itemname}}</strong> on {{displaydate date}}?</h4>
 	 	</div>
 	 	<div class="modal-footer">
 			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
@@ -155,7 +155,7 @@
 <template name="updateRequestModalInner">
 	{{#with itemInScope}}
 		<div class="modal-header">
-			<h4>Update request for <strong>{{itemname}}</strong> on {{date.toDateString}}</h4>
+			<h4>Update request for <strong>{{itemname}}</strong> on {{displaydate date}}</h4>
 		</div>
 	 	<div class="modal-body">
 	 		<div class="form-group">
@@ -204,7 +204,7 @@
 				<td>{{itemname}}</td>
 				<td>{{amount}}</td>
 				<td>{{strip}}</td>
-				<td>{{date.toString}}</td>
+				<td>{{displaydate date}}</td>
 				<td>{{notes}}</td>
 	        </tr>
 	      {{/each}}
@@ -300,7 +300,7 @@
 				<td>{{amount}}</td>
 				<td>{{strip}}</td>
 				<td>{{location}}</td>
-				<td>{{date.toDateString}}</td>
+				<td>{{displaydate date}}</td>
 	        </tr>
 	      {{/each}}
 	    </tbody>
@@ -321,7 +321,7 @@
 <template name="deleteHarvestItemModalInner">
 	{{#with itemInScope}}
 	 	<div class="modal-body">
-	 		<h4>Are you sure you want to delete the log entry for <strong>{{itemname}}</strong> harvested on {{date.toDateString}}?</h4>
+	 		<h4>Are you sure you want to delete the log entry for <strong>{{itemname}}</strong> harvested on {{displaydate date}}?</h4>
 	 	</div>
 	 	<div class="modal-footer">
 			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
@@ -349,7 +349,7 @@
 				<td>{{amount}}</td>
 				<td>{{strip}}</td>
 				<td>{{location}}</td>
-				<td>{{date.toDateString}}</td>
+				<td>{{displaydate date}}</td>
 	        </tr>
 	      {{/each}}
 	    </tbody>

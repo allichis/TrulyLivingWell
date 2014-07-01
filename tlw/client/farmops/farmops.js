@@ -9,7 +9,7 @@ Template.navFarmops.helpers({
 Template.farmops.helpers({
 	today: function (template) {
 		var date = new Date;
-		date.setHours(0,0,0,0);
+		//date.setUTCHours(0,0,0,0);
 		return date;
 	}
 });

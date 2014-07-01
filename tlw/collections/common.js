@@ -116,7 +116,7 @@ Schema.Requests = new SimpleSchema({
 	},
 	amount: {
 		type: Number,
-		label: "Amount",
+		label: "Amount Requested",
 		min: 0,
 		optional: true,
 	},
@@ -152,7 +152,7 @@ Schema.HarvestLog = new SimpleSchema({
 	// weighed_amt
 	amount: {
 		type: Number,
-		label: "Amount",
+		label: "Amount Harvested",
 		min: 0
 	},
 	// strip harvested?
@@ -171,7 +171,7 @@ Schema.HarvestLog = new SimpleSchema({
 		type: Date,
 		autoValue: function() {
 	        var date = new Date;
-	        date.setHours(0,0,0,0);
+	        date.setUTCHours(0,0,0,0);
 	        return date;
 
 	        /*if (this.isInsert) {
