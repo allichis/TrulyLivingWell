@@ -10,7 +10,8 @@
       "event-hooks": {},
       "accounts-entry": {},
       "roles": {},
-      "accounts-admin-ui-bootstrap-3": {}
+      "accounts-admin-ui-bootstrap-3": {},
+      "bootstrap3-datetimepicker": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -25,13 +26,13 @@
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
-        "tag": "v0.4.1",
-        "commit": "a9ffc9b285c3af8ad631f9cda4851b0ffc30c5ce"
+        "tag": "v0.4.2",
+        "commit": "4ff4b707bec8be434919730bf101325adb215444"
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.13.1",
-        "commit": "e77832d40f8eec2ddb92d97f481bf86fb712d9ca"
+        "tag": "v0.13.3",
+        "commit": "23a7ba0754f353513fda44f666b600e69c62a208"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
@@ -50,13 +51,18 @@
       },
       "roles": {
         "git": "https://github.com/alanning/meteor-roles.git",
-        "tag": "v1.2.9",
-        "commit": "969b17fac5dfec66b6b12bfce4e37471d1a241d4"
+        "tag": "v1.2.10",
+        "commit": "7ccb35de0a6cb0c9a0c3666badd04757e39c09a6"
       },
       "accounts-admin-ui-bootstrap-3": {
         "git": "https://github.com/hharnisc/meteor-accounts-admin-ui-bootstrap-3.git",
         "tag": "v0.2.6",
         "commit": "fe74692303daf73d440f2729010bcf1557af62ca"
+      },
+      "bootstrap3-datetimepicker": {
+        "git": "https://github.com/tsega/meteor-bootstrap3-datetimepicker.git",
+        "tag": "v0.1.2",
+        "commit": "9aebe6a10c6dceb17d4cfb3d03ea367748203428"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

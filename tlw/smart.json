@@ -8,6 +8,7 @@
     "event-hooks": {},
     "accounts-entry": {},
     "roles": {},
-    "accounts-admin-ui-bootstrap-3": {}
+    "accounts-admin-ui-bootstrap-3": {},
+    "bootstrap3-datetimepicker": {}
   }
 }
