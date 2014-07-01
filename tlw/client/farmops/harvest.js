@@ -46,7 +46,10 @@ var harvestHelpers = {
 		return HarvestLog.find({}, {sort: {date:-1, itemname:1}});
 	},
 	todayharvestlog: function(template) {
-		return HarvestLog.find({date: today}, {sort: {itemname:1}});
+		var start = today();
+		var end = new Date(start);
+		end.setHours(24);
+		return HarvestLog.find({date: {$gte: start, $lt: end}}, {sort: {itemname:1}});
 	},
 
 };
