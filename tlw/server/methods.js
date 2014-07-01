@@ -1,5 +1,23 @@
 Meteor.methods({
 	
+	// HARVEST REQUESTS
+	deleteRequest: function(itemId) {
+		Requests.remove(itemId);
+	},
+	updateRequest: function(itemid, amount, strip, notes) {
+		// update existing location
+		obj = {};
+		obj['amount'] = amount;
+		obj['strip'] = strip;
+		obj['notes'] = notes;
+		Requests.update({_id: itemid}, {$set: obj});
+	},
+
+	// HARVEST LOG
+	deleteHarvestLogItem: function(itemId) {
+		HarvestLog.remove(itemId);
+	},
+
 	// PRODUCTS
 	insertProduct: function(productName) {
 		// insert new product
