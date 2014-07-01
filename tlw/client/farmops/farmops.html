@@ -1,0 +1,42 @@
+<template name="navFarmops">
+  <div class="container" style="margin-bottom: 20px">
+  	<div class="row">
+		<h1>Farm Operations</h1>
+	</div><!-- /.row -->
+    <div class="row">
+      <ul class="nav nav-pills">
+        <li class="{{activeIfTemplateIs 'farmops'}}"><a href="{{pathFor 'farmops'}}">FarmOps Home</a></li>
+        <li class="{{activeIfTemplateIs 'harvestRequests'}}"><a href="{{pathFor 'harvestRequests'}}">Harvest Requests</a></li>
+        <li class="{{activeIfTemplateIs 'harvestLog'}}"><a href="{{pathFor 'harvestLog'}}">Harvest Log</a></li>
+      </ul>
+    </div><!-- /.row -->
+  </div><!-- /.container -->
+</template>
+
+<template name="farmops">
+	<div class="container">
+		<div class="jumbotron text-center">
+			<h2>{{today.toDateString}}</h2>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h3>Harvest Requests</h3>
+				<div class="" style="margin-top:20px; margin-bottom:20px">
+					<button type="button" data-toggle="modal" class="btn btn-success btn-lg" href="#insertrequest">Make a New Request!</button>
+					{{> insertRequestModal}}
+				</div>
+				<div>{{> displayTodayRequests}}</div>
+			</div>
+			<div class="col-md-6">
+				<h3>Harvest Log</h3>
+				<div class="" style="margin-top:20px; margin-bottom:20px">
+					<button type="button" data-toggle="modal" class="btn btn-success btn-lg" href="#insertharvestlog">New Harvest!</button>
+					{{> insertHarvestLogModal}}
+				</div>
+				<div>{{> displayTodayHarvestLog}}</div>
+			</div>
+		</div>
+	</div>
+</template>

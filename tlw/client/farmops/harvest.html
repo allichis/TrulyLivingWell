@@ -1,0 +1,353 @@
+<!-- HARVEST REQUESTS -->
+
+<template name="harvestRequests">
+	<div class="container">
+		<div class="" style="margin-bottom: 20px">
+			<button type="button" data-toggle="modal" class="btn btn-success btn-lg" href="#insertrequest">Make a New Request!</button>
+			{{> insertRequestModal}}
+		</div>
+	</div>
+	<div class="container">
+		{{> displayRequests}}
+	</div>
+</template>
+
+<template name="insertRequestModal">
+	<div id="insertrequest" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> insertRequestModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="insertRequestModalInner">
+	<div class="modal-header">
+		<h3>New Request:</h3>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			{{# autoForm collection="Requests" id="insertRequestForm" type="insert" resetOnSuccess="true"}}
+			<fieldset>
+				{{> afFieldLabel name='itemname'}}
+		        {{> afFieldInput name='itemname' options=productOptions}}
+		        {{> afQuickField name='amount'}}
+		        {{> afQuickField name='strip'}}
+		        {{> afFieldLabel name='date'}}
+		        {{> afFieldInput name='date' placeholder="YYYY-MM-DD"}}
+		        <!-- <div class="input-group datetimepicker">
+		    		<input name='date' class="set-due-date form-control" type="text"/>
+		    		<span class="input-group-addon glyphicon glyphicon-calendar"></span>
+				</div> -->
+				{{> afQuickField name='notes'}}
+		    </fieldset>
+		    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+		    <button type="submit" class="btn btn-success" onclick="$('#insertrequest').modal('hide');">Submit</button>
+		    {{/autoForm}}
+		</div>
+	</div>
+</template>
+
+<template name="displayRequests">
+	<div class="row">
+		<div class="col-md-6">
+			<h3>Today's Harvest Requests</h3>
+			<table class="table table-striped">
+			    <thead>
+			      <tr>
+			      	<th></th>
+			        <th>Item</th>
+			        <th>Amount</th>
+			        <th>Strip?</th>
+			        <th>Date</th>
+			        <th>Notes</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      {{#each todayrequests}}
+			        <tr>
+			        	<td>
+			          		<span data-toggle="modal" href="#deleterequestitem" class="glyphicon glyphicon-trash clickable"></span>
+			          		<span data-toggle="modal" href="#updaterequestitem" class="glyphicon glyphicon-pencil clickable"></span>
+			          	</td>
+						<td>{{itemname}}</td>
+						<td>{{amount}}</td>
+						<td>{{strip}}</td>
+						<td>{{date.toString}}</td>
+						<td>{{notes}}</td>
+			        </tr>
+			      {{/each}}
+			    </tbody>
+			</table>
+		</div>
+
+		<div class="col-md-6">
+			<h3>Future Harvest Requests</h3>
+			<table class="table table-striped">
+			    <thead>
+			      <tr>
+			      	<th></th>
+			        <th>Item</th>
+			        <th>Amount</th>
+			        <th>Strip?</th>
+			        <th>Date</th>
+			        <th>Notes</th>
+			      </tr>
+			    </thead>
+			    <tbody>
+			      {{#each futurerequests}}
+			        <tr>
+			        	<td>
+			          		<span data-toggle="modal" href="#deleterequestitem" class="glyphicon glyphicon-trash clickable"></span>
+			          		<span data-toggle="modal" href="#updaterequestitem" class="glyphicon glyphicon-pencil clickable"></span>
+			          	</td>
+						<td>{{itemname}}</td>
+						<td>{{amount}}</td>
+						<td>{{strip}}</td>
+						<td>{{date.toString}}</td>
+						<td>{{notes}}</td>
+			        </tr>
+			      {{/each}}
+			    </tbody>
+			</table>
+		</div>
+	</div>
+
+	{{> deleteRequestModal}}
+	{{> updateRequestModal}}
+</template>
+
+<template name="deleteRequestModal">
+	<div id="deleterequestitem" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> deleteRequestModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="deleteRequestModalInner">
+	{{#with itemInScope}}
+	 	<div class="modal-body">
+	 		<h4>Are you sure you want to delete the request for <strong>{{itemname}}</strong> on {{date.toDateString}}?</h4>
+	 	</div>
+	 	<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+			<button type="button" class="btn btn-danger">Delete</button>
+		</div>
+	{{/with}}
+</template>
+
+<template name="updateRequestModal">
+	<div id="updaterequestitem" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> updateRequestModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="updateRequestModalInner">
+	{{#with itemInScope}}
+		<div class="modal-header">
+			<h4>Update request for <strong>{{itemname}}</strong> on {{date.toDateString}}</h4>
+		</div>
+	 	<div class="modal-body">
+	 		<div class="form-group">
+				<div class="input-group">
+					<label for="amount">Amount</label>
+					<input data-item-id="{{_id}}" class="form-control request-amount" name="amount" value="{{amount}}">
+				</div>
+				<div class="input-group">
+					<label for="strip">Strip?</label>
+					<input data-item-id="{{_id}}" class="form-control request-strip" name="strip" value="{{strip}}">
+				</div>
+				<div class="input-group">
+					<label for="notes">Notes</label>
+					<input data-item-id="{{_id}}" class="form-control request-notes" name="notes" value="{{notes}}">
+				</div>
+			</div>
+			<!-- {{# autoForm collection="Requests" id="updateRequestForm" type="update"}}
+			<fieldset>
+		        {{> afQuickField name='amount'}}
+		        {{> afQuickField name='strip'}}
+		        {{> afQuickField name='notes'}}
+		    </fieldset>
+		    <button type="submit" data-dismiss="modal" class="btn btn-success">Submit</button>
+		    {{/autoForm}} -->
+	 	</div>
+	 	<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-primary">Done</button>
+		</div>
+	{{/with}}  
+</template>
+
+<template name="displayTodayRequests">
+	<table class="table table-striped table-bordered">
+	    <thead>
+	      <tr>
+	        <th>Item</th>
+	        <th>Amount</th>
+	        <th>Strip?</th>
+	        <th>Date</th>
+	        <th>Notes</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      {{#each todayrequests}}
+	        <tr>
+				<td>{{itemname}}</td>
+				<td>{{amount}}</td>
+				<td>{{strip}}</td>
+				<td>{{date.toString}}</td>
+				<td>{{notes}}</td>
+	        </tr>
+	      {{/each}}
+	    </tbody>
+	</table>
+</template>
+
+<!-- HARVEST LOG -->
+
+<template name="harvestLog">
+	<div class="container">
+		<div class="" style="margin-bottom: 20px">
+			<button type="button" data-toggle="modal" class="btn btn-success btn-lg" href="#insertharvestlog">New Harvest!</button>
+			{{> insertHarvestLogModal}}
+		</div>
+	</div>
+	<div class="container">
+		<h3>Harvest Log</h3>
+	</div>
+	<div class="container">
+		{{> displayHarvestLog}}
+	</div>
+</template>
+
+<template name="insertHarvestLogModal">
+	<div id="insertharvestlog" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> insertHarvestLogModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="insertHarvestLogModalInner">
+	<div class="modal-header">
+		<h3>New Harvest:</h3>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			{{# autoForm collection="HarvestLog" id="insertHarvestLogForm" type="insert" resetOnSuccess="true"}}
+			<fieldset>
+				{{> afFieldLabel name='itemname'}}
+		        {{> afFieldInput name='itemname' options=productOptions}}
+		        {{> afQuickField name='amount'}}
+		        {{> afQuickField name='strip'}}
+		        {{> afFieldLabel name='location'}}
+        		{{> afFieldInput name='location' options=locationOptions}}
+		    </fieldset>
+		    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+		    <button type="submit" class="btn btn-success" onclick="$('#insertharvestlog').modal('hide');">Submit</button>
+		    {{/autoForm}}
+		</div>
+	</div>
+</template>
+
+<!-- <template name="insertHarvestLogForm">
+	<h3>Harvest:</h3>
+	{{# autoForm collection="HarvestLog" id="insertHarvestLogForm" type="insert" resetOnSuccess="true"}}
+	<fieldset>
+		{{> afFieldLabel name='itemname'}}
+        {{> afFieldInput name='itemname' options=productOptions}}
+        {{> afQuickField name='amount'}}
+        {{> afQuickField name='strip'}}
+        {{> afFieldLabel name='location'}}
+        {{> afFieldInput name='location' options=locationOptions}}
+    </fieldset>
+    <button type="submit" class="btn btn-success">Submit</button>
+    {{/autoForm}}
+</template> -->
+
+<template name="displayHarvestLog">
+	<table class="table table-striped">
+	    <thead>
+	      <tr>
+	      	<th></th>
+	        <th>Item</th>
+	        <th>Amount</th>
+	        <th>Strip?</th>
+	        <th>Location</th>
+	        <th>Date</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      {{#each harvestlog}}
+	        <tr>
+	        	<td>
+	          		<span data-toggle="modal" href="#deleteharvestitem" class="glyphicon glyphicon-trash clickable"></span>
+	          	</td>
+				<td>{{itemname}}</td>
+				<td>{{amount}}</td>
+				<td>{{strip}}</td>
+				<td>{{location}}</td>
+				<td>{{date.toDateString}}</td>
+	        </tr>
+	      {{/each}}
+	    </tbody>
+	</table>
+	{{> deleteHarvestItemModal}}
+</template>
+
+<template name="deleteHarvestItemModal">
+	<div id="deleteharvestitem" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> deleteHarvestItemModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="deleteHarvestItemModalInner">
+	{{#with itemInScope}}
+	 	<div class="modal-body">
+	 		<h4>Are you sure you want to delete the log entry for <strong>{{itemname}}</strong> harvested on {{date.toDateString}}?</h4>
+	 	</div>
+	 	<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+			<button type="button" class="btn btn-danger">Delete</button>
+		</div>
+	{{/with}}
+</template>
+
+
+<template name="displayTodayHarvestLog">
+	<table class="table table-striped table-bordered">
+	    <thead>
+	      <tr>
+	        <th>Item</th>
+	        <th>Amount</th>
+	        <th>Strip?</th>
+	        <th>Location</th>
+	        <th>Date</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      {{#each todayharvestlog}}
+	        <tr>
+				<td>{{itemname}}</td>
+				<td>{{amount}}</td>
+				<td>{{strip}}</td>
+				<td>{{location}}</td>
+				<td>{{date.toDateString}}</td>
+	        </tr>
+	      {{/each}}
+	    </tbody>
+	</table>
+</template>
