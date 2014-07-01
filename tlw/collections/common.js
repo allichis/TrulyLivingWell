@@ -1,3 +1,10 @@
+function getMaxDate() {
+	var minAge = 18;
+	var maxDate = new Date();
+	maxDate.setFullYear(maxDate.getFullYear() - minAge);
+	return maxDate;
+}
+
 var Schema = {};
 
 Schema.Volunteers = new SimpleSchema({
