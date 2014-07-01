@@ -1,10 +1,3 @@
-function getMaxDate() {
-	var minAge = 18;
-	var maxDate = new Date();
-	maxDate.setFullYear(maxDate.getFullYear() - minAge);
-	return maxDate;
-}
-
 var Schema = {};
 
 Schema.Volunteers = new SimpleSchema({
@@ -40,7 +33,7 @@ Schema.Volunteers = new SimpleSchema({
 	isVeteran: {
 		type: Boolean,
 		label: "Veteran status",
-	}
+	},
 	organization: {
 		type: String,
 		label: "Organization",
@@ -111,31 +104,92 @@ Schema.Requests = new SimpleSchema({
 	// not necessarily related, but probably pulled from that list
 	itemname: {
 		type: String,
-		label: "Item name",
-		max: 256
+		label: "Item",
+		max: 45,
 	},
 	amount: {
 		type: Number,
-		label: "Amount of item",
-		min: 0
-	}
+		label: "Amount",
+		min: 0,
+		optional: true,
+	},
+	strip: {
+		type: Boolean,
+		label: "Strip Bed",
+	},
 	// required-for date
+	date: {
+		type: Date,
+		label: "Date needed",
+	},
+	// notes
+	notes: {
+		type: String,
+		label: "Notes",
+		max: 256,
+		optional: true,
+	},
 	// timestamp ofc
 	// requested_by (staffmember)/initials
 	// location
 	// status
-	// notes
 });
 
-Schema.HarvestLogs = new SimpleSchema({
+Schema.HarvestLog = new SimpleSchema({
 	// itemname (products)
+	itemname: {
+		type: String,
+		label: "Item",
+		max: 45
+	},
 	// weighed_amt
+	amount: {
+		type: Number,
+		label: "Amount",
+		min: 0
+	},
 	// strip harvested?
-	// timestamp ofc
-	// related to a HarvestRequest?
+	strip: {
+		type: Boolean,
+		label: "Strip Bed?",
+	},
 	// location
+	location: {
+		type: String,
+		label: "Location",
+		//allowedValues: ["EP", "WS"]
+	},
+	// timestamp ofc
+	date: {
+		type: Date,
+		autoValue: function() {
+	        var date = new Date;
+	        date.setHours(0,0,0,0);
+	        return date;
+
+	        /*if (this.isInsert) {
+	          return today;
+	        } else if (this.isUpsert) {
+	          return {$setOnInsert: today};
+	        } else {
+	          this.unset();
+	        }*/
+	    },
+		label: "Date harvested",
+	},
+	// related to a HarvestRequest?
 	// harvester - which staff? (maybe)
 	// notes/purpose?
+});
+
+Schema.Locations = new SimpleSchema({
+	// location name
+	name: {
+		type: String,
+		label: "Location name",
+		max: 45
+	},
+	// lat/long? (maybe useful for mapping in the future)
 });
 
 Schema.Tasks = new SimpleSchema({
@@ -148,16 +202,6 @@ Schema.Tasks = new SimpleSchema({
 	// (who is performing/will perform?)
 	//
 	// this one needs a lot more thinking...
-});
-
-Schema.Locations = new SimpleSchema({
-	// location name
-	name: {
-		type: String,
-		label: "Location name",
-		max: 256
-	},
-	// lat/long? (maybe useful for mapping in the future)
 });
 
 // set up Collections and relate them to some Schema
@@ -181,6 +225,10 @@ VolunteerTimecards = new Meteor.Collection("volTimecards");
 // Requests
 Requests = new Meteor.Collection("requests");
 Requests.attachSchema(Schema.Requests);
+
+// Harvest Log
+HarvestLog = new Meteor.Collection("harvestlog");
+HarvestLog.attachSchema(Schema.HarvestLog);
 
 // contexts for validation...
 var vContext = Schema.Volunteers.namedContext("newVolForm");
