@@ -34,6 +34,8 @@
 		        {{> afFieldInput name='itemname' options=productOptions}}
 		        {{> afQuickField name='amount'}}
 		        {{> afQuickField name='strip'}}
+		        {{> afFieldLabel name='location'}}
+        		{{> afFieldInput name='location' options=locationOptions}}
 		        {{> afFieldLabel name='date'}}
 		        {{> afFieldInput name='date'}}
 		        <!-- <div class="input-group datetimepicker">
@@ -62,6 +64,7 @@
 			        <th>Item</th>
 			        <th>Amount</th>
 			        <th>Strip?</th>
+			        <th>Location</th>
 			        <th>Date</th>
 			        <th>Notes</th>
 			      </tr>
@@ -76,6 +79,7 @@
 						<td>{{itemname}}</td>
 						<td>{{amount}}</td>
 						<td>{{strip}}</td>
+						<td>{{location}}</td>
 						<td>{{displaydate date}}</td>
 						<td>{{notes}}</td>
 			        </tr>
@@ -93,6 +97,7 @@
 			        <th>Item</th>
 			        <th>Amount</th>
 			        <th>Strip?</th>
+			         <th>Location</th>
 			        <th>Date</th>
 			        <th>Notes</th>
 			      </tr>
@@ -107,6 +112,7 @@
 						<td>{{itemname}}</td>
 						<td>{{amount}}</td>
 						<td>{{strip}}</td>
+						<td>{{location}}</td>
 						<td>{{displaydate date}}</td>
 						<td>{{notes}}</td>
 			        </tr>
@@ -168,6 +174,15 @@
 					<input data-item-id="{{_id}}" class="form-control request-strip" name="strip" value="{{strip}}">
 				</div>
 				<div class="input-group">
+					<label for="strip">Location</label>
+					<input data-item-id="{{_id}}" class="form-control request-location" name="location" value="{{location}}" list="locationslist">
+					<datalist id="locationslist">
+						{{#each locationOptions}}
+						<option value="{{this.value}}">{{this.label}}</option>
+						{{/each}}
+					</datalist>
+				</div>
+				<div class="input-group">
 					<label for="notes">Notes</label>
 					<input data-item-id="{{_id}}" class="form-control request-notes" name="notes" value="{{notes}}">
 				</div>
@@ -194,6 +209,7 @@
 	        <th>Item</th>
 	        <th>Amount Requested</th>
 	        <th>Strip?</th>
+	        <th>Location</th>
 	        <th>Date</th>
 	        <th>Notes</th>
 	      </tr>
@@ -204,6 +220,7 @@
 				<td>{{itemname}}</td>
 				<td>{{amount}}</td>
 				<td>{{strip}}</td>
+				<td>{{location}}</td>
 				<td>{{displaydate date}}</td>
 				<td>{{notes}}</td>
 	        </tr>
@@ -263,21 +280,6 @@
 	</div>
 </template>
 
-<!-- <template name="insertHarvestLogForm">
-	<h3>Harvest:</h3>
-	{{# autoForm collection="HarvestLog" id="insertHarvestLogForm" type="insert" resetOnSuccess="true"}}
-	<fieldset>
-		{{> afFieldLabel name='itemname'}}
-        {{> afFieldInput name='itemname' options=productOptions}}
-        {{> afQuickField name='amount'}}
-        {{> afQuickField name='strip'}}
-        {{> afFieldLabel name='location'}}
-        {{> afFieldInput name='location' options=locationOptions}}
-    </fieldset>
-    <button type="submit" class="btn btn-success">Submit</button>
-    {{/autoForm}}
-</template> -->
-
 <template name="displayHarvestLog">
 	<table class="table table-striped table-bordered">
 	    <thead>
@@ -288,19 +290,23 @@
 	        <th>Strip?</th>
 	        <th>Location</th>
 	        <th>Date</th>
+	        <th>Notes</th>
 	      </tr>
 	    </thead>
 	    <tbody>
 	      {{#each harvestlog}}
 	        <tr>
 	        	<td>
+	        	{{#if isToday}}
 	          		<span data-toggle="modal" href="#deleteharvestitem" class="glyphicon glyphicon-trash clickable"></span>
+	        	{{/if}}
 	          	</td>
 				<td>{{itemname}}</td>
 				<td>{{amount}}</td>
 				<td>{{strip}}</td>
 				<td>{{location}}</td>
 				<td>{{displaydate date}}</td>
+				<td>{{notes}}</td>
 	        </tr>
 	      {{/each}}
 	    </tbody>
@@ -340,6 +346,7 @@
 	        <th>Strip?</th>
 	        <th>Location</th>
 	        <th>Date</th>
+	        <th>Notes</th>
 	      </tr>
 	    </thead>
 	    <tbody>
@@ -350,6 +357,7 @@
 				<td>{{strip}}</td>
 				<td>{{location}}</td>
 				<td>{{displaydate date}}</td>
+				<td>{{notes}}</td>
 	        </tr>
 	      {{/each}}
 	    </tbody>

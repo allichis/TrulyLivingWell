@@ -4,11 +4,12 @@ Meteor.methods({
 	deleteRequest: function(itemId) {
 		Requests.remove(itemId);
 	},
-	updateRequest: function(itemid, amount, strip, notes) {
+	updateRequest: function(itemid, amount, strip, location, notes) {
 		// update existing location
 		obj = {};
 		obj['amount'] = amount;
 		obj['strip'] = strip;
+		obj['location'] = location;
 		obj['notes'] = notes;
 		Requests.update({_id: itemid}, {$set: obj});
 	},

@@ -124,6 +124,12 @@ Schema.Requests = new SimpleSchema({
 		type: Boolean,
 		label: "Strip Bed",
 	},
+	// location
+	location: {
+		type: String,
+		label: "Location",
+		//allowedValues: ["EP", "WS"]
+	},
 	// required-for date
 	date: {
 		type: Date,
@@ -138,7 +144,6 @@ Schema.Requests = new SimpleSchema({
 	},
 	// timestamp ofc
 	// requested_by (staffmember)/initials
-	// location
 	// status
 });
 
@@ -184,9 +189,15 @@ Schema.HarvestLog = new SimpleSchema({
 	    },
 		label: "Date harvested",
 	},
+	// notes
+	notes: {
+		type: String,
+		label: "Notes",
+		max: 256,
+		optional: true,
+	},
 	// related to a HarvestRequest?
 	// harvester - which staff? (maybe)
-	// notes/purpose?
 });
 
 Schema.Locations = new SimpleSchema({
