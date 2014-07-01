@@ -24,15 +24,20 @@
 
 </template>
 
-<template name="farmops">
-  <div class="container">
-    {{#if currentUser}}
-      <p>You are allowed to see this text if you are logged in.</p>
-    {{else}}
-      <p>log in, please</p>
-      {{> loginButtons}}
-    {{/if}}
-  </div><!-- /.container -->
+<template name="layoutFarmops">
+  <header>
+    {{> yield region='header'}}
+  </header>
+
+  {{#if currentUser}}
+    {{> yield region='headerFarmops'}}
+  {{else}}
+    <p>log in, please</p>
+    {{> loginButtons}}
+  {{/if}}
+
+  {{> yield}}
+  
 </template>
 
 <template name="dashboard">
@@ -43,4 +48,3 @@
     </div><!-- /.row -->
   </div><!-- /.container -->
 </template>
-
