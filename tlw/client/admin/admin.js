@@ -74,6 +74,17 @@ Template.volunteersAdmin.events({
         setVolunteersFilter(template);
         return false;
     },
+    'click .glyphicon-trash': function(event, template) {
+		Session.set('volunteerInScope', this);
+    },
+
+    'click .glyphicon-info-sign': function(event, template) {
+		Session.set('volunteerInScope', this);
+    },
+
+    'click .glyphicon-pencil': function(event, template) {
+		Session.set('volunteerInScope', this);
+    },
 });
 
 // search no more than 2 times per second

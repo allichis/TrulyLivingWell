@@ -1,3 +1,15 @@
+// VOLUNTEERS
+Template.updateVolunteerModal.helpers({
+	volunteerInScope: function() {
+		return Session.get('volunteerInScope');
+	}
+});
+
+Template.updateVolunteerModal.events({
+
+});
+
+
 // PRODUCTS
 
 Template.deleteProductModalInner.helpers({
