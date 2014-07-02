@@ -191,10 +191,13 @@
 			<fieldset>
 		        {{> afQuickField name='amount'}}
 		        {{> afQuickField name='strip'}}
+		        {{> afFieldLabel name='location'}}
+        		{{> afFieldInput name='location' options=locationOptions}}
 		        {{> afQuickField name='notes'}}
 		    </fieldset>
 		    <div class="modal-footer">
-		    	<button type="submit" data-dismiss="modal" class="btn btn-success">Submit</button>
+		    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+		    	<button type="submit" class="btn btn-success" onclick="$('#updaterequestitem').modal('hide');">Submit</button>
 		    </div>
 		    {{/autoForm}}
 	 	</div>
