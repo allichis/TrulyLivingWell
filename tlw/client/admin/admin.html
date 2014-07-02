@@ -27,75 +27,76 @@
 </template>
 
 <template name="volunteersAdmin">
-<div class="container">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Date of birth</th>
-        <th>Phone number</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each volunteers}}
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
         <tr>
-          <td>
-            <span data-toggle="modal" href="#" class="glyphicon glyphicon-trash clickable"></span>
-            <span data-toggle="modal" href="#" class="glyphicon glyphicon-pencil clickable"></span>
-            <span data-toggle="modal" href="#" class="glyphicon glyphicon-info-sign clickable"></span>
-          </td>
-          <td>{{name}}</td>
-          <td>{{email}}</td>
-          <td>{{dob}}</td>
-          <td>{{phone}}</td>
+          <th></th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Date of birth</th>
+          <th>Phone number</th>
         </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+      </thead>
+      <tbody>
+        {{#each volunteers}}
+          <tr>
+            <td>
+              <span data-toggle="modal" href="#blankmodal" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#blankmodal" class="glyphicon glyphicon-pencil clickable"></span>
+              <span data-toggle="modal" href="#blankmodal" class="glyphicon glyphicon-info-sign clickable"></span>
+            </td>
+            <td>{{name}}</td>
+            <td>{{email}}</td>
+            <td>{{dob}}</td>
+            <td>{{phone}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{>blankModal}}
 </template>
 
 <template name="locationsAdmin">
-<div class="container">
+  <div class="container">
 
-<div class="row locations-add">
-    <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
-      <h4>Add New Location</h4>
-      <div class="input-group">
-        <input type="text" id="input-locationname" class="form-control">
-        <span class="input-group-btn">
-          <button type="submit" id="btn-addlocation" class="btn btn-success" >Add Location</button>
-        </span>
+  <div class="row locations-add">
+      <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
+        <h4>Add New Location</h4>
+        <div class="input-group">
+          <input type="text" id="input-locationname" class="form-control">
+          <span class="input-group-btn">
+            <button type="submit" id="btn-addlocation" class="btn btn-success" >Add Location</button>
+          </span>
+        </div>
       </div>
     </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Location name</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each locations}}
+          <tr>
+            <td>
+              <span data-toggle="modal" href="#deletelocation" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#updatelocation" class="glyphicon glyphicon-pencil clickable"></span>
+              <!-- <span data-toggle="modal" href="#" class="glyphicon glyphicon-info-sign clickable"></span> -->
+            </td>
+            <td>{{name}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
   </div>
 
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Location name</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each locations}}
-        <tr>
-          <td>
-            <span data-toggle="modal" href="#deletelocation" class="glyphicon glyphicon-trash clickable"></span>
-            <span data-toggle="modal" href="#updatelocation" class="glyphicon glyphicon-pencil clickable"></span>
-            <!-- <span data-toggle="modal" href="#" class="glyphicon glyphicon-info-sign clickable"></span> -->
-          </td>
-          <td>{{name}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
-
-{{> deleteLocationModal}}
-{{> updateLocationModal}}
+  {{> deleteLocationModal}}
+  {{> updateLocationModal}}
 </template>
 
 <template name="productsAdmin">
