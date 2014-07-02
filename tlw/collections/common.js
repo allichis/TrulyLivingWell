@@ -191,15 +191,14 @@ Schema.HarvestLog = new SimpleSchema({
 		autoValue: function() {
 	        var date = new Date;
 	        date.setUTCHours(0,0,0,0);
-	        return date;
 
-	        /*if (this.isInsert) {
-	          return today;
+	        if (this.isInsert) {
+	          return date;
 	        } else if (this.isUpsert) {
-	          return {$setOnInsert: today};
+	          return {$setOnInsert: date};
 	        } else {
 	          this.unset();
-	        }*/
+	        }
 	    },
 		label: "Date harvested",
 	},
