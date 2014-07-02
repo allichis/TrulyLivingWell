@@ -56,7 +56,10 @@ Template.locationsAdmin.events({
 Template.volunteersAdmin.helpers({
 	volunteers: function() {
 		return Volunteers.find({}, {sort: {lastname:1, firstname:1}});
-	}
+	},
+	displaydate: function(date) {
+		return moment.utc(date).format("LL");
+	},
 });
 
 
