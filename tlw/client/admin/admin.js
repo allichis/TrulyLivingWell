@@ -118,33 +118,49 @@ var setProductsFilter = _.throttle(function(template) {
 }, 500);
 
 
-var clickEvents = {
+var adminEvents = {
 	'click .glyphicon-trash': function(event, template) {
 		Session.set('itemInScope', this);
     },
     'click .glyphicon-pencil': function(event, template) {
 		Session.set('itemInScope', this);
     },
+    'keyup .search-input-filter': function(event, template) {
+        setProductsFilter(template);
+        return false;
+    },
 };
 
 // REQUESTS
 Template.requestsAdmin.helpers({
 	requests: function() {
-		return Requests.find({}, {sort: {date: -1, itemname: 1}});
+		filter = Session.get("productsFilter");
+		if(!!filter)
+			return Requests.find({'itemname': {$regex: filter, $options: 'i'}}, {sort: {date: -1, itemname:1}})
+		else
+			return Requests.find({}, {sort: {date: -1, itemname:1}})
 	},
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
 	},
+
+	searchFilter: function() {
+		return Session.get("productsFilter");
+	},
 });
 
 Template.requestsAdmin.events(
-	clickEvents
+	adminEvents
 );
 
 // HARVESTS
 Template.harvestAdmin.helpers({
 	harvestlogs: function() {
-		return HarvestLog.find({}, {sort: {date: -1, itemname: 1}});
+		filter = Session.get("productsFilter");
+		if(!!filter)
+			return HarvestLog.find({'itemname': {$regex: filter, $options: 'i'}}, {sort: {date: -1, itemname:1}})
+		else
+			return HarvestLog.find({}, {sort: {date: -1, itemname:1}})
 	},
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
@@ -152,6 +168,6 @@ Template.harvestAdmin.helpers({
 });
 
 Template.harvestAdmin.events(
-	clickEvents
+	adminEvents
 );
 

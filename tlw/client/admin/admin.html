@@ -153,6 +153,19 @@
 
 <template name="requestsAdmin">
   <div class="container">
+    <div class="row requests-search">
+      <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
+        <h4>Product Search</h4>
+        <div class="input-group">
+          <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
+          <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
     <table class="table table-striped">
       <thead>
         <tr>
@@ -188,6 +201,19 @@
 </template>
 
 <template name="harvestAdmin">
+  <div class="container">
+    <div class="row harvestlog-search">
+      <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
+        <h4>Product Search</h4>
+        <div class="input-group">
+          <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
+          <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
   <div class="container">
     <table class="table table-striped">
       <thead>
