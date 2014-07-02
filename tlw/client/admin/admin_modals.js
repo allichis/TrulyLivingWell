@@ -9,6 +9,28 @@ Template.updateVolunteerModal.events({
 
 });
 
+Template.deleteVolunteerModal.helpers({
+	volunteerInScope: function() {
+		return Session.get('volunteerInScope');
+	}
+});
+
+Template.deleteVolunteerModal.events({
+	'click .btn-danger': function(event, template) {
+		Meteor.call('deleteVolunteer', this._id, function(error) {
+			if (error) {
+				// optionally use a meteor errors package
+				if (typeof Errors === "undefined")
+					Log.error('Error: ' + error.reason);
+				else {
+					Errors.throw(error.reason);
+				}
+			}
+			$("#deletevolunteer").modal("hide");
+		});
+	}
+});
+
 
 // PRODUCTS
 

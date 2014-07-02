@@ -60,7 +60,7 @@
         {{#each volunteers}}
           <tr>
             <td>
-              <span data-toggle="modal" href="#blankmodal" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#deletevolunteer" class="glyphicon glyphicon-trash clickable"></span>
               <span data-toggle="modal" href="#updatevolunteer" class="glyphicon glyphicon-pencil clickable"></span>
               <span data-toggle="modal" href="#blankmodal" class="glyphicon glyphicon-info-sign clickable"></span>
             </td>
@@ -80,6 +80,7 @@
   </div>
   {{> blankModal}}
   {{> updateVolunteerModal}}
+  {{> deleteVolunteerModal}}
 </template>
 
 <template name="locationsAdmin">

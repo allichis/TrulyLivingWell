@@ -51,6 +51,11 @@ Meteor.methods({
 		Locations.update({_id: locationId}, {$set: obj});
 	},
 
+	// VOLUNTEERS
+	deleteVolunteer: function(vId) {
+		Volunteers.remove(vId);
+	},
+
 	// VOLUNTEER TIMECARDS
 	openVolTimecard: function(vphone) {
 		var tcVolId = null;
