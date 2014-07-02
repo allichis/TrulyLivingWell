@@ -70,6 +70,56 @@
 	</table>
 </template>
 
+<template name="display3DayRequests">
+	<table class="table table-striped table-bordered">
+	    <thead>
+	      <tr>
+	        <th>Item</th>
+	        <th>Amount Requested</th>
+	        <th>Strip?</th>
+	        <th>Location</th>
+	        <th>Date</th>
+	        <th>Notes</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	    	<tr><td colspan="6"><h4>Yesterday</h4></td></tr>
+	      {{#each yesterdayrequests}}
+	        <tr>
+				<td>{{itemname}}</td>
+				<td>{{amount}}</td>
+				<td>{{strip}}</td>
+				<td>{{location}}</td>
+				<td>{{displaydate date}}</td>
+				<td>{{notes}}</td>
+	        </tr>
+	      {{/each}}
+	      	<tr><td colspan="6"><h4>Today</h4></td></tr>
+	      {{#each todayrequests}}
+	        <tr>
+				<td>{{itemname}}</td>
+				<td>{{amount}}</td>
+				<td>{{strip}}</td>
+				<td>{{location}}</td>
+				<td>{{displaydate date}}</td>
+				<td>{{notes}}</td>
+	        </tr>
+	      {{/each}}
+	      	<tr><td colspan="6"><h4>Tomorrow</h4></td></tr>
+	      {{#each tomorrowrequests}}
+	        <tr>
+				<td>{{itemname}}</td>
+				<td>{{amount}}</td>
+				<td>{{strip}}</td>
+				<td>{{location}}</td>
+				<td>{{displaydate date}}</td>
+				<td>{{notes}}</td>
+	        </tr>
+	      {{/each}}
+	    </tbody>
+	</table>
+</template>
+
 
 <!-- "INSERT" FORM MODALS -->
 
