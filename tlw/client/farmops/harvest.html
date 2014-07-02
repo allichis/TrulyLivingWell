@@ -411,4 +411,35 @@
 	{{/with}}
 </template>
 
+<template name="updateHarvestItemModal">
+	<div id="updateharvestitem" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> updateHarvestItemModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
 
+<template name="updateHarvestItemModalInner">
+	{{#with itemInScope}}
+		<div class="modal-header">
+			<h4>Update log entry for <strong>{{itemname}}</strong> on {{displaydate date}}</h4>
+		</div>
+	 	<div class="modal-body">
+			{{# autoForm collection="HarvestLog" doc=this id="updateHarvestLogForm" type="update"}}
+			<fieldset>
+		        {{> afQuickField name='amount'}}
+		        {{> afQuickField name='strip'}}
+		        {{> afFieldLabel name='location'}}
+        		{{> afFieldInput name='location' options=locationOptions}}
+		        {{> afQuickField name='notes'}}
+		    </fieldset>
+		    <div class="modal-footer">
+		    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+		    	<button type="submit" class="btn btn-success" onclick="$('#updateharvestitem').modal('hide');">Submit</button>
+		    </div>
+		    {{/autoForm}}
+	 	</div>
+	{{/with}}  
+</template>
