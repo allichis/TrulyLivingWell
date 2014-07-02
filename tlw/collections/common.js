@@ -7,6 +7,15 @@ function getMaxDate() {
 
 var Schema = {};
 
+Schema.EmergencyContact = new SimpleSchema({
+	name: {
+		type: String,
+	},
+	phone: {
+		type: String,
+	},
+});
+
 Schema.Volunteers = new SimpleSchema({
 	firstname: {
 		type: String,
@@ -47,16 +56,8 @@ Schema.Volunteers = new SimpleSchema({
 		max: 45,
 		optional: true,
 	},
-	emergencyName: {
-		type: String,
-		label: "Emergency Contact - Name",
-		max: 45,
-		optional: true,
-	},
-	emergencyPhone: {
-		type: String,
-		label: "Emergency Contact - Phone number",
-		max: 15,
+	emergencyContact: {
+		type: Schema.EmergencyContact,
 		optional: true,
 	},
 	notes: {
@@ -72,11 +73,24 @@ Schema.Volunteers = new SimpleSchema({
 });
 
 Schema.VolunteerTimecards = new SimpleSchema({
-	// relate to Volunteers?... phone+fname
-	// timestamp of entry event
-	// date/time of clockin/clockout
-	// in/out var
-	// location - choose from set...
+	volId: {
+		type: String,
+		//regEx: SimpleSchema.RegEx.Id,
+	},
+	location: {
+		type: String,
+	},
+	tcStatus: {
+		type: String,
+		allowedValues: ['Open', 'Closed'],
+	},
+	timeOpened: {
+		type: Date,
+	},
+	timeClosed: {
+		type: Date,
+		optional: true,
+	},
 });
 
 Schema.Visitors = new SimpleSchema({
@@ -238,7 +252,7 @@ Volunteers.attachSchema(Schema.Volunteers);
 
 // Volunteer Timecards
 VolunteerTimecards = new Meteor.Collection("volTimecards");
-//VolunteerTimecards.attachSchema(Schema.VolunteerTimecards);
+VolunteerTimecards.attachSchema(Schema.VolunteerTimecards);
 
 // Requests
 Requests = new Meteor.Collection("requests");

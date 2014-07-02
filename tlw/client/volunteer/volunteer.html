@@ -1,16 +1,20 @@
 <template name="volunteer">
   <div class="container">
     <div class="row">
-      <h1>Volunteers</h1>
+      <div class="jumbotron">
+        <h1>Volunteers</h1>
+        <p>Welcome to volunteering at Truly Living Well!</p>
+      </div><!-- /.jumbotron -->
     </div><!-- /.row -->
     <div class="row">
-      <h2>Sign In / Sign Out</h2>
-      <a href="{{pathFor 'volsignin'}}"><button type="button" class="btn btn-default btn-large">Sign In</button></a>
-      <a href="{{pathFor 'volsignout'}}"><button type="button" class="btn btn-default btn-large">Sign Out</button></a>
-    </div><!-- /.row -->
-    <div class="row">
-      <h2>New volunteers</h2>
-      <a href="{{pathFor 'newvol'}}"><button type="button" class="btn btn-info btn-large">New volunteer</button></a>
+      <div class="col-md-6">
+        <h2>Are you a new volunteer?</h2>
+        <a href="{{pathFor 'newvol'}}"><button type="button" class="btn btn-info btn-large">Register as new volunteer</button></a>
+      </div><!-- /.col-md-6 -->
+      <div class="col-md-6">
+        <h2>Ready to volunteer?</h2>
+        <a href="{{pathFor 'volsignin'}}"><button type="button" class="btn btn-default btn-large">Sign In / Sign Out</button></a>
+      </div><!-- /.col-md-6 -->
     </div><!-- /.row -->
   </div><!-- /.container -->
 </template>
@@ -28,21 +32,39 @@
 
 <template name="volsignin">
   <div class="container">
-    <h1>Volunteer sign in page</h1>
-    <p>How to display timecards?</p>
-    <p>fields and button: enter your phone number and fname</p>
-
     <div class="row">
+    <h2>volunteer lookup by name or phone number:</h2>
       <div class="input-group">
-        <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
+        <input type="text" class="form-control vol-phone-input" value="{{searchFilter}}">
         <span class="input-group-btn">
           <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
         </span>
       </div><!-- /.input-group -->
     </div><!-- /.row -->
   </div><!-- /.container -->
+  {{#if uniqueVolFound}}
+    <br><br>
+    {{> volMatch}}
+    <br><br>
+  {{/if}}
 </template>
 
-<template name="volsignout">
-  <h1>Volunteer sign out page</h1>
+<template name="volMatch">
+<div class="container">
+  <div class="row">
+    {{#each vols}}
+      <h4>Welcome back, {{firstname}} {{lastname}}!</h4>
+      <h5>Just one more click to sign in for volunteering today.</h5>
+      <button type="submit" class="btn btn-large">Get started!</button>
+    {{/each}}
+  </div>
+</div>
+<div class="container">
+  <div class="row">
+    {{#each showTc}}
+    <p>something</p>
+    <p>timeOpened: {{timeOpenedReadable}}</p>
+    {{/each}}
+  </div>
+</div>
 </template>
