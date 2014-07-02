@@ -23,18 +23,12 @@
 		<div class="row">
 			<div class="col-md-6">
 				<h3>Harvest Requests</h3>
-				<div class="" style="margin-top:20px; margin-bottom:20px">
-					<button type="button" data-toggle="modal" class="btn btn-success btn-lg" href="#insertrequest">Make a New Request!</button>
-					{{> insertRequestModal}}
-				</div>
+				{{> newRequest}}
 				<div>{{> displayTodayRequests}}</div>
 			</div>
 			<div class="col-md-6">
 				<h3>Harvest Log</h3>
-				<div class="" style="margin-top:20px; margin-bottom:20px">
-					<button type="button" data-toggle="modal" class="btn btn-success btn-lg" href="#insertharvestlog">New Harvest!</button>
-					{{> insertHarvestLogModal}}
-				</div>
+				{{> newHarvest}}
 				<div>{{> displayTodayHarvestLog}}</div>
 			</div>
 		</div>

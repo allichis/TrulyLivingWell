@@ -1,16 +1,77 @@
-<!-- HARVEST REQUESTS -->
+<!-- BUTTONS linked to "INSERT" form modals -->
 
-<template name="harvestRequests">
-	<div class="container">
-		<div class="" style="margin-bottom: 20px">
-			<button type="button" data-toggle="modal" class="btn btn-success btn-lg" href="#insertrequest">Make a New Request!</button>
-			{{> insertRequestModal}}
-		</div>
-	</div>
-	<div class="container">
-		{{> displayRequests}}
+<template name="newRequest">
+	<div class="" style="margin-top:20px; margin-bottom:20px">
+		<button type="button" data-toggle="modal" class="btn btn-success btn-lg" href="#insertrequest">New Request!</button>
+		{{> insertRequestModal}}
 	</div>
 </template>
+
+<template name="newHarvest">
+	<div class="" style="margin-top:20px; margin-bottom:20px">
+		<button type="button" data-toggle="modal" class="btn btn-success btn-lg" href="#insertharvestlog">New Harvest!</button>
+		{{> insertHarvestLogModal}}
+	</div>
+</template>
+
+<!-- DISPLAY for REQUESTS and HARVESTLOG on FarmOps Home page -->
+
+<template name="displayTodayHarvestLog">
+	<table class="table table-striped table-bordered">
+	    <thead>
+	      <tr>
+	        <th>Item</th>
+	        <th>Amount Harvested</th>
+	        <th>Strip?</th>
+	        <th>Location</th>
+	        <th>Date</th>
+	        <th>Notes</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      {{#each todayharvestlog}}
+	        <tr>
+				<td>{{itemname}}</td>
+				<td>{{amount}}</td>
+				<td>{{strip}}</td>
+				<td>{{location}}</td>
+				<td>{{displaydate date}}</td>
+				<td>{{notes}}</td>
+	        </tr>
+	      {{/each}}
+	    </tbody>
+	</table>
+</template>
+
+<template name="displayTodayRequests">
+	<table class="table table-striped table-bordered">
+	    <thead>
+	      <tr>
+	        <th>Item</th>
+	        <th>Amount Requested</th>
+	        <th>Strip?</th>
+	        <th>Location</th>
+	        <th>Date</th>
+	        <th>Notes</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      {{#each todayrequests}}
+	        <tr>
+				<td>{{itemname}}</td>
+				<td>{{amount}}</td>
+				<td>{{strip}}</td>
+				<td>{{location}}</td>
+				<td>{{displaydate date}}</td>
+				<td>{{notes}}</td>
+	        </tr>
+	      {{/each}}
+	    </tbody>
+	</table>
+</template>
+
+
+<!-- "INSERT" FORM MODALS -->
 
 <template name="insertRequestModal">
 	<div id="insertrequest" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
@@ -50,6 +111,54 @@
 			</div>
 		    {{/autoForm}}
 		</div>
+	</div>
+</template>
+
+
+<template name="insertHarvestLogModal">
+	<div id="insertharvestlog" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> insertHarvestLogModalInner}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="insertHarvestLogModalInner">
+	<div class="modal-header">
+		<h3>New Harvest:</h3>
+	</div>
+	<div class="modal-body">
+		<div class="form-group">
+			{{# autoForm collection="HarvestLog" id="insertHarvestLogForm" type="insert" resetOnSuccess="true"}}
+			<fieldset>
+				{{> afFieldLabel name='itemname'}}
+		        {{> afFieldInput name='itemname' options=productOptions}}
+		        {{> afQuickField name='amount'}}
+		        {{> afQuickField name='strip'}}
+		        {{> afFieldLabel name='location'}}
+        		{{> afFieldInput name='location' options=locationOptions}}
+        		{{> afQuickField name='notes'}}
+		    </fieldset>
+		    <div class="modal-footer">
+			    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+			    <button type="submit" class="btn btn-success" onclick="$('#insertharvestlog').modal('hide');">Submit</button>
+		    </div>
+		    {{/autoForm}}
+		</div>
+	</div>
+</template>
+
+
+<!-- HARVEST REQUESTS -->
+
+<template name="harvestRequests">
+	<div class="container">
+		{{> newRequest}}
+	</div>
+	<div class="container">
+		{{> displayRequests}}
 	</div>
 </template>
 
@@ -164,29 +273,6 @@
 			<h4>Update request for <strong>{{itemname}}</strong> on {{displaydate date}}</h4>
 		</div>
 	 	<div class="modal-body">
-	 		<!-- <div class="form-group">
-				<div class="input-group">
-					<label for="amount">Amount</label>
-					<input data-item-id="{{_id}}" class="form-control request-amount" name="amount" value="{{amount}}">
-				</div>
-				<div class="input-group">
-					<label for="strip">Strip?</label>
-					<input data-item-id="{{_id}}" class="form-control request-strip" name="strip" value="{{strip}}">
-				</div>
-				<div class="input-group">
-					<label for="strip">Location</label>
-					<input data-item-id="{{_id}}" class="form-control request-location" name="location" value="{{location}}" list="locationslist">
-					<datalist id="locationslist">
-						{{#each locationOptions}}
-						<option value="{{this.value}}">{{this.label}}</option>
-						{{/each}}
-					</datalist>
-				</div>
-				<div class="input-group">
-					<label for="notes">Notes</label>
-					<input data-item-id="{{_id}}" class="form-control request-notes" name="notes" value="{{notes}}">
-				</div>
-			</div> -->
 			{{# autoForm collection="Requests" doc=this id="updateRequestForm" type="update"}}
 			<fieldset>
 		        {{> afQuickField name='amount'}}
@@ -204,81 +290,18 @@
 	{{/with}}  
 </template>
 
-<template name="displayTodayRequests">
-	<table class="table table-striped table-bordered">
-	    <thead>
-	      <tr>
-	        <th>Item</th>
-	        <th>Amount Requested</th>
-	        <th>Strip?</th>
-	        <th>Location</th>
-	        <th>Date</th>
-	        <th>Notes</th>
-	      </tr>
-	    </thead>
-	    <tbody>
-	      {{#each todayrequests}}
-	        <tr>
-				<td>{{itemname}}</td>
-				<td>{{amount}}</td>
-				<td>{{strip}}</td>
-				<td>{{location}}</td>
-				<td>{{displaydate date}}</td>
-				<td>{{notes}}</td>
-	        </tr>
-	      {{/each}}
-	    </tbody>
-	</table>
-</template>
 
 <!-- HARVEST LOG -->
 
 <template name="harvestLog">
 	<div class="container">
-		<div class="" style="margin-bottom: 20px">
-			<button type="button" data-toggle="modal" class="btn btn-success btn-lg" href="#insertharvestlog">New Harvest!</button>
-			{{> insertHarvestLogModal}}
-		</div>
+		{{> newHarvest}}
 	</div>
 	<div class="container">
 		<h3>Harvest Log</h3>
 	</div>
 	<div class="container">
 		{{> displayHarvestLog}}
-	</div>
-</template>
-
-<template name="insertHarvestLogModal">
-	<div id="insertharvestlog" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				{{> insertHarvestLogModalInner}}
-			</div>
-		</div>
-	</div>
-</template>
-
-<template name="insertHarvestLogModalInner">
-	<div class="modal-header">
-		<h3>New Harvest:</h3>
-	</div>
-	<div class="modal-body">
-		<div class="form-group">
-			{{# autoForm collection="HarvestLog" id="insertHarvestLogForm" type="insert" resetOnSuccess="true"}}
-			<fieldset>
-				{{> afFieldLabel name='itemname'}}
-		        {{> afFieldInput name='itemname' options=productOptions}}
-		        {{> afQuickField name='amount'}}
-		        {{> afQuickField name='strip'}}
-		        {{> afFieldLabel name='location'}}
-        		{{> afFieldInput name='location' options=locationOptions}}
-		    </fieldset>
-		    <div class="modal-footer">
-			    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-			    <button type="submit" class="btn btn-success" onclick="$('#insertharvestlog').modal('hide');">Submit</button>
-		    </div>
-		    {{/autoForm}}
-		</div>
 	</div>
 </template>
 
@@ -339,29 +362,3 @@
 </template>
 
 
-<template name="displayTodayHarvestLog">
-	<table class="table table-striped table-bordered">
-	    <thead>
-	      <tr>
-	        <th>Item</th>
-	        <th>Amount Harvested</th>
-	        <th>Strip?</th>
-	        <th>Location</th>
-	        <th>Date</th>
-	        <th>Notes</th>
-	      </tr>
-	    </thead>
-	    <tbody>
-	      {{#each todayharvestlog}}
-	        <tr>
-				<td>{{itemname}}</td>
-				<td>{{amount}}</td>
-				<td>{{strip}}</td>
-				<td>{{location}}</td>
-				<td>{{displaydate date}}</td>
-				<td>{{notes}}</td>
-	        </tr>
-	      {{/each}}
-	    </tbody>
-	</table>
-</template>

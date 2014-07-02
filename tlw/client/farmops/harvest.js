@@ -144,29 +144,6 @@ Template.updateRequestModalInner.helpers(
 	modalHelpers
 );
 
-Template.updateRequestModalInner.events({
-	/*'click .btn-primary': function(event, template) {
-		var itemid = this._id;
-		var amount = template.find(".request-amount").value;
-		var strip = template.find(".request-strip").value;
-		var location = template.find(".request-location").value;
-		var notes = template.find(".request-notes").value;
-
-		Meteor.call('updateRequest', itemid, amount, strip, location, notes, function(error) {
-			if (error) {
-				// optionally use a meteor errors package
-				if (typeof Errors === "undefined")
-					Log.error('Error: ' + error.reason);
-				else {
-					Errors.throw(error.reason);
-				}
-			}
-
-			$("#updaterequestitem").modal("hide");
-		});
-	}*/
-});
-
 Template.displayTodayRequests.helpers(
 	harvestHelpers
 );
