@@ -11,6 +11,20 @@ Template.admin.helpers({
 	// check if user is an admin
 	isAdminUser: function() {
 		return Roles.userIsInRole(Meteor.user(), ['admin']);
+	},
+	// get total of amounts from Things for demo purposes
+	totalThings: function() {
+		// _.pluck grabs each value from a certain field of the
+		// collection, in this case, amounts from Things
+		var tempArray = _.pluck(Things.find().fetch(), 'amount');
+
+		// _.reduce condenses an array of values into some single
+		// value, based on a function/operation -- sum example,
+		// luckily, is straight from the underscore.js docs:
+		// http://underscorejs.org/#reduce
+		var sum = _.reduce(tempArray, function(memo, num){ return memo + num }, 0);
+
+		return sum;
 	}
 });
 

@@ -1,6 +1,22 @@
 // if the database is empty on server start, create sample data.
 Meteor.startup(function () {
 	/***********************
+	 * TEST - THINGS 
+	 **********************/
+	if (Things.find().count() === 0) {
+		var stuff = [
+			{name: "thing1", type: "A", amount: 100},
+			{name: "thing2", type: "A", amount: 100},
+			{name: "thing3", type: "A", amount: 100},
+			{name: "thing4", type: "A", amount: 100},
+			{name: "thing5", type: "A", amount: 100},
+		];
+
+		for (var i = 0; i < stuff.length; i++) {
+			Things.insert(stuff[i]);
+		}
+	}
+	/***********************
 	 * ROLES 
 	 **********************/
 	if (!Meteor.roles.findOne({name: 'admin'})) {

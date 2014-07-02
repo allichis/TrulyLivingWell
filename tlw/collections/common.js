@@ -262,5 +262,7 @@ Requests.attachSchema(Schema.Requests);
 HarvestLog = new Meteor.Collection("harvestlog");
 HarvestLog.attachSchema(Schema.HarvestLog);
 
+// just testing - Things
+Things = new Meteor.Collection("things");
 // contexts for validation...
 var vContext = Schema.Volunteers.namedContext("newVolForm");
