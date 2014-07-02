@@ -63,25 +63,31 @@ Meteor.startup(function () {
 	 **********************/
 	if (Volunteers.find().count() === 0) {
 
+		var mom = {
+			name: "Mom",
+			phone: 911,
+		};
 		var everyonesBday = new Date(1990, 0, 1);
 		var myBday = new Date(1987, 1, 13);
 		vols = [
-			{firstname: "Amy", lastname: "Adams", dob: everyonesBday, email: "aa@vol.org", phone: "111-1111", isVeteran: false},
-			{firstname: "Bob", lastname: "Barker", dob: everyonesBday, email: "bb@vol.org", phone: "222-2222", isVeteran: true},
-			{firstname: "Cindy", lastname: "Crawford", dob: everyonesBday, email: "cc@vol.org", phone: "333-3333", isVeteran: true},
-			{firstname: "Don", lastname: "Delillo", dob: everyonesBday, email: "dd@vol.org", phone: "444-4444", isVeteran: false},
-			{firstname: "Emily", lastname: "Reese", dob: myBday, email: "er@vol.org", phone: "4047719915", isVeteran: false},
+			{firstname: "Amy", lastname: "Adams", dob: everyonesBday, email: "aa@vol.org", phone: "111-1111", isVeteran: false, emergencyContact: mom},
+			{firstname: "Bob", lastname: "Barker", dob: everyonesBday, email: "bb@vol.org", phone: "222-2222", isVeteran: true, emergencyContact: mom},
+			{firstname: "Cindy", lastname: "Crawford", dob: everyonesBday, email: "cc@vol.org", phone: "333-3333", isVeteran: true, emergencyContact: mom},
+			{firstname: "Don", lastname: "Delillo", dob: everyonesBday, email: "dd@vol.org", phone: "444-4444", isVeteran: false, emergencyContact: mom},
+			{firstname: "Emily", lastname: "Reese", dob: myBday, email: "er@vol.org", phone: "4047719915", isVeteran: false, emergencyContact: mom},
 		];
 
 		var timestamp = (new Date()).getTime();
 		for (var i = 0; i < vols.length; i++) {
 			var vol_id = Volunteers.insert(vols[i]);
 			// insert a timecard for each Volunteer
+			/*
 			VolunteerTimecards.insert({
 				vol_id: vol_id,
 				text: "bs timecard (" + i + ")",
 				timestamp: timestamp
 			});
+			*/
 
 			//ensure a unique timestamp
 			timestamp++;
