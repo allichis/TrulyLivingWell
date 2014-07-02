@@ -118,6 +118,15 @@ var setProductsFilter = _.throttle(function(template) {
 }, 500);
 
 
+var clickEvents = {
+	'click .glyphicon-trash': function(event, template) {
+		Session.set('itemInScope', this);
+    },
+    'click .glyphicon-pencil': function(event, template) {
+		Session.set('itemInScope', this);
+    },
+};
+
 // REQUESTS
 Template.requestsAdmin.helpers({
 	requests: function() {
@@ -128,12 +137,21 @@ Template.requestsAdmin.helpers({
 	},
 });
 
+Template.requestsAdmin.events(
+	clickEvents
+);
+
 // HARVESTS
 Template.harvestAdmin.helpers({
-	harvests: function() {
+	harvestlogs: function() {
 		return HarvestLog.find({}, {sort: {date: -1, itemname: 1}});
 	},
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
 	},
 });
+
+Template.harvestAdmin.events(
+	clickEvents
+);
+

@@ -40,6 +40,9 @@ Router.map(function() {
 	this.route('requestsAdmin', {
 		layoutTemplate: 'layoutAdmin',
 	});
+	this.route('harvestAdmin', {
+		layoutTemplate: 'layoutAdmin',
+	});
 	this.route('volunteersAdmin', {
 		layoutTemplate: 'layoutAdmin',
 	});

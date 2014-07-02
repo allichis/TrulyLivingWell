@@ -104,3 +104,123 @@
 		</div>
 	{{/with}}
 </template>
+
+
+<!-- HARVEST LOG -->
+
+<template name="deleteHarvestModalAdmin">
+	<div id="deleteharvestadmin" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> deleteHarvestModalInnerAdmin}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="deleteHarvestModalInnerAdmin">
+	{{#with itemInScope}}
+	 	<div class="modal-body">
+	 		<h4>Are you sure you want to delete the log entry for <strong>{{itemname}}</strong> harvested on {{displaydate date}}?</h4>
+	 	</div>
+	 	<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+			<button type="button" class="btn btn-danger">Delete</button>
+		</div>
+	{{/with}}
+</template>
+
+<template name="updateHarvestModalAdmin">
+	<div id="updateharvestadmin" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> updateHarvestModalInnerAdmin}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="updateHarvestModalInnerAdmin">
+	{{#with itemInScope}}
+		<div class="modal-header">
+			<h4>Update log entry for <strong>{{itemname}}</strong> on {{displaydate date}}</h4>
+		</div>
+	 	<div class="modal-body">
+			{{# autoForm collection="HarvestLog" doc=this id="updateHarvestLogForm" type="update"}}
+			<fieldset>
+				{{> afFieldLabel name='itemname'}}
+				{{> afFieldInput name='itemname' options=productOptions}}
+		        {{> afQuickField name='amount'}}
+		        {{> afQuickField name='strip'}}
+		        {{> afFieldLabel name='location'}}
+        		{{> afFieldInput name='location' options=locationOptions}}
+		        {{> afQuickField name='notes'}}
+		    </fieldset>
+		    <div class="modal-footer">
+		    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+		    	<button type="submit" class="btn btn-success" onclick="$('#updateharvestadmin').modal('hide');">Submit</button>
+		    </div>
+		    {{/autoForm}}
+	 	</div>
+	{{/with}}  
+</template>
+
+
+<!-- REQUESTS -->
+
+<template name="deleteRequestModalAdmin">
+	<div id="deleterequestadmin" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> deleteRequestModalInnerAdmin}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="deleteRequestModalInnerAdmin">
+	{{#with itemInScope}}
+	 	<div class="modal-body">
+	 		<h4>Are you sure you want to delete the request for <strong>{{itemname}}</strong> on {{displaydate date}}?</h4>
+	 	</div>
+	 	<div class="modal-footer">
+			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+			<button type="button" class="btn btn-danger">Delete</button>
+		</div>
+	{{/with}}
+</template>
+
+<template name="updateRequestModalAdmin">
+	<div id="updaterequestadmin" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{> updateRequestModalInnerAdmin}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="updateRequestModalInnerAdmin">
+	{{#with itemInScope}}
+		<div class="modal-header">
+			<h4>Update request for <strong>{{itemname}}</strong> on {{displaydate date}}</h4>
+		</div>
+	 	<div class="modal-body">
+			{{# autoForm collection="Requests" doc=this id="updateRequestForm" type="update"}}
+			<fieldset>
+				{{> afFieldLabel name='itemname'}}
+				{{> afFieldInput name='itemname' options=productOptions}}
+		        {{> afQuickField name='amount'}}
+		        {{> afQuickField name='strip'}}
+		        {{> afFieldLabel name='location'}}
+        		{{> afFieldInput name='location' options=locationOptions}}
+		        {{> afQuickField name='notes'}}
+		    </fieldset>
+		    <div class="modal-footer">
+		    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+		    	<button type="submit" class="btn btn-success" onclick="$('#updaterequestadmin').modal('hide');">Submit</button>
+		    </div>
+		    {{/autoForm}}
+	 	</div>
+	{{/with}}  
+</template>
