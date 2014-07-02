@@ -28,13 +28,26 @@
 
 <template name="volunteersAdmin">
   <div class="container">
+    <div class="row products-search">
+      <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
+        <h4>Volunteer Search <small>(Last Name)</small></h4>
+        <div class="input-group">
+          <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
+          <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
     <table class="table table-striped">
       <thead>
         <tr>
           <th></th>
           <th>Name</th>
-          <th>Email</th>
           <th>Date of birth</th>
+          <th>Email</th>
           <th>Phone number</th>
           <th>Veteran</th>
           <th>Organization</th>
@@ -52,8 +65,8 @@
               <span data-toggle="modal" href="#blankmodal" class="glyphicon glyphicon-info-sign clickable"></span>
             </td>
             <td>{{lastname}}, {{firstname}}</td>
-            <td>{{email}}</td>
             <td>{{displaydate dob}}</td>
+            <td>{{email}}</td>
             <td>{{phone}}</td>
             <td>{{isVeteran}}</td>
             <td>{{organization}}</td>

@@ -55,12 +55,32 @@ Template.locationsAdmin.events({
 // VOLUNTEERS
 Template.volunteersAdmin.helpers({
 	volunteers: function() {
-		return Volunteers.find({}, {sort: {lastname:1, firstname:1}});
+		filter = Session.get("volunteersFilter");
+		if(!!filter)
+			return Volunteers.find({'lastname': {$regex: filter, $options: 'i'}}, {sort: {lastname:1, firstname:1}})
+		else
+			return Volunteers.find({}, {sort: {lastname:1, firstname:1}})
 	},
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
 	},
+	searchFilter: function() {
+		return Session.get("volunteersFilter");
+	},
 });
+
+Template.volunteersAdmin.events({
+	'keyup .search-input-filter': function(event, template) {
+        setVolunteersFilter(template);
+        return false;
+    },
+});
+
+// search no more than 2 times per second
+var setVolunteersFilter = _.throttle(function(template) {
+	var search = template.find(".search-input-filter").value;
+	Session.set("volunteersFilter", search);
+}, 500);
 
 
 // PRODUCTS
