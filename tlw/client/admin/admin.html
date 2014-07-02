@@ -36,6 +36,11 @@
           <th>Email</th>
           <th>Date of birth</th>
           <th>Phone number</th>
+          <th>Veteran</th>
+          <th>Organization</th>
+          <th>Emergency Name</th>
+          <th>Emergency Phone</th>
+          <th>Notes</th>
         </tr>
       </thead>
       <tbody>
@@ -50,6 +55,11 @@
             <td>{{email}}</td>
             <td>{{displaydate dob}}</td>
             <td>{{phone}}</td>
+            <td>{{isVeteran}}</td>
+            <td>{{organization}}</td>
+            <td>{{emergencyContact.name}}</td>
+            <td>{{emergencyContact.phone}}</td>
+            <td>{{notes}}</td>
           </tr>
         {{/each}}
       </tbody>
