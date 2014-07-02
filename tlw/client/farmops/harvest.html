@@ -164,7 +164,7 @@
 			<h4>Update request for <strong>{{itemname}}</strong> on {{displaydate date}}</h4>
 		</div>
 	 	<div class="modal-body">
-	 		<div class="form-group">
+	 		<!-- <div class="form-group">
 				<div class="input-group">
 					<label for="amount">Amount</label>
 					<input data-item-id="{{_id}}" class="form-control request-amount" name="amount" value="{{amount}}">
@@ -186,19 +186,18 @@
 					<label for="notes">Notes</label>
 					<input data-item-id="{{_id}}" class="form-control request-notes" name="notes" value="{{notes}}">
 				</div>
-			</div>
-			<!-- {{# autoForm collection="Requests" id="updateRequestForm" type="update"}}
+			</div> -->
+			{{# autoForm collection="Requests" doc=this id="updateRequestForm" type="update"}}
 			<fieldset>
 		        {{> afQuickField name='amount'}}
 		        {{> afQuickField name='strip'}}
 		        {{> afQuickField name='notes'}}
 		    </fieldset>
-		    <button type="submit" data-dismiss="modal" class="btn btn-success">Submit</button>
-		    {{/autoForm}} -->
+		    <div class="modal-footer">
+		    	<button type="submit" data-dismiss="modal" class="btn btn-success">Submit</button>
+		    </div>
+		    {{/autoForm}}
 	 	</div>
-	 	<div class="modal-footer">
-			<button type="button" data-dismiss="modal" class="btn btn-primary">Done</button>
-		</div>
 	{{/with}}  
 </template>
 

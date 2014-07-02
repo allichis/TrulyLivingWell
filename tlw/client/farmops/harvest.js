@@ -65,7 +65,10 @@ var harvestHelpers = {
 		return moment.utc(date).format("LL");
 	},
 	isToday: function(template) {
-		return this.date >= today();
+		var start = today();
+		var end = new Date(start);
+		end.setUTCHours(24);
+		return this.date >= start && this.date < end;
 	},
 };
 
@@ -142,7 +145,7 @@ Template.updateRequestModalInner.helpers(
 );
 
 Template.updateRequestModalInner.events({
-	'click .btn-primary': function(event, template) {
+	/*'click .btn-primary': function(event, template) {
 		var itemid = this._id;
 		var amount = template.find(".request-amount").value;
 		var strip = template.find(".request-strip").value;
@@ -161,8 +164,7 @@ Template.updateRequestModalInner.events({
 
 			$("#updaterequestitem").modal("hide");
 		});
-
-	}
+	}*/
 });
 
 Template.displayTodayRequests.helpers(

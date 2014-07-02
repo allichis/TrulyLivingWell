@@ -122,7 +122,7 @@ Schema.Requests = new SimpleSchema({
 	},
 	strip: {
 		type: Boolean,
-		label: "Strip Bed",
+		label: "Strip Bed?",
 	},
 	// location
 	location: {
