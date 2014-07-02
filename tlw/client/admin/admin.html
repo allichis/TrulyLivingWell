@@ -11,6 +11,7 @@
         <li class="{{activeIfTemplateIs 'locationsAdmin'}}"><a href="{{pathFor 'locationsAdmin'}}">Locations</a></li>
         <li class="{{activeIfTemplateIs 'volunteersAdmin'}}"><a href="{{pathFor 'volunteersAdmin'}}">Volunteers</a></li>
         <li class="{{activeIfTemplateIs 'requestsAdmin'}}"><a href="{{pathFor 'requestsAdmin'}}">Requests</a></li>
+        <li class="{{activeIfTemplateIs 'harvestAdmin'}}"><a href="{{pathFor 'harvestAdmin'}}">Harvest</a></li>
       </ul>
     </div><!-- /.row -->
   </div><!-- /.container -->
@@ -97,33 +98,6 @@
 {{> updateLocationModal}}
 </template>
 
-<template name="requestsAdmin">
-<div class="container">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Item name</th>
-        <th>Amount</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each requests}}
-        <tr>
-          <td>
-            <span data-toggle="modal" href="#" class="glyphicon glyphicon-trash clickable"></span>
-            <span data-toggle="modal" href="#" class="glyphicon glyphicon-pencil clickable"></span>
-            <span data-toggle="modal" href="#" class="glyphicon glyphicon-info-sign clickable"></span>
-          </td>
-          <td>{{itemname}}</td>
-          <td>{{amount}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
-</template>
-
 <template name="productsAdmin">
 <div class="container">
   
@@ -176,3 +150,66 @@
 {{> deleteProductModal}}
 {{> updateProductModal}}
 </template>
+
+<template name="requestsAdmin">
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Item</th>
+          <th>Amount</th>
+          <th>Strip?</th>
+          <th>Location</th>
+          <th>Date</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each requests}}
+          <tr>
+            <td>
+              <span data-toggle="modal" href="#deleterequestitem" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#updaterequestitem" class="glyphicon glyphicon-pencil clickable"></span>
+            </td>
+            <td>{{itemname}}</td>
+            <td>{{amount}}</td>
+            <td>{{strip}}</td>
+            <td>{{location}}</td>
+            <td>{{displaydate date}}</td>
+            <td>{{notes}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+  {{> deleteRequestModal}}
+  {{> updateRequestModal}}
+</template>
+
+<template name="harvestAdmin">
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Item name</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each harvests}}
+          <tr>
+            <td>
+              <span data-toggle="modal" href="#" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#" class="glyphicon glyphicon-pencil clickable"></span>
+            </td>
+            <td>{{itemname}}</td>
+            <td>{{amount}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</template>
+
