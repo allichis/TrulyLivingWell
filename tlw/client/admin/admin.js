@@ -55,7 +55,7 @@ Template.locationsAdmin.events({
 // VOLUNTEERS
 Template.volunteersAdmin.helpers({
 	volunteers: function() {
-		return Volunteers.find();
+		return Volunteers.find({}, {sort: {lastname:1, firstname:1}});
 	}
 });
 
