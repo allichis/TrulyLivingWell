@@ -1,7 +1,6 @@
 // update search filter no more than 2 times per second
 var setVolFilter = _.throttle(function(template) {
 	var search = template.find(".vol-phone-input").value;
-	console.log("search term: " + search);
 	Session.set("volSearchFilter", search);
 }, 500);
 
@@ -11,7 +10,7 @@ Template.volMatch.helpers({
 	},
 	timeOpenedReadable: function() {
 		var timestamp = VolunteerTimecards.find({_id: Session.get("volNewTcId")}).fetch()[0].timeOpened;
-		var readableTimestamp = moment(timestamp).format("MMM Do YY");
+		var readableTimestamp = moment(timestamp).format("MMM Do YYYY");
 		return readableTimestamp;
 	},
 	vols: function() {
@@ -19,28 +18,36 @@ Template.volMatch.helpers({
 	},
 });
 
+Template.signinSuccess.helpers({
+	timeLogged: function() {
+		var timestamp = VolunteerTimecards.find({_id: Session.get("volNewTcId")}).fetch()[0].timeOpened;
+		var readableTime = moment(timestamp).format("h:mm a");
+		var readableDate = moment(timestamp).format("MMMM Do, YYYY");
+		return readableTime + " on " + readableDate;
+	}
+});
+
 Template.volsignin.helpers({
+	signedIn: function() {
+		if (Session.get("doneSigning")) {
+			return true;
+		}
+		return false;
+	},
 	uniqueVolFound: function() {
 		var n = filteredVolsQuery(Session.get("volSearchFilter"));
-		if (n.count() === 1) {
+		var sc = Session.get("searchClicked");
+		if (n.count() === 1 && sc) {
 			return true;
 		} else {
 			return false;
 		}
 	},
-	/* 3 functions used for development: */
-	volFoundTest: function() {
-		var n = filteredVolsQuery(Session.get("volSearchFilter"));
-		return n.count();
-	},
-	vols: function() {
-		return filteredVolsQuery(Session.get("volSearchFilter"));
-	},
 });
 
 Template.volsignin.events({
-	'click .glyphicon-search': function(event, template) {
-		console.log("ugh");
+	'click [type="search"]': function(event, template) {
+		Session.set("searchClicked", true);
 	},
 	'keyup .vol-phone-input': function(event, template) {
 		setVolFilter(template);
@@ -51,6 +58,7 @@ Template.volsignin.events({
 		var result = initTimecard(vid);	
 		if (result) {
 			Session.set('volNewTcId', result);
+			Session.set("doneSigning", true);
 		}
 	}
 });
@@ -65,6 +73,6 @@ Template.volsignin.rendered = function() {
 	if (filterValue)
 		pos = filterValue.length;
 
-	searchElement[0].focus();
-	searchElement[0].setSelectionRange(pos, pos);
+	//searchElement[0].focus();
+	//searchElement[0].setSelectionRange(pos, pos);
 };

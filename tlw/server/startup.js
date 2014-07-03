@@ -78,7 +78,7 @@ Meteor.startup(function () {
 		];
 
 		var timestamp = (new Date()).getTime();
-		for (var i = 0; i < vols.length; i++) {
+		for (var i = 0; i < vols.length+1; i++) {
 			var vol_id = Volunteers.insert(vols[i]);
 			// insert a timecard for each Volunteer
 			/*

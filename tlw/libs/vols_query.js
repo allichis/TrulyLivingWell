@@ -1,6 +1,4 @@
 filteredVolsQuery = function(filter) {
-// TODO: if the volunteer can't be ID'd...
-
 	// TODO: configurable limit and paginiation
 	var queryLimit = 25;
 
@@ -15,13 +13,9 @@ filteredVolsQuery = function(filter) {
 		}, {sort: {firstname: 1}, limit: queryLimit});
 		if (vols.count() === 1) {
 			volSigning = vols.fetch();
-			// set volSigning, which indicates a unique volunteer record
-			// is found by the query
 			Session.set('volSigning', volSigning);
 		}
 	} else {
-		console.log("!filter: " + filter);
-		//vols = Volunteers.find({}, {sort: {phone: 1}, limit: queryLimit});
 		vols = Volunteers.find();
 		Session.set('volSigning', undefined);
 	}
