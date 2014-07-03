@@ -17,7 +17,8 @@ Router.map(function() {
 	this.route('newvol');	
 	this.route('volsignin');	
 	this.route('volsignout');
-	this.route('visitors');	
+	this.route('visitors');
+	this.route('visitorConfirmation');	
 
 	this.route('farmops', {
 		layoutTemplate: 'layoutFarmops',

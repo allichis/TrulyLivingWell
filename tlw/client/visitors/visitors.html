@@ -21,11 +21,13 @@
 			{{> afQuickField name='comments'}}
 			{{> afQuickField name='date'}}
 		</fieldset>
-	    <button type="submit" class="btn btn-success">Submit</button>
+	    <a href="{{ pathFor 'visitorConfirmation' }}"><button type="submit" class="btn btn-success">Submit</button></a>
 		{{/autoForm}}
 	</div>
 </template>
 
 <template name="visitorConfirmation">
-
+	<div id="visitorconfirmation" class="container text-center">
+		<h1>Thank You for visiting Truly Living Well! <br><small>We hope to see you again soon!</small></h1>
+	</div>
 </template>
