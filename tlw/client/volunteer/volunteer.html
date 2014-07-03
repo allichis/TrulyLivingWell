@@ -32,21 +32,26 @@
 
 <template name="volsignin">
   <div class="container">
-    <div class="row">
-    <h2>volunteer lookup by name or phone number:</h2>
-      <div class="input-group">
-        <input type="text" class="form-control vol-phone-input" value="{{searchFilter}}">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-        </span>
-      </div><!-- /.input-group -->
-    </div><!-- /.row -->
+    {{#unless signedIn}}
+      <div class="row">
+      <h2>volunteer lookup by name or phone number:</h2>
+        <div class="input-group">
+          <input type="text" class="form-control vol-phone-input" value="{{searchFilter}}">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="search"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div><!-- /.input-group -->
+      </div><!-- /.row -->
+      {{#if uniqueVolFound}}
+        <br><br>
+        {{> volMatch}}
+        <br><br>
+      {{/if}}
+    {{/unless}}
+    {{#if signedIn}}
+      {{>signinSuccess}}
+    {{/if}}
   </div><!-- /.container -->
-  {{#if uniqueVolFound}}
-    <br><br>
-    {{> volMatch}}
-    <br><br>
-  {{/if}}
 </template>
 
 <template name="volMatch">
@@ -59,12 +64,14 @@
     {{/each}}
   </div>
 </div>
-<div class="container">
+</template>
+
+<template name="signinSuccess">
   <div class="row">
-    {{#each showTc}}
-    <p>something</p>
-    <p>timeOpened: {{timeOpenedReadable}}</p>
-    {{/each}}
+    <br><br>
+    <p class="lead">Thanks for volunteering today!</p>
+    <br><p>You signed in to start volunteering at {{timeLogged}}.</p>
+    <br><br>
+    <a href="{{pathFor 'home'}}"><button class="btn btn-large btn-success">Home</button></a>
   </div>
-</div>
 </template>
