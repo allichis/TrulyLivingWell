@@ -30,7 +30,7 @@
 	    </thead>
 	    <tbody>
 	      {{#each todayharvestlog}}
-	        <tr>
+	        <tr style="{{colorIfIsToday}}">
 				<td>{{itemname}}</td>
 				<td>{{amount}}</td>
 				<td>{{strip}}</td>
@@ -57,7 +57,7 @@
 	    </thead>
 	    <tbody>
 	      {{#each todayrequests}}
-	        <tr>
+	        <tr style="{{colorIfIsToday}}">
 				<td>{{itemname}}</td>
 				<td>{{amount}}</td>
 				<td>{{strip}}</td>
@@ -230,7 +230,7 @@
 			    </thead>
 			    <tbody>
 			      {{#each todayrequests}}
-			        <tr>
+			        <tr style="{{colorIfIsToday}}">
 			        	<td>
 			          		<span data-toggle="modal" href="#deleterequestitem" class="glyphicon glyphicon-trash clickable"></span>
 			          		<span data-toggle="modal" href="#updaterequestitem" class="glyphicon glyphicon-pencil clickable"></span>
@@ -370,7 +370,7 @@
 	    </thead>
 	    <tbody>
 	      {{#each harvestlog}}
-	        <tr>
+	        <tr style="{{colorIfIsToday}}">
 	        	<td>
 	        	{{#if isToday}}
 	          		<span data-toggle="modal" href="#deleteharvestitem" class="glyphicon glyphicon-trash clickable"></span>

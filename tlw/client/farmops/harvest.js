@@ -83,6 +83,15 @@ var harvestHelpers = {
 		end.setUTCHours(24);
 		return this.date >= start && this.date < end;
 	},
+	colorIfIsToday: function(template) {
+		var start = today();
+		var end = new Date(start);
+		end.setUTCHours(24);
+		if(this.date >= start && this.date < end) {
+			return "color:green; font-weight:bold;";
+		}
+		return "";
+	},
 };
 
 var modalHelpers = {
