@@ -16,7 +16,8 @@ Router.map(function() {
 	this.route('volunteer');	
 	this.route('newvol');	
 	this.route('volsignin');	
-	this.route('volsignout');	
+	this.route('volsignout');
+	this.route('visitors');	
 
 	this.route('farmops', {
 		layoutTemplate: 'layoutFarmops',
@@ -44,6 +45,12 @@ Router.map(function() {
 		layoutTemplate: 'layoutAdmin',
 	});
 	this.route('volunteersAdmin', {
+		layoutTemplate: 'layoutAdmin',
+	});
+	this.route('visitorsAdmin', {
+		layoutTemplate: 'layoutAdmin',
+	});
+	this.route('visitTypesAdmin', {
 		layoutTemplate: 'layoutAdmin',
 	});
 	this.route('productsAdmin', {

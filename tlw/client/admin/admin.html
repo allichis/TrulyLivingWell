@@ -10,6 +10,8 @@
         <li class="{{activeIfTemplateIs 'productsAdmin'}}"><a href="{{pathFor 'productsAdmin'}}">Products</a></li>
         <li class="{{activeIfTemplateIs 'locationsAdmin'}}"><a href="{{pathFor 'locationsAdmin'}}">Locations</a></li>
         <li class="{{activeIfTemplateIs 'volunteersAdmin'}}"><a href="{{pathFor 'volunteersAdmin'}}">Volunteers</a></li>
+        <li class="{{activeIfTemplateIs 'visitorsAdmin'}}"><a href="{{pathFor 'visitorsAdmin'}}">Visitors</a></li>
+        <li class="{{activeIfTemplateIs 'visitTypesAdmin'}}"><a href="{{pathFor 'visitTypesAdmin'}}">Visit Types</a></li>
         <li class="{{activeIfTemplateIs 'requestsAdmin'}}"><a href="{{pathFor 'requestsAdmin'}}">Requests</a></li>
         <li class="{{activeIfTemplateIs 'harvestAdmin'}}"><a href="{{pathFor 'harvestAdmin'}}">Harvest</a></li>
       </ul>
@@ -275,3 +277,92 @@
   {{> updateHarvestModalAdmin}}
 </template>
 
+
+<template name="visitorsAdmin">
+
+  <div class="container">
+    <div class="row visitors-search">
+      <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
+        <h4>Visitor Search <small>(Visit Type)</small></h4>
+        <div class="input-group">
+          <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
+          <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Visit Date</th>
+          <th>Visit Type</th>
+          <th>Contact Name</th>
+          <th>Organization</th>
+          <th>Number of People</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each visitors}}
+          <tr>
+            <td>
+              <span data-toggle="modal" href="#deletevisitor" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#updatevisitor" class="glyphicon glyphicon-pencil clickable"></span>
+              <span data-toggle="modal" href="#infovisitor" class="glyphicon glyphicon-info-sign clickable"></span>
+            </td>
+            <td>{{displaydate date}}</td>
+            <td>{{visitType}}</td>
+            <td>{{contact.lastname}}, {{contact.firstname}}</td>
+            <td>{{organization}}</td>
+            <td>{{numPeople}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{> deleteVisitorModal}}
+  {{> updateVisitorModal}}
+  {{> infoVisitorModal}}
+</template>
+
+<template name="visitTypesAdmin">
+  
+  <div class="container">
+      <button type="button" data-toggle="modal" href="#insertvisittype" class="btn btn-success" >Add New Visit Type</button>
+  </div>
+
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Visit Type</th>
+          <th>Cost</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each visittypes}}
+          <tr>
+            <td>
+              <span data-toggle="modal" href="#deletevisittype" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#updatevisittype" class="glyphicon glyphicon-pencil clickable"></span>
+            </td>
+            <td>{{title}}</td>
+            <td>{{cost}}</td>
+            <td>{{location}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  {{> insertVisitTypeModal}}
+  {{> deleteVisitTypeModal}}
+  {{> updateVisitTypeModal}}
+</template>

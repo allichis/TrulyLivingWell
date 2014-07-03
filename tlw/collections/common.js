@@ -93,6 +93,42 @@ Schema.VolunteerTimecards = new SimpleSchema({
 	},
 });
 
+Schema.VisitorContact = new SimpleSchema({
+	firstname: {
+		type: String,
+		label: "* First name",
+		max: 45
+	},
+	lastname: {
+		type: String,
+		label: "* Last name",
+		max: 45
+	},
+	dob: {
+		type: Date,
+		label: "Date of birth",
+		optional: true,
+	},
+	email: {
+		type: String,
+		label: "Email address",
+		// schema for matching email addresses...
+		regEx: SimpleSchema.RegEx.Email,
+		optional: true,
+	},
+	phone: {	
+		type: String,
+		label: "Phone number",
+		// validate as phone number...
+		max: 15,
+		optional: true,
+	},
+	isVeteran: {
+		type: Boolean,
+		label: "Veteran status",
+	},
+});
+
 Schema.Visitors = new SimpleSchema({
 	// *** these are usually groups, not individuals, right?
 	// contact person info: fname, lname, phone, email, ...
@@ -100,6 +136,53 @@ Schema.Visitors = new SimpleSchema({
 	// number in group
 	// donation and/or tour type
 	// oh yeah, date of visit?
+	contact: {
+		type: Schema.VisitorContact,
+		label: "Contact Person",
+	},
+	organization: {
+		type: String,
+		label: "Organization",
+		max: 45,
+		optional: true,
+	},
+	numPeople: {
+		type: Number,
+		label: "How many people are in your group?",
+	},
+	visitType: {
+		type: String,
+		label: "What brings you to Truly Living Well?",
+	},
+	/*otherVisitType: {
+		type: String,
+		label: "Other reason for visit",
+	},*/
+	comments: {
+		type: String,
+		label: "Comments",
+		max: 256,
+		optional: true,
+	},
+	date: {
+		type: Date,
+		label: "Date of Visit"
+	}
+});
+
+Schema.VisitTypes = new SimpleSchema({
+	title: {
+		type: String,
+		max: 45,
+	},
+	cost: {
+		type: Number,
+		optional: true,
+	},
+	location: {
+		type: String,
+		optional: true,
+	},
 });
 
 Schema.Staff = new SimpleSchema({
@@ -252,6 +335,14 @@ Volunteers.attachSchema(Schema.Volunteers);
 // Volunteer Timecards
 VolunteerTimecards = new Meteor.Collection("volTimecards");
 VolunteerTimecards.attachSchema(Schema.VolunteerTimecards);
+
+// Visitors
+Visitors = new Meteor.Collection("visitors");
+Visitors.attachSchema(Schema.Visitors);
+
+// Visit Types
+VisitTypes = new Meteor.Collection("visittypes");
+VisitTypes.attachSchema(Schema.VisitTypes);
 
 // Requests
 Requests = new Meteor.Collection("requests");

@@ -1,0 +1,31 @@
+<template name="visitors">
+	<div class="container">
+	    <div class="row">
+	      <div class="jumbotron">
+	        <h1>Visitors</h1>
+	        <p>Welcome to Truly Living Well!</p>
+	      </div><!-- /.jumbotron -->
+	    </div><!-- /.row -->
+	</div><!-- /.container -->
+	{{> visitorForm}}
+</template>
+
+<template name="visitorForm">
+	<div class="container">
+		{{# autoForm collection="Visitors" id="visitorForm" type="insert"}}
+		<fieldset>
+			{{> afQuickField name='contact'}}
+			{{> afQuickField name='organization'}}
+			{{> afQuickField name='numPeople'}}
+			{{> afQuickField name='visitType' options=visitTypeOptions}}
+			{{> afQuickField name='comments'}}
+			{{> afQuickField name='date'}}
+		</fieldset>
+	    <button type="submit" class="btn btn-success">Submit</button>
+		{{/autoForm}}
+	</div>
+</template>
+
+<template name="visitorConfirmation">
+
+</template>

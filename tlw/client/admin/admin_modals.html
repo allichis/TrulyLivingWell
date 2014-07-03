@@ -282,3 +282,153 @@
 	 	</div>
 	{{/with}}  
 </template>
+
+
+<template name="deleteVisitorModal">
+	<div id="deletevisitor" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					{{#with itemInScope}}
+					<div class="modal-body">
+						<h4>Are you sure you want to delete the visit <strong>{{contact.lastname}}, {{contact.firstname}}</strong> on <strong>{{displaydate date}}</strong>?</h4>
+					</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+						<button type="button" class="btn btn-danger">Delete</button>
+					</div>
+					{{/with}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="updateVisitorModal">
+	<div id="updatevisitor" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					{{#with itemInScope}}
+					<div class="modal-header">
+						<h4>Update Visit: <strong>{{contact.lastname}}, {{contact.firstname}}</strong> on <strong>{{displaydate date}}</strong></h4>
+					</div>
+					<div class="modal-body">
+						{{# autoForm collection="Visitors" doc=this id="updateVisitorsForm" type="update"}}
+						<fieldset>
+							{{> afQuickField name='contact'}}
+							{{> afQuickField name='organization'}}
+							{{> afQuickField name='numPeople'}}
+							{{> afQuickField name='visitType' options=visitTypeOptions}}
+							{{> afQuickField name='date'}}
+						</fieldset>
+						<div class="modal-footer">
+					    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+					    	<button type="submit" class="btn btn-success" onclick="$('#updatevisitor').modal('hide');">Submit</button>
+					    </div>
+						{{/autoForm}}
+					</div>
+					{{/with}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="infoVisitorModal">
+	<div id="infovisitor" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					{{#with itemInScope}}
+					<div class="modal-header">
+						<h4>Information for Visit: <strong>{{contact.lastname}}, {{contact.firstname}}</strong> on <strong>{{displaydate date}}</strong></h4>
+					</div>
+					<div class="modal-body">
+						<ul>
+							<li>{{contact}}</li>
+							<li>{{organization}}</li>
+							<li>{{numPeople}}</li>
+							<li>{{visitType}}</li>
+							<li>{{comments}}</li>
+						</ul>
+					</div>
+					<div class="modal-footer">
+					   	<button type="button" data-dismiss="modal" class="btn btn-default">Done</button>
+					</div>
+					{{/with}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="insertVisitTypeModal">
+	<div id="insertvisittype" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>New Visit Type</h3>
+				</div>
+				<div class="modal-body">
+					{{# autoForm collection="VisitTypes" id="insertVisitTypeForm" type="insert"}}
+					<fieldset>
+						{{> afQuickField name='title'}}
+						{{> afQuickField name='cost'}}
+						{{> afQuickField name='location'}}
+					</fieldset>
+					<div class="modal-footer">
+				    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+				    	<button type="submit" class="btn btn-success" onclick="$('#insertvisittype').modal('hide');">Submit</button>
+				    </div>
+					{{/autoForm}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="deleteVisitTypeModal">
+	<div id="deletevisittype" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{#with itemInScope}}
+				<div class="modal-body">
+					<h4>Are you sure you want to delete <strong>{{title}}</strong>?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+					<button type="button" class="btn btn-danger">Delete</button>
+				</div>
+				{{/with}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="updateVisitTypeModal">
+	<div id="updatevisittype" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{#with itemInScope}}
+				<div class="modal-header">
+					<h4>Update <strong>{{title}}</strong></h4>
+				</div>
+				<div class="modal-body">
+					{{# autoForm collection="VisitTypes" doc=this id="updateVisitTypeForm" type="update"}}
+					<fieldset>
+						{{> afQuickField name='title'}}
+						{{> afQuickField name='cost'}}
+						{{> afQuickField name='location'}}
+					</fieldset>
+					<div class="modal-footer">
+				    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+				    	<button type="submit" class="btn btn-success" onclick="$('#updatevisittype').modal('hide');">Submit</button>
+				    </div>
+					{{/autoForm}}
+				</div>
+				{{/with}}
+			</div>
+		</div>
+	</div>
+</template>

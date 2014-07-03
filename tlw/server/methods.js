@@ -88,4 +88,14 @@ Meteor.methods({
 		}
 		// VTC: volId, status, timeOpened, timeClosed
 	},
+
+	// VISITORS
+	deleteVisitor: function(vId) {
+		Visitors.remove(vId);
+	},
+
+	// VISIT TYPES
+	deleteVisitType: function(vId) {
+		VisitTypes.remove(vId);
+	},
 });

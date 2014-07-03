@@ -205,6 +205,15 @@ var modalHelpers = {
 	    }
 	    return options;
 	},
+	visitTypeOptions: function() {
+	    var options = [];
+	    var visittypes = VisitTypes.find({}, {sort: {title:1}}).fetch();
+	    for(i=0; i<visittypes.length; i++){
+	    	var title = visittypes[i].title;
+	    	options.push({label: title, value: title})
+	    }
+	    return options;
+	},
 };
 
 // REQUESTS
@@ -260,3 +269,57 @@ Template.updateHarvestModalInnerAdmin.helpers(
 );
 
 
+// VISITORS
+Template.deleteVisitorModal.helpers(
+	modalHelpers
+);
+
+Template.deleteVisitorModal.events({
+	'click .btn-danger': function(event, template) {
+		Meteor.call('deleteVisitor', this._id, function(error) {
+			if (error) {
+				// optionally use a meteor errors package
+				if (typeof Errors === "undefined")
+					Log.error('Error: ' + error.reason);
+				else {
+					Errors.throw(error.reason);
+				}
+			}
+			$("#deletevisitor").modal("hide");
+		});
+	}
+});
+
+Template.updateVisitorModal.helpers(
+	modalHelpers
+);
+
+Template.infoVisitorModal.helpers(
+	modalHelpers
+);
+
+// VISIT TYPES
+
+Template.deleteVisitTypeModal.helpers(
+	modalHelpers
+);
+
+Template.deleteVisitTypeModal.events({
+	'click .btn-danger': function(event, template) {
+		Meteor.call('deleteVisitType', this._id, function(error) {
+			if (error) {
+				// optionally use a meteor errors package
+				if (typeof Errors === "undefined")
+					Log.error('Error: ' + error.reason);
+				else {
+					Errors.throw(error.reason);
+				}
+			}
+			$("#deletevisittype").modal("hide");
+		});
+	}
+});
+
+Template.updateVisitTypeModal.helpers(
+	modalHelpers
+);

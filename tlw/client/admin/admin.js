@@ -186,6 +186,16 @@ var adminHelpers = {
 		else
 			return HarvestLog.find({}, {sort: {date: -1, itemname:1}})
 	},
+	visitors: function(template) {
+		filter = Session.get("visitorsFilter");
+		if(!!filter)
+			return Visitors.find({'visitType': {$regex: filter, $options: 'i'}}, {sort: {date:-1, visitType:1}});
+		else
+			return Visitors.find({}, {sort: {date:-1, visitType:1}});
+	},
+	visittypes: function(template) {
+		return VisitTypes.find({}, {sort: {title:1}});
+	},
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
 	},
@@ -228,3 +238,41 @@ Template.harvestAdmin.events(
 	adminEvents
 );
 
+
+// VISITORS
+Template.visitorsAdmin.helpers(
+	adminHelpers
+);
+
+Template.visitorsAdmin.events({
+	'keyup .search-input-filter': function(event, template) {
+        setVisitorsFilter(template);
+        return false;
+    },
+    'click .glyphicon-trash': function(event, template) {
+		Session.set('itemInScope', this);
+    },
+    'click .glyphicon-pencil': function(event, template) {
+		Session.set('itemInScope', this);
+    },
+});
+
+// search no more than 2 times per second
+var setVisitorsFilter = _.throttle(function(template) {
+	var search = template.find(".search-input-filter").value;
+	Session.set("visitorsFilter", search);
+}, 500);
+
+// VISIT TYPES
+Template.visitTypesAdmin.helpers(
+	adminHelpers
+);
+
+Template.visitTypesAdmin.events({
+	'click .glyphicon-trash': function(event, template) {
+		Session.set('itemInScope', this);
+    },
+    'click .glyphicon-pencil': function(event, template) {
+		Session.set('itemInScope', this);
+    },
+});
