@@ -193,6 +193,10 @@ Template.deleteHarvestItemModalInner.helpers(
 	modalHelpers
 );
 
+Template.updateHarvestItemModalInner.helpers(
+	modalHelpers
+);
+
 Template.deleteHarvestItemModalInner.events({
 	'click .btn-danger': function(event, template) {
 		Meteor.call('deleteHarvestLogItem', this._id, function(error) {

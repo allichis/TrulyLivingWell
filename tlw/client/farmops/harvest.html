@@ -374,6 +374,7 @@
 	        	<td>
 	        	{{#if isToday}}
 	          		<span data-toggle="modal" href="#deleteharvestitem" class="glyphicon glyphicon-trash clickable"></span>
+	          		<span data-toggle="modal" href="#updateharvestitem" class="glyphicon glyphicon-pencil clickable"></span>
 	        	{{/if}}
 	          	</td>
 				<td>{{itemname}}</td>
@@ -387,6 +388,7 @@
 	    </tbody>
 	</table>
 	{{> deleteHarvestItemModal}}
+	{{> updateHarvestItemModal}}
 </template>
 
 <template name="deleteHarvestItemModal">
