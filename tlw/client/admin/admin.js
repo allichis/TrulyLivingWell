@@ -1,3 +1,9 @@
+var today = function() {
+	var date = new Date();
+	date.setUTCHours(0,0,0,0);
+	return date;
+};
+
 Template.navAdmin.helpers({
 	activeIfTemplateIs: function (template) {
 		var currentRoute = Router.current();
@@ -165,8 +171,7 @@ var adminEvents = {
     },
 };
 
-// REQUESTS
-Template.requestsAdmin.helpers({
+var adminHelpers = {
 	requests: function() {
 		filter = Session.get("productsFilter");
 		if(!!filter)
@@ -174,21 +179,6 @@ Template.requestsAdmin.helpers({
 		else
 			return Requests.find({}, {sort: {date: -1, itemname:1}})
 	},
-	displaydate: function(date) {
-		return moment.utc(date).format("LL");
-	},
-
-	searchFilter: function() {
-		return Session.get("productsFilter");
-	},
-});
-
-Template.requestsAdmin.events(
-	adminEvents
-);
-
-// HARVESTS
-Template.harvestAdmin.helpers({
 	harvestlogs: function() {
 		filter = Session.get("productsFilter");
 		if(!!filter)
@@ -199,7 +189,40 @@ Template.harvestAdmin.helpers({
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
 	},
-});
+	searchFilter: function() {
+		return Session.get("productsFilter");
+	},
+	isToday: function(template) {
+		var start = today();
+		var end = new Date(start);
+		end.setUTCHours(24);
+		return this.date >= start && this.date < end;
+	},
+	colorIfIsToday: function(template) {
+		var start = today();
+		var end = new Date(start);
+		end.setUTCHours(24);
+		if(this.date >= start && this.date < end) {
+			return "color:green; font-weight:bold;";
+		}
+		return "";
+	},
+};
+
+
+// REQUESTS
+Template.requestsAdmin.helpers(
+	adminHelpers
+);
+
+Template.requestsAdmin.events(
+	adminEvents
+);
+
+// HARVESTS
+Template.harvestAdmin.helpers(
+	adminHelpers
+);
 
 Template.harvestAdmin.events(
 	adminEvents

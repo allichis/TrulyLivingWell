@@ -206,7 +206,7 @@
       </thead>
       <tbody>
         {{#each requests}}
-          <tr>
+          <tr style="{{colorIfIsToday}}">
             <td>
               <span data-toggle="modal" href="#deleterequestadmin" class="glyphicon glyphicon-trash clickable"></span>
               <span data-toggle="modal" href="#updaterequestadmin" class="glyphicon glyphicon-pencil clickable"></span>
@@ -255,7 +255,7 @@
       </thead>
       <tbody>
         {{#each harvestlogs}}
-          <tr>
+          <tr style="{{colorIfIsToday}}">
             <td>
               <span data-toggle="modal" href="#deleteharvestadmin" class="glyphicon glyphicon-trash clickable"></span>
               <span data-toggle="modal" href="#updateharvestadmin" class="glyphicon glyphicon-pencil clickable"></span>
