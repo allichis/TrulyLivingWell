@@ -34,7 +34,7 @@ Template.deleteVolunteerModal.events({
 
 // PRODUCTS
 
-Template.deleteProductModalInner.helpers({
+Template.deleteProductModal.helpers({
 	itemname: function () {
 		if (this.itemname && this.itemname.length)
 			return this.itemname;
@@ -58,7 +58,7 @@ Template.deleteProductModalInner.helpers({
 	}
 });
 
-Template.deleteProductModalInner.events({
+Template.deleteProductModal.events({
 	'click .btn-danger': function(event, template) {
 		Meteor.call('deleteProduct', this._id, function(error) {
 			if (error) {
@@ -74,7 +74,7 @@ Template.deleteProductModalInner.events({
 	}
 });
 
-Template.updateProductModalInner.helpers({
+Template.updateProductModal.helpers({
 	itemname: function () {
 		if (this.itemname && this.itemname.length)
 			return this.itemname;
@@ -98,7 +98,7 @@ Template.updateProductModalInner.helpers({
 	}
 });
 
-Template.updateProductModalInner.events({
+Template.updateProductModal.events({
 	'click .btn-primary': function(event, template) {
 		var productname = template.find(".admin-product-info").value;
 		var productid = this._id;
@@ -121,7 +121,7 @@ Template.updateProductModalInner.events({
 
 // LOCATIONS
 
-Template.deleteLocationModalInner.helpers({
+Template.deleteLocationModal.helpers({
 	name: function () {
 		if (this.name && this.name.length)
 			return this.name;
@@ -132,7 +132,7 @@ Template.deleteLocationModalInner.helpers({
 	}
 });
 
-Template.deleteLocationModalInner.events({
+Template.deleteLocationModal.events({
 	'click .btn-danger': function(event, template) {
 		Meteor.call('deleteLocation', this._id, function(error) {
 			if (error) {
@@ -148,7 +148,7 @@ Template.deleteLocationModalInner.events({
 	}
 });
 
-Template.updateLocationModalInner.helpers({
+Template.updateLocationModal.helpers({
 	name: function () {
 		if (this.name && this.name.length)
 			return this.name;
@@ -159,7 +159,7 @@ Template.updateLocationModalInner.helpers({
 	}
 });
 
-Template.updateLocationModalInner.events({
+Template.updateLocationModal.events({
 	'click .btn-primary': function(event, template) {
 		var locationname = template.find(".admin-location-info").value;
 		var locationid = this._id;
@@ -218,11 +218,11 @@ var modalHelpers = {
 
 // REQUESTS
 
-Template.deleteRequestModalInnerAdmin.helpers(
+Template.deleteRequestModalAdmin.helpers(
 	modalHelpers
 );
 
-Template.deleteRequestModalInnerAdmin.events({
+Template.deleteRequestModalAdmin.events({
 	'click .btn-danger': function(event, template) {
 		Meteor.call('deleteRequest', this._id, function(error) {
 			if (error) {
@@ -238,17 +238,17 @@ Template.deleteRequestModalInnerAdmin.events({
 	}
 });
 
-Template.updateRequestModalInnerAdmin.helpers(
+Template.updateRequestModalAdmin.helpers(
 	modalHelpers
 );
 
 // HARVEST LOG
 
-Template.deleteHarvestModalInnerAdmin.helpers(
+Template.deleteHarvestModalAdmin.helpers(
 	modalHelpers
 );
 
-Template.deleteHarvestModalInnerAdmin.events({
+Template.deleteHarvestModalAdmin.events({
 	'click .btn-danger': function(event, template) {
 		Meteor.call('deleteHarvestLogItem', this._id, function(error) {
 			if (error) {
@@ -264,7 +264,7 @@ Template.deleteHarvestModalInnerAdmin.events({
 	}
 });
 
-Template.updateHarvestModalInnerAdmin.helpers(
+Template.updateHarvestModalAdmin.helpers(
 	modalHelpers
 );
 
