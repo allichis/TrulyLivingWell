@@ -294,10 +294,6 @@ Template.updateVisitorModal.helpers(
 	modalHelpers
 );
 
-Template.infoVisitorModal.helpers(
-	modalHelpers
-);
-
 // VISIT TYPES
 
 Template.deleteVisitTypeModal.helpers(

@@ -301,9 +301,12 @@
           <th></th>
           <th>Visit Date</th>
           <th>Visit Type</th>
-          <th>Contact Name</th>
+          <th>Children</th>
+          <th>Adults</th>
+          <th>Seniors</th>
+          <th>Contact</th>
           <th>Organization</th>
-          <th>Number of People</th>
+          <th>Comments</th>
         </tr>
       </thead>
       <tbody>
@@ -312,13 +315,15 @@
             <td>
               <span data-toggle="modal" href="#deletevisitor" class="glyphicon glyphicon-trash clickable"></span>
               <span data-toggle="modal" href="#updatevisitor" class="glyphicon glyphicon-pencil clickable"></span>
-              <span data-toggle="modal" href="#infovisitor" class="glyphicon glyphicon-info-sign clickable"></span>
             </td>
             <td>{{displaydate date}}</td>
             <td>{{visitType}}</td>
-            <td>{{contact.lastname}}, {{contact.firstname}}</td>
+            <td>{{numChildren}}</td>
+            <td>{{numAdults}}</td>
+            <td>{{numSeniors}}</td>
+            <td>{{contact}}</td>
             <td>{{organization}}</td>
-            <td>{{numPeople}}</td>
+            <td>{{comments}}</td>
           </tr>
         {{/each}}
       </tbody>
@@ -327,7 +332,6 @@
 
   {{> deleteVisitorModal}}
   {{> updateVisitorModal}}
-  {{> infoVisitorModal}}
 </template>
 
 <template name="visitTypesAdmin">

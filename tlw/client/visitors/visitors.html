@@ -1,28 +1,69 @@
 <template name="visitors">
 	<div class="container">
-	    <div class="row">
-	      <div class="jumbotron">
-	        <h1>Visitors</h1>
-	        <p>Welcome to Truly Living Well!</p>
-	      </div><!-- /.jumbotron -->
-	    </div><!-- /.row -->
+	{{> visitorCheckIn}}
+	</div>
+</template>
+
+<template name="visitorCheckIn">
+	<div class="container">
+      <div class="jumbotron">
+        <h1>Visitor Check-In</h1>
+      </div><!-- /.jumbotron -->
 	</div><!-- /.container -->
-	{{> visitorForm}}
+	<div class="container">
+		<!-- {{> quickForm collection="Visitors" id="visitorForm" type="insert"}} -->
+		{{# autoForm collection="Visitors" id="visitorForm" type="insert" resetOnSuccess='true'}}
+		<fieldset>
+			<div class="row">
+				<div class="col-md-3"> 
+					{{> afQuickField name='date'}}
+				</div>
+				<div class="col-md-3">
+					{{> afQuickField name='visitType' options=visitTypeOptions}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"> 
+					{{> afQuickField name='numChildren'}}
+				</div>
+				<div class="col-md-2">
+					{{> afQuickField name='numAdults'}}
+				</div>
+				<div class="col-md-2">
+					{{> afQuickField name='numSeniors'}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-3"> 
+					{{> afQuickField name='contact'}}
+				</div>
+				<div class="col-md-3">
+					{{> afQuickField name='organization'}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6"> 
+					{{> afQuickField name='comments'}}
+				</div>
+			</div>
+		</fieldset>
+	    <button type="submit" class="btn btn-primary">Submit</button>
+		{{/autoForm}}
+	</div>
 </template>
 
 <template name="visitorForm">
+	<!-- replace this with link to google form? let TLW handle the visit scheduling -->
 	<div class="container">
-		{{# autoForm collection="Visitors" id="visitorForm" type="insert"}}
-		<fieldset>
-			{{> afQuickField name='contact'}}
-			{{> afQuickField name='organization'}}
-			{{> afQuickField name='numPeople'}}
-			{{> afQuickField name='visitType' options=visitTypeOptions}}
-			{{> afQuickField name='comments'}}
-			{{> afQuickField name='date'}}
-		</fieldset>
-	    <a href="{{ pathFor 'visitorConfirmation' }}"><button type="submit" class="btn btn-primary">Submit</button></a>
-		{{/autoForm}}
+	    <div class="row">
+	      <div class="jumbotron">
+	        <h2>Request/Schedule a visit with Truly Living Well!</h2>
+	        <p>(link to google form here)</p>
+	      </div><!-- /.jumbotron -->
+	    </div><!-- /.row -->
+	</div><!-- /.container -->
+	<div class="container">
+		
 	</div>
 </template>
 

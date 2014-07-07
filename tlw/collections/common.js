@@ -136,9 +136,42 @@ Schema.Visitors = new SimpleSchema({
 	// number in group
 	// donation and/or tour type
 	// oh yeah, date of visit?
+	date: {
+		type: Date,
+		label: "Date of Visit"
+	},
+	visitType: {
+		type: String,
+		label: "Type of visit",
+		max: 45,
+	},
+	numChildren: {
+		type: Number,
+		label: "Number of children",
+		defaultValue: 0,
+		min: 0,
+	},
+	numAdults: {
+		type: Number,
+		label: "Number of adults",
+		defaultValue: 0,
+		min: 0,
+	},
+	numSeniors: {
+		type: Number,
+		label: "Number of seniors",
+		defaultValue: 0,
+		min: 0,
+	},
+	/*otherVisitType: {
+		type: String,
+		label: "Other reason for visit",
+	},*/
 	contact: {
-		type: Schema.VisitorContact,
-		label: "Contact Person",
+		type: String,
+		label: "Contact",
+		max: 45,
+		optional: true,
 	},
 	organization: {
 		type: String,
@@ -146,28 +179,12 @@ Schema.Visitors = new SimpleSchema({
 		max: 45,
 		optional: true,
 	},
-	numPeople: {
-		type: Number,
-		label: "How many people are in your group?",
-	},
-	visitType: {
-		type: String,
-		label: "What brings you to Truly Living Well?",
-	},
-	/*otherVisitType: {
-		type: String,
-		label: "Other reason for visit",
-	},*/
 	comments: {
 		type: String,
 		label: "Comments",
 		max: 256,
 		optional: true,
 	},
-	date: {
-		type: Date,
-		label: "Date of Visit"
-	}
 });
 
 Schema.VisitTypes = new SimpleSchema({

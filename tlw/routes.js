@@ -17,6 +17,8 @@ Router.map(function() {
 	this.route('newvol');	
 	this.route('volsignin');	
 	this.route('volsignout');
+	this.route('visitorCheckIn');
+	this.route('visitorForm');
 	this.route('visitors');
 	this.route('visitorConfirmation');	
 

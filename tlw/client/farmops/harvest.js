@@ -4,15 +4,28 @@ var today = function() {
 	return date;
 };
 
+var dateToDateString = function(date) {
+  var m = (date.getMonth() + 1);
+  if (m < 10) {
+    m = "0" + m;
+  }
+  var d = date.getDate();
+  if (d < 10) {
+    d = "0" + d;
+  }
+  return date.getFullYear() + '/' + m + '/' + d;
+};
+
 var dateHelpers = {
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
 	},
 	today: function() {
-		var date = new Date();
-		date.setUTCHours(0,0,0,0);
-		return date;
-	}
+		return today();
+	},
+	todayString: function() {
+		return dateToDateString(today());
+	},
 };
 
 var optionsHelpers = {
@@ -101,6 +114,15 @@ var modalHelpers = {
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
 	},
+	productOptions: function() {
+	    var options = [];
+	    var products = Products.find({}, {sort: {itemname:1}}).fetch();
+	    for(i=0; i<products.length; i++){
+	    	var itemname = products[i].itemname;
+	    	options.push({label: itemname, value: itemname})
+	    }
+	    return options;
+	},
 	locationOptions: function() {
 	    var options = [];
 	    var locations = Locations.find().fetch();
@@ -109,6 +131,9 @@ var modalHelpers = {
 	    	options.push({label: locname, value: locname})
 	    }
 	    return options;
+	},
+	todayString: function() {
+		return dateToDateString(today());
 	},
 };
 
@@ -131,7 +156,7 @@ Template.insertRequestModalInner.rendered = function() {
 // HARVEST REQUESTS
 
 Template.insertRequestModalInner.helpers(
-	optionsHelpers
+	modalHelpers
 );
 
 Template.displayRequests.helpers(
@@ -178,7 +203,7 @@ Template.display3DayRequests.helpers(
 // HARVEST LOG
 
 Template.insertHarvestLogModalInner.helpers(
-	optionsHelpers
+	modalHelpers
 );
 
 Template.displayHarvestLog.helpers(
