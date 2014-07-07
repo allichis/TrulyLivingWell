@@ -213,7 +213,7 @@ Schema.Requests = new SimpleSchema({
 	},
 	amount: {
 		type: Number,
-		label: "Amount Requested",
+		label: "Amount",
 		min: 0,
 		optional: true,
 	},
@@ -254,7 +254,7 @@ Schema.HarvestLog = new SimpleSchema({
 	// weighed_amt
 	amount: {
 		type: Number,
-		label: "Amount Harvested",
+		label: "Amount",
 		min: 0
 	},
 	// strip harvested?

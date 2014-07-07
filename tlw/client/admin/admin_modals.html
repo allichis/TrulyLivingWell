@@ -62,53 +62,44 @@
 	<div id="deleteproduct" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				{{> deleteProductModalInner}}
+				{{#with productInScope}}
+				 	<div class="modal-body">
+				 		<h4>Are you sure you want to delete {{itemname}}?</h4>
+				 	</div>
+				 	<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+						<button type="button" class="btn btn-danger">Delete</button>
+					</div>
+				{{/with}}
 			</div>
 		</div>
 	</div>
-</template>
-
-<template name="deleteProductModalInner">
-	{{#with productInScope}}
-	 	<div class="modal-body">
-	 		<h4>Are you sure you want to delete {{itemname}}?</h4>
-	 	</div>
-	 	<div class="modal-footer">
-			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-			<button type="button" class="btn btn-danger">Delete</button>
-		</div>
-	{{/with}}
 </template>
 
 <template name="updateProductModal">
 	<div id="updateproduct" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				{{> updateProductModalInner}}
+				{{#with productInScope}}
+					<div class="modal-header">
+						<h4>Update {{itemname}}</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon">Item Name</span>
+								<input data-product-id="{{_id}}" class="form-control admin-product-info" name="itemname" value="{{itemname}}" placeholder="{{itemname}}">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-primary">Done</button>
+					</div>
+				{{/with}}
 			</div>
 		</div>
 	</div>
 </template>
-
-<template name="updateProductModalInner">
-	{{#with productInScope}}
-		<div class="modal-header">
-			<h4>Update {{itemname}}</h4>
-		</div>
-		<div class="modal-body">
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">Item Name</span>
-					<input data-product-id="{{_id}}" class="form-control admin-product-info" name="itemname" value="{{itemname}}" placeholder="{{itemname}}">
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" data-dismiss="modal" class="btn btn-primary">Done</button>
-		</div>
-	{{/with}}
-</template>
-
 
 <!-- LOCATIONS -->
 
@@ -116,53 +107,44 @@
 	<div id="deletelocation" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				{{> deleteLocationModalInner}}
+				{{#with locationInScope}}
+				 	<div class="modal-body">
+				 		<h4>Are you sure you want to delete {{name}}?</h4>
+				 	</div>
+				 	<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+						<button type="button" class="btn btn-danger">Delete</button>
+					</div>
+				{{/with}}
 			</div>
 		</div>
 	</div>
-</template>
-
-<template name="deleteLocationModalInner">
-	{{#with locationInScope}}
-	 	<div class="modal-body">
-	 		<h4>Are you sure you want to delete {{name}}?</h4>
-	 	</div>
-	 	<div class="modal-footer">
-			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-			<button type="button" class="btn btn-danger">Delete</button>
-		</div>
-	{{/with}}
 </template>
 
 <template name="updateLocationModal">
 	<div id="updatelocation" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				{{> updateLocationModalInner}}
+				{{#with locationInScope}}
+					<div class="modal-header">
+						<h4>Update {{name}}</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<div class="input-group">
+								<span class="input-group-addon">Location Name</span>
+								<input data-product-id="{{_id}}" class="form-control admin-location-info" name="name" value="{{name}}" placeholder="{{name}}">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-primary">Done</button>
+					</div>
+				{{/with}}
 			</div>
 		</div>
 	</div>
 </template>
-
-<template name="updateLocationModalInner">
-	{{#with locationInScope}}
-		<div class="modal-header">
-			<h4>Update {{name}}</h4>
-		</div>
-		<div class="modal-body">
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon">Location Name</span>
-					<input data-product-id="{{_id}}" class="form-control admin-location-info" name="name" value="{{name}}" placeholder="{{name}}">
-				</div>
-			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" data-dismiss="modal" class="btn btn-primary">Done</button>
-		</div>
-	{{/with}}
-</template>
-
 
 <!-- HARVEST LOG -->
 
@@ -170,57 +152,72 @@
 	<div id="deleteharvestadmin" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				{{> deleteHarvestModalInnerAdmin}}
+				{{#with itemInScope}}
+				 	<div class="modal-body">
+				 		<h4>Are you sure you want to delete the log entry for <strong>{{itemname}}</strong> harvested on {{displaydate date}}?</h4>
+				 	</div>
+				 	<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+						<button type="button" class="btn btn-danger">Delete</button>
+					</div>
+				{{/with}}
 			</div>
 		</div>
 	</div>
-</template>
-
-<template name="deleteHarvestModalInnerAdmin">
-	{{#with itemInScope}}
-	 	<div class="modal-body">
-	 		<h4>Are you sure you want to delete the log entry for <strong>{{itemname}}</strong> harvested on {{displaydate date}}?</h4>
-	 	</div>
-	 	<div class="modal-footer">
-			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-			<button type="button" class="btn btn-danger">Delete</button>
-		</div>
-	{{/with}}
 </template>
 
 <template name="updateHarvestModalAdmin">
 	<div id="updateharvestadmin" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				{{> updateHarvestModalInnerAdmin}}
+				{{#with itemInScope}}
+					<div class="modal-header">
+						<h3>Update Harvest:</h3>
+					</div>
+				 	<div class="modal-body">
+						{{# autoForm collection="HarvestLog" doc=this id="updateHarvestLogForm" type="update"}}
+						<fieldset>
+						<div class="panel">
+							<div class="row">
+								<div class="col-md-4">
+									<h4>{{itemname}}</h4>
+								</div>
+							</div>
+							<div class="row">
+						     	<div class="col-md-4">
+						        	<h4>{{displaydate date}}</h4>
+						        </div>
+						    </div>
+					    </div>
+					    <div class="row">
+							<div class="col-md-4"> 
+					        	{{> afQuickField name='amount'}}
+					        </div>
+					       	<div class="col-md-4"> 
+					        	{{> afQuickField name='strip'}}
+					        </div>
+					    </div>
+					    <div class="row">
+					     	<div class="col-md-4">
+					        	{{> afQuickField name='location' options=locationOptions}}
+					        </div>
+					    </div>
+					    <div class="row"> 
+					        <div class="col-md-12"> 
+					        	{{> afQuickField name='notes'}}
+					        </div>
+					    </div>
+					    </fieldset>
+					    <div class="modal-footer">
+					    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+					    	<button type="submit" class="btn btn-success" onclick="$('#updateharvestadmin').modal('hide');">Submit</button>
+					    </div>
+					    {{/autoForm}}
+				 	</div>
+				{{/with}}
 			</div>
 		</div>
 	</div>
-</template>
-
-<template name="updateHarvestModalInnerAdmin">
-	{{#with itemInScope}}
-		<div class="modal-header">
-			<h4>Update log entry for <strong>{{itemname}}</strong> on {{displaydate date}}</h4>
-		</div>
-	 	<div class="modal-body">
-			{{# autoForm collection="HarvestLog" doc=this id="updateHarvestLogForm" type="update"}}
-			<fieldset>
-				{{> afFieldLabel name='itemname'}}
-				{{> afFieldInput name='itemname' options=productOptions}}
-		        {{> afQuickField name='amount'}}
-		        {{> afQuickField name='strip'}}
-		        {{> afFieldLabel name='location'}}
-        		{{> afFieldInput name='location' options=locationOptions}}
-		        {{> afQuickField name='notes'}}
-		    </fieldset>
-		    <div class="modal-footer">
-		    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-		    	<button type="submit" class="btn btn-success" onclick="$('#updateharvestadmin').modal('hide');">Submit</button>
-		    </div>
-		    {{/autoForm}}
-	 	</div>
-	{{/with}}  
 </template>
 
 
@@ -230,59 +227,76 @@
 	<div id="deleterequestadmin" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				{{> deleteRequestModalInnerAdmin}}
+				{{#with itemInScope}}
+				 	<div class="modal-body">
+				 		<h4>Are you sure you want to delete the request for <strong>{{itemname}}</strong> on {{displaydate date}}?</h4>
+				 	</div>
+				 	<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+						<button type="button" class="btn btn-danger">Delete</button>
+					</div>
+				{{/with}}
 			</div>
 		</div>
 	</div>
-</template>
-
-<template name="deleteRequestModalInnerAdmin">
-	{{#with itemInScope}}
-	 	<div class="modal-body">
-	 		<h4>Are you sure you want to delete the request for <strong>{{itemname}}</strong> on {{displaydate date}}?</h4>
-	 	</div>
-	 	<div class="modal-footer">
-			<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-			<button type="button" class="btn btn-danger">Delete</button>
-		</div>
-	{{/with}}
 </template>
 
 <template name="updateRequestModalAdmin">
 	<div id="updaterequestadmin" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				{{> updateRequestModalInnerAdmin}}
+				{{#with itemInScope}}
+					<div class="modal-header">
+						<h3>Update Request:</h3>
+					</div>
+				 	<div class="modal-body">
+						{{# autoForm collection="Requests" doc=this id="updateRequestForm" type="update"}}
+						<fieldset>
+							<div class="panel">
+								<div class="row">
+									<div class="col-md-4">
+										<h4>{{itemname}}</h4>
+									</div>
+								</div>
+								<div class="row">
+							     	<div class="col-md-4">
+							        	<h4>{{displaydate date}}</h4>
+							        </div>
+							    </div>
+						    </div>
+						    <div class="row">
+								<div class="col-md-4"> 
+						        	{{> afQuickField name='amount'}}
+						        </div>
+						       	<div class="col-md-4"> 
+						        	{{> afQuickField name='strip'}}
+						        </div>
+						    </div>
+						    <div class="row">
+						     	<div class="col-md-4">
+						        	{{> afQuickField name='location' options=locationOptions}}
+						        </div>
+						    </div>
+						    <div class="row"> 
+						        <div class="col-md-12"> 
+						        	{{> afQuickField name='notes'}}
+						        </div>
+						    </div>
+					    </fieldset>
+					    <div class="modal-footer">
+					    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+					    	<button type="submit" class="btn btn-success" onclick="$('#updaterequestadmin').modal('hide');">Submit</button>
+					    </div>
+					    {{/autoForm}}
+				 	</div>
+				{{/with}}
 			</div>
 		</div>
 	</div>
 </template>
 
-<template name="updateRequestModalInnerAdmin">
-	{{#with itemInScope}}
-		<div class="modal-header">
-			<h4>Update request for <strong>{{itemname}}</strong> on {{displaydate date}}</h4>
-		</div>
-	 	<div class="modal-body">
-			{{# autoForm collection="Requests" doc=this id="updateRequestForm" type="update"}}
-			<fieldset>
-				{{> afFieldLabel name='itemname'}}
-				{{> afFieldInput name='itemname' options=productOptions}}
-		        {{> afQuickField name='amount'}}
-		        {{> afQuickField name='strip'}}
-		        {{> afFieldLabel name='location'}}
-        		{{> afFieldInput name='location' options=locationOptions}}
-		        {{> afQuickField name='notes'}}
-		    </fieldset>
-		    <div class="modal-footer">
-		    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-		    	<button type="submit" class="btn btn-success" onclick="$('#updaterequestadmin').modal('hide');">Submit</button>
-		    </div>
-		    {{/autoForm}}
-	 	</div>
-	{{/with}}  
-</template>
 
+<!-- VISITORS -->
 
 <template name="deleteVisitorModal">
 	<div id="deletevisitor" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
