@@ -141,19 +141,36 @@
 		<div class="form-group">
 			{{# autoForm collection="Requests" id="insertRequestForm" type="insert" resetOnSuccess="true"}}
 			<fieldset>
-				{{> afFieldLabel name='itemname'}}
-		        {{> afFieldInput name='itemname' options=productOptions}}
-		        {{> afQuickField name='amount'}}
-		        {{> afQuickField name='strip'}}
-		        {{> afFieldLabel name='location'}}
-        		{{> afFieldInput name='location' options=locationOptions}}
-		        {{> afFieldLabel name='date'}}
-		        {{> afFieldInput name='date'}}
-		        <!-- <div class="input-group datetimepicker">
-		    		<input name='date' class="set-due-date form-control" type="text"/>
-		    		<span class="input-group-addon glyphicon glyphicon-calendar"></span>
-				</div> -->
-				{{> afQuickField name='notes'}}
+			<div class="row">
+				<div class="col-md-4">
+					{{> afQuickField name='itemname' options=productOptions}}
+				</div>
+				<div class="col-md-4">
+		        	{{> afQuickField name='amount'}}
+		        </div>
+		        <div class="col-md-4">
+		        	{{> afQuickField name='strip'}}
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-md-4">
+		        	{{> afQuickField name='location' options=locationOptions}}
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-md-4">
+			        {{> afQuickField name='date'}}
+			        <!-- <div class="input-group datetimepicker">
+			    		<input name='date' class="set-due-date form-control" type="text"/>
+			    		<span class="input-group-addon glyphicon glyphicon-calendar"></span>
+					</div> -->
+				</div>
+		    </div>
+		    <div class="row">
+		        <div class="col-md-12"> 
+        			{{> afQuickField name='notes'}}
+        		</div>
+        	</div>
 		    </fieldset>
 		    <div class="modal-footer">
 			    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
@@ -183,14 +200,29 @@
 		<div class="form-group">
 			{{# autoForm collection="HarvestLog" id="insertHarvestLogForm" type="insert" resetOnSuccess="true"}}
 			<fieldset>
-				{{> afFieldLabel name='itemname'}}
-		        {{> afFieldInput name='itemname' options=productOptions}}
-		        {{> afQuickField name='amount'}}
-		        {{> afQuickField name='strip'}}
-		        {{> afFieldLabel name='location'}}
-        		{{> afFieldInput name='location' options=locationOptions}}
-        		{{> afQuickField name='notes'}}
+			<div class="row">
+				<div class="col-md-4">
+					{{> afQuickField name='itemname' options=productOptions}}
+				</div>
+				<div class="col-md-4">
+		        	{{> afQuickField name='amount'}}
+		        </div>
+		        <div class="col-md-4">
+		        	{{> afQuickField name='strip'}}
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-md-4">
+		        	{{> afQuickField name='location' options=locationOptions}}
+		        </div>
+		    </div>
+		    <div class="row">
+		        <div class="col-md-12"> 
+        			{{> afQuickField name='notes'}}
+        		</div>
+        	</div>
 		    </fieldset>
+		    
 		    <div class="modal-footer">
 			    <button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
 			    <button type="submit" class="btn btn-success" onclick="$('#insertharvestlog').modal('hide');">Submit</button>
