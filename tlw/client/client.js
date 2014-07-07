@@ -9,6 +9,18 @@ Meteor.startup(function () {
 	});
 });
 
+AutoForm.hooks({
+	insertVolunteer: {
+		onSuccess: function () {
+			// redirect to volunteer page...
+			Alerts.add('Thanks for signing up to volunteer!', 'success');
+			console.log("form submit success...");
+			Router.go('volunteer');
+			return false;
+		}
+	}
+});
+
 Meteor.subscribe("allProducts");
 Meteor.subscribe("locations");
 Meteor.subscribe("volunteers");

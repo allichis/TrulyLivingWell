@@ -12,7 +12,8 @@
       "roles": {},
       "accounts-admin-ui-bootstrap-3": {},
       "bootstrap3-datetimepicker": {},
-      "moment-timezone": {}
+      "moment-timezone": {},
+      "bootstrap-alerts": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -22,8 +23,8 @@
       },
       "accounts-ui-bootstrap-3": {
         "git": "https://github.com/mangasocial/meteor-accounts-ui-bootstrap-3.git",
-        "tag": "v0.3.2",
-        "commit": "8686c0d3107cf48c72a5500b027f081c7e79dbbc"
+        "tag": "v0.3.3",
+        "commit": "2e50b605d8d5ed68e48c4529a65f13552d8af3f9"
       },
       "collection2": {
         "git": "https://github.com/aldeed/meteor-collection2.git",
@@ -32,8 +33,8 @@
       },
       "autoform": {
         "git": "https://github.com/aldeed/meteor-autoform.git",
-        "tag": "v0.13.5",
-        "commit": "27dd5b912eeba687b228a6a7c2c14eef63b12cca"
+        "tag": "v0.14.0",
+        "commit": "30de032833052ea61e9d37bca5523264309d4478"
       },
       "iron-router": {
         "git": "https://github.com/EventedMind/iron-router.git",
@@ -69,6 +70,11 @@
         "git": "https://github.com/acreeger/meteor-moment-timezone",
         "tag": "v0.0.1.4",
         "commit": "feb364efb1ec0cefb870d5981b2b836b45211455"
+      },
+      "bootstrap-alerts": {
+        "git": "https://github.com/asktomsk/bootstrap-alerts.git",
+        "tag": "v0.0.5",
+        "commit": "6ddd650208a77677ab86af9dfccc3a69b1ba8d32"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

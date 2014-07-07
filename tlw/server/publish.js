@@ -21,3 +21,18 @@ Meteor.publish("requests", function () {
 Meteor.publish('filteredVols', function(filter) {
 	return filteredVolsQuery(filter);
 });
+
+_.each([Volunteers, Products], function (collection) {
+	collection.allow({
+		insert: function() {
+			return true;
+		},
+		update: function() {
+			return true;
+		},
+		remove: function() {
+			return true;
+		},
+		fetch: []
+	});
+});

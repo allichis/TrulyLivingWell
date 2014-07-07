@@ -5,8 +5,20 @@ var today = function() {
 };
 
 Template.adminOverview.helpers({
-	volTotal: function () {
+	usersTotal: function () {
+		return Meteor.users.find().count();
+	},
+	productsTotal: function () {
+		return Products.find().count();
+	},
+	locsTotal: function () {
+		return Locations.find().count();
+	},
+	volsTotal: function () {
 		return Volunteers.find().count();
+	},
+	visitorsTotal: function () {
+		return Visitors.find().count();
 	},
 });
 
