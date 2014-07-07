@@ -4,6 +4,12 @@ var today = function() {
 	return date;
 };
 
+Template.adminOverview.helpers({
+	volTotal: function () {
+		return Volunteers.find().count();
+	},
+});
+
 Template.navAdmin.helpers({
 	activeIfTemplateIs: function (template) {
 		var currentRoute = Router.current();

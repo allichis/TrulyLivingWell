@@ -22,10 +22,14 @@
 <template name="admin">
   <div class="container">
     <div class="row">
-      <h2>Testing things</h2>
-      {{>adminViewVols}}
+      {{>adminOverview}}
     </div><!-- /.row -->
   </div><!-- /.container -->
+</template>
+
+<template name="adminOverview">
+  <h2>Totals</h2>
+  <p>Total Volunteers: {{volTotal}}</p>
 </template>
 
 <template name="volunteersAdmin">
