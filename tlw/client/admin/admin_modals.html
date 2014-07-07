@@ -172,18 +172,41 @@
 			<div class="modal-content">
 				{{#with itemInScope}}
 					<div class="modal-header">
-						<h4>Update log entry for <strong>{{itemname}}</strong> on {{displaydate date}}</h4>
+						<h3>Update Harvest:</h3>
 					</div>
 				 	<div class="modal-body">
 						{{# autoForm collection="HarvestLog" doc=this id="updateHarvestLogForm" type="update"}}
 						<fieldset>
-							{{> afFieldLabel name='itemname'}}
-							{{> afFieldInput name='itemname' options=productOptions}}
-					        {{> afQuickField name='amount'}}
-					        {{> afQuickField name='strip'}}
-					        {{> afFieldLabel name='location'}}
-			        		{{> afFieldInput name='location' options=locationOptions}}
-					        {{> afQuickField name='notes'}}
+						<div class="panel">
+							<div class="row">
+								<div class="col-md-4">
+									<h4>{{itemname}}</h4>
+								</div>
+							</div>
+							<div class="row">
+						     	<div class="col-md-4">
+						        	<h4>{{displaydate date}}</h4>
+						        </div>
+						    </div>
+					    </div>
+					    <div class="row">
+							<div class="col-md-4"> 
+					        	{{> afQuickField name='amount'}}
+					        </div>
+					       	<div class="col-md-4"> 
+					        	{{> afQuickField name='strip'}}
+					        </div>
+					    </div>
+					    <div class="row">
+					     	<div class="col-md-4">
+					        	{{> afQuickField name='location' options=locationOptions}}
+					        </div>
+					    </div>
+					    <div class="row"> 
+					        <div class="col-md-12"> 
+					        	{{> afQuickField name='notes'}}
+					        </div>
+					    </div>
 					    </fieldset>
 					    <div class="modal-footer">
 					    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
@@ -224,18 +247,41 @@
 			<div class="modal-content">
 				{{#with itemInScope}}
 					<div class="modal-header">
-						<h4>Update request for <strong>{{itemname}}</strong> on {{displaydate date}}</h4>
+						<h3>Update Request:</h3>
 					</div>
 				 	<div class="modal-body">
 						{{# autoForm collection="Requests" doc=this id="updateRequestForm" type="update"}}
 						<fieldset>
-							{{> afFieldLabel name='itemname'}}
-							{{> afFieldInput name='itemname' options=productOptions}}
-					        {{> afQuickField name='amount'}}
-					        {{> afQuickField name='strip'}}
-					        {{> afFieldLabel name='location'}}
-			        		{{> afFieldInput name='location' options=locationOptions}}
-					        {{> afQuickField name='notes'}}
+							<div class="panel">
+								<div class="row">
+									<div class="col-md-4">
+										<h4>{{itemname}}</h4>
+									</div>
+								</div>
+								<div class="row">
+							     	<div class="col-md-4">
+							        	<h4>{{displaydate date}}</h4>
+							        </div>
+							    </div>
+						    </div>
+						    <div class="row">
+								<div class="col-md-4"> 
+						        	{{> afQuickField name='amount'}}
+						        </div>
+						       	<div class="col-md-4"> 
+						        	{{> afQuickField name='strip'}}
+						        </div>
+						    </div>
+						    <div class="row">
+						     	<div class="col-md-4">
+						        	{{> afQuickField name='location' options=locationOptions}}
+						        </div>
+						    </div>
+						    <div class="row"> 
+						        <div class="col-md-12"> 
+						        	{{> afQuickField name='notes'}}
+						        </div>
+						    </div>
 					    </fieldset>
 					    <div class="modal-footer">
 					    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
