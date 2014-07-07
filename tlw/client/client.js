@@ -9,6 +9,12 @@ Meteor.startup(function () {
 	});
 });
 
+Meteor.subscribe("allProducts");
+Meteor.subscribe("locations");
+Meteor.subscribe("volunteers");
+Meteor.subscribe("visitors");
+Meteor.subscribe("requests");
+
 // do something any time a user logs in...
 Hooks.onLoggedIn = function() {
 	u = Meteor.user();
@@ -25,27 +31,3 @@ Template.navbar.helpers({
 			template === currentRoute.lookupTemplate() ? 'active' : '';
 	}
 });
-
-
-// need a generic kind of template helper...
-// since we'll want to fetch/display all the documents
-// for most Collections via the admin interface
-
-/*
-Template.hello.greeting = function () {
-	return "Welcome to tlw.";
-};
-
-Template.hello.events({
-	'click input': function () {
-		// template data, if any, is available in 'this'
-		if (typeof console !== 'undefined')
-			console.log("You pressed the button");
-	}
-});
-
-Template.reqboard.mktrequests = function () {
-	return Requests.find();
-};
-*/
-

@@ -17,7 +17,7 @@ filteredVolsQuery = function(filter) {
 		}
 	} else {
 		vols = Volunteers.find();
-		Session.set('volSigning', undefined);
+		//Session.set('volSigning', undefined);
 	}
 	return vols;
 };
