@@ -47,6 +47,7 @@ Template.volsignin.helpers({
 
 Template.volsignin.events({
 	'click [type="search"]': function(event, template) {
+		//fire some event to look up a volunteer based on what's in the search field...
 		Session.set("searchClicked", true);
 	},
 	'keyup .vol-phone-input': function(event, template) {

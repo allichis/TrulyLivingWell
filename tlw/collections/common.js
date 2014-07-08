@@ -16,11 +16,21 @@ Schema.EmergencyContact = new SimpleSchema({
 	},
 });
 
-Schema.Volunteers = new SimpleSchema({
-	name: {
+Schema.FullName = new SimpleSchema({
+	firstname: {
 		type: String,
-		label: "* Name",
-		max: 256
+		label: "First name",
+	},
+	lastname: {
+		type: String,
+		label: "Last name",
+	}
+
+});
+
+Schema.Volunteers = new SimpleSchema({
+	fullname: {
+		type: Schema.FullName,
 	},
 	dob: {
 		type: Date,
@@ -61,10 +71,6 @@ Schema.Volunteers = new SimpleSchema({
 		max: 256,
 		optional: true,
 	},
-	// still to come:
-	// emergency contact info
-	// ...
-	// isVeteran
 });
 
 Schema.VolunteerTimecards = new SimpleSchema({

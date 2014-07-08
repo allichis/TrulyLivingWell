@@ -4,6 +4,24 @@ var today = function() {
 	return date;
 };
 
+Template.adminOverview.helpers({
+	usersTotal: function () {
+		return Meteor.users.find().count();
+	},
+	productsTotal: function () {
+		return Products.find().count();
+	},
+	locsTotal: function () {
+		return Locations.find().count();
+	},
+	volsTotal: function () {
+		return Volunteers.find().count();
+	},
+	visitorsTotal: function () {
+		return Visitors.find().count();
+	},
+});
+
 Template.navAdmin.helpers({
 	activeIfTemplateIs: function (template) {
 		var currentRoute = Router.current();
