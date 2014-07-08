@@ -1,27 +1,3 @@
-filteredVolsQuery = function(filter) {
-	// TODO: configurable limit and paginiation
-	var queryLimit = 25;
-
-	if(!!filter) {
-		vols = Volunteers.find({
-			$or: [
-				// TODO: passing to regex directly could be dangerous
-				{'firstname': {$regex: filter, $options: 'i'}},
-				{'lastname': {$regex: filter, $options: 'i'}},
-				{'phone': {$regex: filter, $options: 'i'}}
-			]
-		}, {sort: {firstname: 1}, limit: queryLimit});
-		if (vols.count() === 1) {
-			volSigning = vols.fetch();
-			Session.set('volSigning', volSigning);
-		}
-	} else {
-		vols = Volunteers.find();
-		Session.set('volSigning', undefined);
-	}
-	return vols;
-};
-
 searchVols = function (searchTerm) {
 	var queryLimit = 25;
 
@@ -29,11 +5,26 @@ searchVols = function (searchTerm) {
 		volsFound = Volunteers.find({
 			$or: [
 				// TODO: passing to regex directly could be dangerous...
-		{'name': {$regex: searchTerm, $options: 'i'}},
+		{'firstname': {$regex: searchTerm, $options: 'i'}},
+		{'lastname': {$regex: searchTerm, $options: 'i'}},
 		{'phone': {$regex: searchTerm, $options: 'i'}},
 			]
 			// probably change this sorting key...
 		}, {sort: {phone: 1}, limit: queryLimit});
 
+		// if a unique match is found, just return vols, which should only contain that volunteer record
+		if (volsFound.count() === 1) {
+			return volsFound;
+		} 
+		// if 0 found, return 0
+		else if (volsFound.count() === 0) {
+			return 0;
+		}
+		// if 1+ found, return the count
+		else {
+			return volsFound.count();
+		}
 	}
+	//idk...
+	return false;
 };
