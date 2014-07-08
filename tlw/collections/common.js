@@ -216,8 +216,8 @@ Schema.Products = new SimpleSchema({
 	// this is just a list...? might need tho.
 	itemname: {
 		type: String,
-		label: "Product name",
-		max: 256
+		label: "Item name",
+		max: 100,
 	}
 });
 
