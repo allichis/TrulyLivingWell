@@ -47,9 +47,10 @@
 				</div>
 			</div>
 		</fieldset>
-	    <button type="submit" class="btn btn-primary">Submit</button>
+	    <button type="submit" class="btn btn-primary" data-toggle="modal" href="#visitorconfirmation">Submit</button>
 		{{/autoForm}}
 	</div>
+	{{> visitorConfirmationModal}}
 </template>
 
 <template name="visitorForm">
@@ -68,7 +69,22 @@
 </template>
 
 <template name="visitorConfirmation">
-	<div id="visitorconfirmation" class="container text-center">
+	<div class="container text-center">
 		<h1>Thank You for visiting Truly Living Well! <br><small>We hope to see you again soon!</small></h1>
+	</div>
+</template>
+
+<template name="visitorConfirmationModal">
+	<div id="visitorconfirmation" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h3>Visitor check-in done!</h3>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" data-dismiss="modal">OK</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>

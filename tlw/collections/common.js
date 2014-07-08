@@ -133,7 +133,7 @@ Schema.Visitors = new SimpleSchema({
 	// oh yeah, date of visit?
 	date: {
 		type: Date,
-		label: "Date of Visit"
+		label: "Date of visit"
 	},
 	visitType: {
 		type: String,
