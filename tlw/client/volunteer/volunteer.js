@@ -14,7 +14,7 @@ Template.volMatch.helpers({
 		return readableTimestamp;
 	},
 	vols: function() {
-		return filteredVolsQuery(Session.get("volSearchFilter"));
+		return searchVols(Session.get("volSearchFilter"));
 	},
 });
 
@@ -48,6 +48,13 @@ Template.volsignin.helpers({
 Template.volsignin.events({
 	'click [type="search"]': function(event, template) {
 		//fire some event to look up a volunteer based on what's in the search field...
+		console.log("ok, trying to search...");
+		var output = searchVols(Session.get("volSearchFilter"));
+		if (output === 0) {
+			console.log("couldn't find any volunteers.");
+		} else {
+			console.log("ok...");
+		}
 		Session.set("searchClicked", true);
 	},
 	'keyup .vol-phone-input': function(event, template) {
