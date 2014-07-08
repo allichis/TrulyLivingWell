@@ -70,11 +70,11 @@ Meteor.startup(function () {
 		var everyonesBday = new Date(1990, 0, 1);
 		var myBday = new Date(1987, 1, 13);
 		vols = [
-			{firstname: "Amy", lastname: "Adams", dob: everyonesBday, email: "aa@vol.org", phone: "111-1111", isVeteran: false, emergencyContact: mom},
-			{firstname: "Bob", lastname: "Barker", dob: everyonesBday, email: "bb@vol.org", phone: "222-2222", isVeteran: true, emergencyContact: mom},
-			{firstname: "Cindy", lastname: "Crawford", dob: everyonesBday, email: "cc@vol.org", phone: "333-3333", isVeteran: true, emergencyContact: mom},
-			{firstname: "Don", lastname: "Delillo", dob: everyonesBday, email: "dd@vol.org", phone: "444-4444", isVeteran: false, emergencyContact: mom},
-			{firstname: "Emily", lastname: "Reese", dob: myBday, email: "er@vol.org", phone: "4047719915", isVeteran: false, emergencyContact: mom},
+			{name: "Amy Adams", dob: everyonesBday, email: "aa@vol.org", phone: "111-1111", isVeteran: false, emergencyContact: mom},
+			{name: "Bob Barker", dob: everyonesBday, email: "bb@vol.org", phone: "222-2222", isVeteran: true, emergencyContact: mom},
+			{name: "Cindy Crawford", dob: everyonesBday, email: "cc@vol.org", phone: "333-3333", isVeteran: true, emergencyContact: mom},
+			{name: "Don DeLillo", dob: everyonesBday, email: "dd@vol.org", phone: "444-4444", isVeteran: false, emergencyContact: mom},
+			{name: "Emily Reese", dob: myBday, email: "er@vol.org", phone: "4047719915", isVeteran: false, emergencyContact: mom},
 		];
 
 		var timestamp = (new Date()).getTime();
