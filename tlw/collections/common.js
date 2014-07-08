@@ -185,13 +185,13 @@ Schema.Visitors = new SimpleSchema({
 Schema.VisitTypes = new SimpleSchema({
 	title: {
 		type: String,
-		max: 45,
+		max: 100,
 	},
 	cost: {
 		type: Number,
 		optional: true,
 	},
-	location: {
+	notes: {
 		type: String,
 		optional: true,
 	},
