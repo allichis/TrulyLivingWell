@@ -22,22 +22,18 @@ filteredVolsQuery = function(filter) {
 	return vols;
 };
 
-initTimecard = function(vid) {
-	tc = VolunteerTimecards.find({
-			'volId': vid,
-			'tcStatus': "Open"
-	});
+searchVols = function (searchTerm) {
+	var queryLimit = 25;
 
-	if (tc.count() >= 1) {
-		throw new Meteor.Error(444, "Problem");
+	if (!!searchTerm) {
+		volsFound = Volunteers.find({
+			$or: [
+				// TODO: passing to regex directly could be dangerous...
+		{'name': {$regex: searchTerm, $options: 'i'}},
+		{'phone': {$regex: searchTerm, $options: 'i'}},
+			]
+			// probably change this sorting key...
+		}, {sort: {phone: 1}, limit: queryLimit});
+
 	}
-
-	// create the new timecard for vid
-	var newTc = {
-		volId: vid,
-		location: "Wheat Street",
-		tcStatus: "Open",
-		timeOpened: new Date()
-	};
-	return VolunteerTimecards.insert(newTc);
 };
