@@ -16,21 +16,16 @@ Schema.EmergencyContact = new SimpleSchema({
 	},
 });
 
-Schema.FullName = new SimpleSchema({
+Schema.Volunteers = new SimpleSchema({
 	firstname: {
 		type: String,
-		label: "First name",
+		label: "* First name",
+		max: 128
 	},
 	lastname: {
 		type: String,
-		label: "Last name",
-	}
-
-});
-
-Schema.Volunteers = new SimpleSchema({
-	fullname: {
-		type: Schema.FullName,
+		label: "* Last name",
+		max: 128
 	},
 	dob: {
 		type: Date,
