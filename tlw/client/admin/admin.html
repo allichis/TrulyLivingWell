@@ -22,10 +22,19 @@
 <template name="admin">
   <div class="container">
     <div class="row">
-      <h2>Testing things</h2>
-      {{>adminViewVols}}
+      <h2>Overview</h2>
+      {{>adminOverview}}
     </div><!-- /.row -->
   </div><!-- /.container -->
+</template>
+
+<template name="adminOverview">
+  <h3>Totals</h3>
+  <p>Total Users: {{usersTotal}} (n staff accounts, m administrators)</p>
+  <p>Total Products: {{productsTotal}}</p>
+  <p>Total Locations: {{locsTotal}}</p>
+  <p>Total Volunteers: {{volsTotal}}</p>
+  <p>Total Visitors: {{visitorsTotal}}</p>
 </template>
 
 <template name="volunteersAdmin">
@@ -66,7 +75,7 @@
               <span data-toggle="modal" href="#updatevolunteer" class="glyphicon glyphicon-pencil clickable"></span>
               <span data-toggle="modal" href="#blankmodal" class="glyphicon glyphicon-info-sign clickable"></span>
             </td>
-            <td>{{lastname}}, {{firstname}}</td>
+            <td>{{fullname.lastname}}, {{fullname.firstname}}</td>
             <td>{{displaydate dob}}</td>
             <td>{{email}}</td>
             <td>{{phone}}</td>
