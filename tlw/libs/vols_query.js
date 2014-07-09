@@ -15,16 +15,9 @@ searchVols = function (searchTerm) {
 		// if a unique match is found, just return vols, which should only contain that volunteer record
 		if (volsFound.count() === 1) {
 			return volsFound;
-		} 
-		// if 0 found, return 0
-		else if (volsFound.count() === 0) {
-			return 0;
-		}
-		// if 1+ found, return the count
-		else {
+		} else { 
 			return volsFound.count();
 		}
 	}
-	//idk...
-	return false;
+	return 0;
 };

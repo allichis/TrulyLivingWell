@@ -34,7 +34,8 @@
   <div class="container">
     {{#unless signedIn}}
       <div class="row">
-      <h2>volunteer lookup by name or phone number:</h2>
+        <h1>Volunteer lookup</h1>
+        <h3>Enter name or phone number:</h3>
         <div class="input-group">
           <input type="text" class="form-control vol-phone-input" value="{{searchFilter}}">
           <span class="input-group-btn">
@@ -42,11 +43,6 @@
           </span>
         </div><!-- /.input-group -->
       </div><!-- /.row -->
-      {{#if uniqueVolFound}}
-        <br><br>
-        {{> volMatch}}
-        <br><br>
-      {{/if}}
     {{/unless}}
     {{#if signedIn}}
       {{>signinSuccess}}
@@ -57,11 +53,11 @@
 <template name="volMatch">
 <div class="container">
   <div class="row">
-    {{#each vols}}
+    {{#with foundVol}}
       <h4>Welcome back, {{firstname}} {{lastname}}!</h4>
       <h5>Just one more click to sign in for volunteering today.</h5>
       <button type="submit" class="btn btn-large">Get started!</button>
-    {{/each}}
+    {{/with}}
   </div>
 </div>
 </template>
@@ -69,8 +65,10 @@
 <template name="signinSuccess">
   <div class="row">
     <br><br>
-    <p class="lead">Thanks for volunteering today!</p>
+    {{#each volRecord}}
+    <p class="lead">Thanks for volunteering today, {{firstname}} {{lastname}}!</p>
     <br><p>You signed in to start volunteering at {{timeLogged}}.</p>
+    {{/each}}
     <br><br>
     <a href="{{pathFor 'home'}}"><button class="btn btn-large btn-success">Home</button></a>
   </div>

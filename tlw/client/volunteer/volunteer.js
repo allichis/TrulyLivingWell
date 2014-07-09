@@ -19,43 +19,51 @@ Template.volMatch.helpers({
 });
 
 Template.signinSuccess.helpers({
-	timeLogged: function() {
+	volRecord: function() {
+		var vol = Session.get("foundVol");
+		return vol;
+	},
+	foundVol: function() {
+		return Session.get("foundVol");
+	},
+	timecard: function() {
+
+					/*
 		var timestamp = VolunteerTimecards.find({_id: Session.get("volNewTcId")}).fetch()[0].timeOpened;
 		var readableTime = moment(timestamp).format("h:mm a");
 		var readableDate = moment(timestamp).format("MMMM Do, YYYY");
 		return readableTime + " on " + readableDate;
+		*/
 	}
 });
 
 Template.volsignin.helpers({
 	signedIn: function() {
-		if (Session.get("doneSigning")) {
+		if (Session.get("foundVol")) {
 			return true;
 		}
 		return false;
-	},
-	uniqueVolFound: function() {
-		var n = filteredVolsQuery(Session.get("volSearchFilter"));
-		var sc = Session.get("searchClicked");
-		if (n.count() === 1 && sc) {
-			return true;
-		} else {
-			return false;
-		}
 	},
 });
 
 Template.volsignin.events({
 	'click [type="search"]': function(event, template) {
-		//fire some event to look up a volunteer based on what's in the search field...
-		console.log("ok, trying to search...");
-		var output = searchVols(Session.get("volSearchFilter"));
-		if (output === 0) {
-			console.log("couldn't find any volunteers.");
+		var searchResponse = searchVols(Session.get("volSearchFilter"));
+		var responseIsNumber = Match.test(searchResponse, Number);
+		if (responseIsNumber) {
+			// search found 0 or 1+ results, show some messages...
+			if (searchResponse === 0)
+				console.log("found zero volunteers");
+			else
+				console.log("found more than one");
 		} else {
-			console.log("ok...");
+			// assume search found exactly 1 result...
+			console.log("found:");
+			console.log(searchResponse.fetch());
+			//Session.set("foundVol", searchResponse);
+			var foundVid = searchResponse.fetch()[0]._id;
+			Session.set("foundVol", foundVid);
 		}
-		Session.set("searchClicked", true);
 	},
 	'keyup .vol-phone-input': function(event, template) {
 		setVolFilter(template);
@@ -81,6 +89,6 @@ Template.volsignin.rendered = function() {
 	if (filterValue)
 		pos = filterValue.length;
 
-	//searchElement[0].focus();
-	//searchElement[0].setSelectionRange(pos, pos);
+	searchElement[0].focus();
+	searchElement[0].setSelectionRange(pos, pos);
 };
