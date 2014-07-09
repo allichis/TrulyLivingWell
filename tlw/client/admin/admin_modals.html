@@ -191,31 +191,31 @@
 						<fieldset>
 						<div class="panel">
 							<div class="row">
-								<div class="col-md-4">
+								<div class="col-sm-4">
 									<h4>{{itemname}}</h4>
 								</div>
 							</div>
 							<div class="row">
-						     	<div class="col-md-4">
+						     	<div class="col-sm-4">
 						        	<h4>{{displaydate date}}</h4>
 						        </div>
 						    </div>
 					    </div>
 					    <div class="row">
-							<div class="col-md-4"> 
+							<div class="col-sm-4"> 
 					        	{{> afQuickField name='amount'}}
 					        </div>
-					       	<div class="col-md-4"> 
+					       	<div class="col-sm-4"> 
 					        	{{> afQuickField name='strip'}}
 					        </div>
 					    </div>
 					    <div class="row">
-					     	<div class="col-md-4">
+					     	<div class="col-sm-4">
 					        	{{> afQuickField name='location' options=locationOptions}}
 					        </div>
 					    </div>
 					    <div class="row"> 
-					        <div class="col-md-12"> 
+					        <div class="col-sm-12"> 
 					        	{{> afQuickField name='notes'}}
 					        </div>
 					    </div>
@@ -266,31 +266,36 @@
 						<fieldset>
 							<div class="panel">
 								<div class="row">
-									<div class="col-md-4">
+									<div class="col-sm-4">
 										<h4>{{itemname}}</h4>
 									</div>
 								</div>
 								<div class="row">
-							     	<div class="col-md-4">
+							     	<div class="col-sm-4">
 							        	<h4>{{displaydate date}}</h4>
 							        </div>
 							    </div>
 						    </div>
 						    <div class="row">
-								<div class="col-md-4"> 
+								<div class="col-sm-4"> 
 						        	{{> afQuickField name='amount'}}
 						        </div>
-						       	<div class="col-md-4"> 
+						       	<div class="col-sm-4"> 
 						        	{{> afQuickField name='strip'}}
 						        </div>
 						    </div>
 						    <div class="row">
-						     	<div class="col-md-4">
+						     	<div class="col-sm-4">
 						        	{{> afQuickField name='location' options=locationOptions}}
 						        </div>
 						    </div>
+						    <div class="row">
+						     	<div class="col-sm-4">
+						        	{{> afQuickField name='requestedFor' options="allowed"}}
+						        </div>
+						    </div>
 						    <div class="row"> 
-						        <div class="col-md-12"> 
+						        <div class="col-sm-12"> 
 						        	{{> afQuickField name='notes'}}
 						        </div>
 						    </div>
@@ -343,34 +348,34 @@
 						{{# autoForm collection="Visitors" doc=this id="updateVisitorsForm" type="update"}}
 						<fieldset>
 			            	<div class="row">
-								<div class="col-md-6"> 
+								<div class="col-sm-6"> 
 									{{> afQuickField name='date'}}
 								</div>
-								<div class="col-md-6">
+								<div class="col-sm-6">
 									{{> afQuickField name='visitType' options=visitTypeOptions}}
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-4"> 
+								<div class="col-sm-4"> 
 									{{> afQuickField name='numChildren'}}
 								</div>
-								<div class="col-md-4">
+								<div class="col-sm-4">
 									{{> afQuickField name='numAdults'}}
 								</div>
-								<div class="col-md-4">
+								<div class="col-sm-4">
 									{{> afQuickField name='numSeniors'}}
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6"> 
+								<div class="col-sm-6"> 
 									{{> afQuickField name='contact'}}
 								</div>
-								<div class="col-md-6">
+								<div class="col-sm-6">
 									{{> afQuickField name='organization'}}
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-12"> 
+								<div class="col-sm-12"> 
 									{{> afQuickField name='comments'}}
 								</div>
 							</div>

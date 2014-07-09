@@ -227,7 +227,17 @@ Schema.Requests = new SimpleSchema({
 	amount: {
 		type: Number,
 		label: "Amount",
-		min: 0,
+		min: 1,
+		/*autoValue: function(){
+			if(field(strip).value === false) {
+				if(this.isSet && this.value > 0) {
+					return this.value;
+				}
+				else {
+					return 1;
+				}
+			}
+		},*/
 		optional: true,
 	},
 	strip: {
@@ -244,6 +254,12 @@ Schema.Requests = new SimpleSchema({
 	date: {
 		type: Date,
 		label: "Date needed",
+	},
+	requestedFor: {
+		type: String,
+		label: "Requested for",
+		allowedValues: ["Market","Wholesale","Other"],
+		defaultValue: "Market",
 	},
 	// notes
 	notes: {

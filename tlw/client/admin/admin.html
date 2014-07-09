@@ -212,6 +212,7 @@
           <th>Strip?</th>
           <th>Location</th>
           <th>Date</th>
+          <th>Requested for</th>
           <th>Notes</th>
         </tr>
       </thead>
@@ -227,6 +228,7 @@
             <td>{{strip}}</td>
             <td>{{location}}</td>
             <td>{{displaydate date}}</td>
+            <td>{{requestedFor}}</td>
             <td>{{notes}}</td>
           </tr>
         {{/each}}
@@ -346,7 +348,7 @@
 <template name="visitTypesAdmin">
   
   <div class="container">
-      <button type="button" data-toggle="modal" href="#insertvisittype" class="btn btn-success" >Add New Visit Type</button>
+    <button type="button" data-toggle="modal" href="#insertvisittype" class="btn btn-success" >Add New Visit Type</button>
   </div>
 
   <div class="container">

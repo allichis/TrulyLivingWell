@@ -62,7 +62,7 @@ var harvestHelpers = {
 		end.setUTCHours(24);
 		return Requests.find({date: {$gte: end}}, {sort: {date:1, itemname:1}});
 	},
-	yesterdayrequests: function() {
+	/*yesterdayrequests: function() {
 		var start = today();
 		start.setUTCHours(-24);
 		var end = today();
@@ -74,7 +74,7 @@ var harvestHelpers = {
 		var end = new Date(start);
 		end.setUTCHours(24);
 		return Requests.find({date: {$gte: start, $lt: end}}, {sort: {date:1, itemname:1}});
-	},
+	},*/
 	requests: function() {
 		return Requests.find({}, {sort: {date:1, itemname:1}});
 	},
