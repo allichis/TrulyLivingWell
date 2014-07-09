@@ -347,6 +347,75 @@ Schema.Tasks = new SimpleSchema({
 	// this one needs a lot more thinking...
 });
 
+Schema.MonthYear = new SimpleSchema({
+	month: {
+		type: Number,
+		min: 0,
+		max: 11,
+	},
+	year: {
+		type: Number,
+		min: 2014,
+		max: 3000,
+	},
+});
+
+Schema.MonthlyReports = new SimpleSchema({
+	reportID: {
+		type: Schema.MonthYear,
+		unique: true,
+	},
+	employeeCount: {
+		type: Number,
+		label: "Employees this month"
+	},
+	employeeHours: {
+		type: Number,
+		label: "Employee hours worked"
+	},
+	csaTotal: {
+		type: Number,
+		label: "Total CSA Subscriptions"
+	},
+	csaNew: {
+		type: Number,
+		label: "New CSA Subscriptions"
+	},
+	donorCount: {
+		type: Number,
+		label: "Donors"
+	},
+	veteranCount: {
+		type: Number,
+		label: "Veterans"
+	},
+	visitorCount: {
+		type: Number,
+		label: "Total Visitors"
+	},
+	visitorCount_children: {
+		type: Number,
+		label: "Child visitors"
+	},
+	visitorCount_adults: {
+		type: Number,
+		label: "Adult visitors"
+	},
+	visitorCount_seniors: {
+		type: Number,
+		label: "Senior visitors"
+	},
+	volunteerCount: {
+		type: Number,
+		label: "Volunteers this month"
+	},
+	volunteerHours: {
+		type: Number,
+		label: "Volunteer hours worked"
+	},
+});
+
+
 // set up Collections and relate them to some Schema
 
 // Products
