@@ -410,10 +410,10 @@ Schema.MonthlyReports = new SimpleSchema({
 		label: "Volunteer hours worked"
 	},
 	locationInfo: {
-		type: [LocationTotals],
+		type: [Schema.LocationTotals],
 	},
 	productInfo: {
-		type: [ProductTotals],
+		type: [Schema.ProductTotals],
 	},
 });
 
@@ -493,6 +493,10 @@ Requests.attachSchema(Schema.Requests);
 // Harvest Log
 HarvestLog = new Meteor.Collection("harvestlog");
 HarvestLog.attachSchema(Schema.HarvestLog);
+
+// REPORTS
+MonthlyReports = new Meteor.Collection("monthlyreports");
+MonthlyReports.attachSchema(Schema.MonthlyReports);
 
 // contexts for validation...
 var vContext = Schema.Volunteers.namedContext("newVolForm");
