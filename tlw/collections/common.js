@@ -381,10 +381,6 @@ Schema.MonthlyReports = new SimpleSchema({
 		type: Number,
 		label: "New CSA Subscriptions"
 	},
-	donorCount: {
-		type: Number,
-		label: "Donors"
-	},
 	veteranCount: {
 		type: Number,
 		label: "Veterans"
@@ -412,6 +408,54 @@ Schema.MonthlyReports = new SimpleSchema({
 	volunteerHours: {
 		type: Number,
 		label: "Volunteer hours worked"
+	},
+	locationInfo: {
+		type: [LocationTotals],
+	},
+	productInfo: {
+		type: [ProductTotals],
+	},
+});
+
+Schema.LocationTotals = new SimpleSchema({
+	location: {
+		type: Schema.Locations,
+		label: "Location",
+	},
+	volunteerCount: {
+		type: Number,
+		label: "Volunteers this month"
+	},
+	volunteerHours: {
+		type: Number,
+		label: "Volunteer hours worked"
+	},
+});
+
+Schema.ProductTotals = new SimpleSchema({
+	item: {
+		type: Schema.Products,
+		label: "Item"
+	},
+	harvestedUnits: {
+		type: Number,
+		label: "Harvested units",
+	},
+	wholesaleUnits: {
+		type: Number,
+		label: "Wholesale units",
+	},
+	marketUnits: {
+		type: Number,
+		label: "Market units",
+	},
+	marketSales: {
+		type: Number,
+		label: "Market sales",
+	},
+	otherUnits: {
+		type: Number,
+		label: "Other units (= Harvested - Market - Wholesale)",
 	},
 });
 
