@@ -23,6 +23,10 @@ Router.map(function() {
 	this.route('visitors');
 	this.route('visitorConfirmation');	
 
+	this.route('reports');
+	this.route('updateReport');
+	this.route('viewReport');
+
 	this.route('farmops', {
 		layoutTemplate: 'layoutFarmops',
 	});

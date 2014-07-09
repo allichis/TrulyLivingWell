@@ -1,9 +1,3 @@
-<template name="report">
-    <div class="container">
-        {{> reportForm}}
-    </div>
-</template>
-
 <template name="reportForm">
     <div class="container">
         <div class="jumbotron">
@@ -11,61 +5,75 @@
         </div><!-- /.jumbotron -->
     </div><!-- /.container -->
     <div class="container">
-        <!-- {{> quickForm collection="Visitors" id="visitorForm" type="insert"}} -->
+    {{#if reportSelected}}
+    {{#with reportSelected}}
+        {{# autoForm collection="MonthlyReports" doc=this id="reportUpdateForm" type="update"}}
         <fieldset>
             <div class="row">
                 <div class="col-md-4">
-                    {{> afQuickField name='Wheat Street Market Buyers'}}
-                </div>
-                <div class="col-md-4">
-                    {{> afQuickField name='Wheat Street CSA Subscriptions, Total'}}
-                </div>
-                <div class="col-md-4">
-                    {{> afQuickField name='Wheat Street CSA Subscriptions, New'}}
+                    {{> afQuickField name='reportID'}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    {{> afQuickField name='Wheat Street Employees this month'}}
+                    {{> afQuickField name='employeeCount'}}
                 </div>
                 <div class="col-md-4">
-                    {{> afQuickField name='Wheat Street Employee hours worked'}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    {{> afQuickField name='Wheat Street Donors'}}
+                    {{> afQuickField name='employeeHours'}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    {{> afQuickField name='East Point Market Buyers'}}
+                    {{> afQuickField name='csaTotal'}}
                 </div>
                 <div class="col-md-4">
-                    {{> afQuickField name='East Point CSA Subscriptions, Total'}}
-                </div>
-                <div class="col-md-4">
-                    {{> afQuickField name='East Point CSA Subscriptions, New'}}
+                    {{> afQuickField name='csaNew'}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    {{> afQuickField name='East Point Employees this month'}}
+                    {{> afQuickField name='veteranCount'}}
                 </div>
-                <div class="col-md-4">
-                    {{> afQuickField name='East Point Employee hours worked'}}
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    {{> afQuickField name='visitorCount'}}
+                </div>
+                <div class="col-md-3">
+                    {{> afQuickField name='visitorCount_children'}}
+                </div>
+                <div class="col-md-3">
+                    {{> afQuickField name='visitorCount_adults'}}
+                </div>
+                <div class="col-md-3">
+                    {{> afQuickField name='visitorCount_seniors'}}
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    {{> afQuickField name='East Point Donors'}}
+                    {{> afQuickField name='volunteerCount'}}
+                </div>
+                <div class="col-md-4">
+                    {{> afQuickField name='volunteerHours'}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{> afQuickField name='locationInfo'}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {{> afQuickField name='productInfo'}}
                 </div>
             </div>
         </fieldset>
-        <button type="submit" class="btn btn-primary" data-toggle="modal" href="#reportFormConfirmation">Submit</button>
+        <button type="submit" class="btn btn-primary" data-toggle="modal" href="#">Submit</button>
         {{/autoForm}}
+    {{/with}}
+    {{/if}}
     </div>
-    {{> reportFormConfirmation}}
+    <!-- {{> reportFormConfirmation}} -->
 </template>
 
 <template name="reportFormConfirmation">

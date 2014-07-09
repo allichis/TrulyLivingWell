@@ -352,11 +352,13 @@ Schema.MonthYear = new SimpleSchema({
 		type: Number,
 		min: 0,
 		max: 11,
+		label: "Month"
 	},
 	year: {
 		type: Number,
 		min: 2014,
 		max: 3000,
+		label: "Year"
 	},
 });
 
@@ -364,56 +366,70 @@ Schema.MonthlyReports = new SimpleSchema({
 	reportID: {
 		type: Schema.MonthYear,
 		unique: true,
+		label: "Report Date"
 	},
 	employeeCount: {
 		type: Number,
-		label: "Employees this month"
+		label: "Employees this month",
+		optional: true,
 	},
 	employeeHours: {
 		type: Number,
-		label: "Employee hours worked"
+		label: "Employee hours worked",
+		optional: true,
 	},
 	csaTotal: {
 		type: Number,
-		label: "Total CSA Subscriptions"
+		label: "Total CSA Subscriptions",
+		optional: true,
 	},
 	csaNew: {
 		type: Number,
-		label: "New CSA Subscriptions"
+		label: "New CSA Subscriptions",
+		optional: true,
 	},
 	veteranCount: {
 		type: Number,
-		label: "Veterans"
+		label: "Veterans",
+		optional: true,
 	},
 	visitorCount: {
 		type: Number,
-		label: "Total Visitors"
+		label: "Total Visitors",
+		optional: true,
 	},
 	visitorCount_children: {
 		type: Number,
-		label: "Child visitors"
+		label: "Child visitors",
+		optional: true,
 	},
 	visitorCount_adults: {
 		type: Number,
-		label: "Adult visitors"
+		label: "Adult visitors",
+		optional: true,
 	},
 	visitorCount_seniors: {
 		type: Number,
-		label: "Senior visitors"
+		label: "Senior visitors",
+		optional: true,
 	},
 	volunteerCount: {
 		type: Number,
-		label: "Volunteers this month"
+		label: "Volunteers this month",
+		optional: true,
 	},
 	volunteerHours: {
 		type: Number,
-		label: "Volunteer hours worked"
+		label: "Volunteer hours worked",
+		optional: true,
 	},
 	locationInfo: {
 		type: [Schema.LocationTotals],
+		optional: true,
 	},
 	productInfo: {
 		type: [Schema.ProductTotals],
+		optional: true,
 	},
 });
 
