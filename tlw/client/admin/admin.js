@@ -4,6 +4,24 @@ var today = function() {
 	return date;
 };
 
+var getMonthString = function(monthIndex) {
+	switch(monthIndex) {
+		case 0: return "Jan"
+		case 1: return "Feb"
+		case 2: return "Mar"
+		case 3: return "Apr"
+		case 4: return "May"
+		case 5: return "Jun"
+		case 6: return "Jul"
+		case 7: return "Aug"
+		case 8: return "Sept"
+		case 9: return "Oct"
+		case 10: return "Nov"
+		case 11: return "Dec"
+		default: return "Error"
+	}
+};
+
 Template.adminOverview.helpers({
 	usersTotal: function () {
 		return Meteor.users.find().count();
@@ -54,20 +72,7 @@ Template.adminThisMonthOverview.helpers({
 	},
 	thismonth: function() {
 		month = new Date().getMonth();
-		switch(month) {
-			case 0: return "Jan"
-			case 1: return "Feb"
-			case 2: return "Mar"
-			case 3: return "Apr"
-			case 4: return "May"
-			case 5: return "Jun"
-			case 6: return "Jul"
-			case 7: return "Aug"
-			case 8: return "Sept"
-			case 9: return "Oct"
-			case 10: return "Nov"
-			case 11: return "Dec"
-		}
+		return getMonthString(month);
 	},
 });
 
@@ -117,21 +122,13 @@ Template.adminLastMonthOverview.helpers({
 	},
 	lastmonth: function() {
 		month = new Date().getMonth();
-		month = month - 1;
-		switch(month) {
-			case 0: return "Jan"
-			case 1: return "Feb"
-			case 2: return "Mar"
-			case 3: return "Apr"
-			case 4: return "May"
-			case 5: return "Jun"
-			case 6: return "Jul"
-			case 7: return "Aug"
-			case 8: return "Sept"
-			case 9: return "Oct"
-			case 10: return "Nov"
-			case -1: return "Dec"
+		if(month === 0) {
+			month = 11;
 		}
+		else {
+			month -= 1;
+		}
+		return getMonthString(month);
 	},
 });
 
