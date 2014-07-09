@@ -22,6 +22,81 @@ Template.adminOverview.helpers({
 	},
 });
 
+Template.adminThisMonthOverview.helpers({
+	volHoursTotal: function () {
+		var date = new Date();
+		var month = date.getMonth();
+		var year = date.getFullYear();
+		var start = new Date(year, month, 1);
+		var end = new Date(year, month+1, 1);
+		var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}}).fetch();
+		var totalHours = 0;
+		volTimes.forEach(function(timecard) {
+			if(timecard.tcStatus === "Closed") {
+				totalHours += (timecard.timeClosed - timecard.timeOpened);
+			}
+		});
+		return totalHours;
+	},
+	visitorsTotal: function () {
+		var date = new Date();
+		var month = date.getMonth();
+		var year = date.getFullYear();
+		var start = new Date(year, month, 1);
+		var end = new Date(year, month+1, 1);
+		var visitors = Visitors.find({date: {$gte: start, $lt: end}}).fetch();
+		var total = 0;
+		visitors.forEach(function(visit) {
+			total += (visit.numChildren + visit.numAdults + visit.numSeniors);
+		});
+		return total;
+	},
+	thismonth: function() {
+		month = new Date().getMonth();
+		switch(month) {
+			case 0: return "Jan"
+			case 1: return "Feb"
+			case 2: return "Mar"
+			case 3: return "Apr"
+			case 4: return "May"
+			case 5: return "Jun"
+			case 6: return "Jul"
+			case 7: return "Aug"
+			case 8: return "Sept"
+			case 9: return "Oct"
+			case 10: return "Nov"
+			case 11: return "Dec"
+		}
+	},
+});
+
+Template.adminLastMonthOverview.helpers({
+	volHoursTotal: function () {
+		return Volunteers.find().count();
+	},
+	visitorsTotal: function () {
+		return Visitors.find().count();
+	},
+	lastmonth: function() {
+		month = new Date().getMonth();
+		month = month - 1;
+		switch(month) {
+			case 0: return "Jan"
+			case 1: return "Feb"
+			case 2: return "Mar"
+			case 3: return "Apr"
+			case 4: return "May"
+			case 5: return "Jun"
+			case 6: return "Jul"
+			case 7: return "Aug"
+			case 8: return "Sept"
+			case 9: return "Oct"
+			case 10: return "Nov"
+			case -1: return "Dec"
+		}
+	},
+});
+
 Template.navAdmin.helpers({
 	activeIfTemplateIs: function (template) {
 		var currentRoute = Router.current();

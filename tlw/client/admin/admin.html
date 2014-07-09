@@ -23,7 +23,19 @@
   <div class="container">
     <div class="row">
       <h2>Overview</h2>
-      {{>adminOverview}}
+      <div class="col-md-4"> 
+        {{>adminOverview}}
+      </div>
+      <div class="col-md-4"> 
+        {{>adminThisMonthOverview}}
+      </div>
+      <div class="col-md-4"> 
+        {{>adminLastMonthOverview}}
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
       <a href="#"><button type="button" class="btn btn-warning btn-lg" ><span class="glyphicon glyphicon-list-alt" style="padding-right:10px"></span>Monthly Report</button></a>
     </div><!-- /.row -->
   </div><!-- /.container -->
@@ -35,6 +47,18 @@
   <p>Total Products: {{productsTotal}}</p>
   <p>Total Locations: {{locsTotal}}</p>
   <p>Total Volunteers: {{volsTotal}}</p>
+  <p>Total Visitors: {{visitorsTotal}}</p>
+</template>
+
+<template name="adminThisMonthOverview">
+  <h3>This Month <small>({{thismonth}})</small></h3>
+  <p>Total Volunteer Hours: {{volHoursTotal}}</p>
+  <p>Total Visitors: {{visitorsTotal}}</p>
+</template>
+
+<template name="adminLastMonthOverview">
+  <h3>Last Month <small>({{lastmonth}})</small></h3>
+  <p>Total Volunteer Hours: {{volHoursTotal}}</p>
   <p>Total Visitors: {{visitorsTotal}}</p>
 </template>
 
