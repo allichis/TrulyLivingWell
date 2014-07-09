@@ -33,7 +33,8 @@ Template.adminThisMonthOverview.helpers({
 		var totalHours = 0;
 		volTimes.forEach(function(timecard) {
 			if(timecard.tcStatus === "Closed") {
-				totalHours += (timecard.timeClosed - timecard.timeOpened);
+				var hours = timecard.timeClosed - timecard.timeOpened;
+				totalHours += hours;
 			}
 		});
 		return totalHours;
@@ -72,10 +73,47 @@ Template.adminThisMonthOverview.helpers({
 
 Template.adminLastMonthOverview.helpers({
 	volHoursTotal: function () {
-		return Volunteers.find().count();
+		var date = new Date();
+		var month = date.getMonth();
+		var year = date.getFullYear();
+		if(month === 0) {
+			month = 11;
+			year -= 1;
+		}
+		else {
+			month -= 1;
+		}
+		var start = new Date(year, month, 1);
+		var end = new Date(year, month+1, 1);
+		var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}}).fetch();
+		var totalHours = 0;
+		volTimes.forEach(function(timecard) {
+			if(timecard.tcStatus === "Closed") {
+				var hours = timecard.timeClosed - timecard.timeOpened;
+				totalHours += hours;
+			}
+		});
+		return totalHours;
 	},
 	visitorsTotal: function () {
-		return Visitors.find().count();
+		var date = new Date();
+		var month = date.getMonth();
+		var year = date.getFullYear();
+		if(month === 0) {
+			month = 11;
+			year -= 1;
+		}
+		else {
+			month -= 1;
+		}
+		var start = new Date(year, month, 1);
+		var end = new Date(year, month+1, 1);
+		var visitors = Visitors.find({date: {$gte: start, $lt: end}}).fetch();
+		var total = 0;
+		visitors.forEach(function(visit) {
+			total += (visit.numChildren + visit.numAdults + visit.numSeniors);
+		});
+		return total;
 	},
 	lastmonth: function() {
 		month = new Date().getMonth();
