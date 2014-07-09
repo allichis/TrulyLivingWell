@@ -32,7 +32,7 @@
 
 <template name="volsignin">
   <div class="container">
-    {{#unless signedIn}}
+    {{#unless volFound}}
       <div class="row">
         <h1>Volunteer lookup</h1>
         <h3>Enter name or phone number:</h3>
@@ -50,25 +50,11 @@
   </div><!-- /.container -->
 </template>
 
-<template name="volMatch">
-<div class="container">
-  <div class="row">
-    {{#with foundVol}}
-      <h4>Welcome back, {{firstname}} {{lastname}}!</h4>
-      <h5>Just one more click to sign in for volunteering today.</h5>
-      <button type="submit" class="btn btn-large">Get started!</button>
-    {{/with}}
-  </div>
-</div>
-</template>
-
 <template name="signinSuccess">
   <div class="row">
     <br><br>
-    {{#each volRecord}}
-    <p class="lead">Thanks for volunteering today, {{firstname}} {{lastname}}!</p>
+    <p class="lead">Thanks for volunteering today!</p>
     <br><p>You signed in to start volunteering at {{timeLogged}}.</p>
-    {{/each}}
     <br><br>
     <a href="{{pathFor 'home'}}"><button class="btn btn-large btn-success">Home</button></a>
   </div>
