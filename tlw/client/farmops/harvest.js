@@ -195,9 +195,9 @@ Template.displayTodayRequests.helpers(
 	harvestHelpers
 );
 
-Template.display3DayRequests.helpers(
+/*Template.display3DayRequests.helpers(
 	harvestHelpers
-);
+);*/
 
 
 // HARVEST LOG
