@@ -77,13 +77,11 @@ Template.selectReport.events({
 	'click .btn-warning': function(event, template) {
 		var reportmonth = Number(template.find("#selectMonth").value);
 		var reportyear = Number(template.find("#selectYear").value);
-		// TO DO: check for valid month and year
 		var report = MonthlyReports.find({$and: [{'month': reportmonth}, {'year': reportyear}]}).fetch()[0];
 		if(!report) {
-			//alert("Report not found. Creating new report for " + reportmonth + " " + reportyear + ".");
-			var newreportid = MonthlyReports.insert({month: reportmonth, year: reportyear});
+			var reportValues = getReportValues(reportmonth, reportyear);
+			var newreportid = MonthlyReports.insert(reportValues);
 			report = MonthlyReports.find({'_id': newreportid}).fetch()[0];
-			//alert("Report created: ID=" + newreportid);
 		}
 		Session.set('reportSelected', report);
     },
@@ -128,3 +126,84 @@ Template.deleteReportModal.events({
     },
 });
 
+
+
+function getReportValues(month, year) {
+	var values = {};
+	values['month'] = month;
+	values['year'] =  year;
+	values['employeeCount'] = 0;
+	values['employeeHours'] = 0;
+	values['volunteerCount'] = getVolunteerCount(month, year);
+	values['volunteerHours'] = getVolunteerHours(month, year);
+	values['visitorCount'] = getVisitorTotal(month,year);
+	values['veteranCount'] = 0;
+	values['visitorCount_children'] = getVisitorChildren(month,year);
+	values['visitorCount_adults'] = getVisitorAdults(month,year);
+	values['visitorCount_seniors'] = getVisitorSeniors(month,year);
+	// location data
+	// product data
+	return values;
+}
+
+function getVolunteerCount(month, year) {
+	return 0;
+}
+
+function getVolunteerHours(month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}}).fetch();
+	var totalHours = 0;
+	volTimes.forEach(function(timecard) {
+		if(timecard.tcStatus === "Closed") {
+			var hours = timecard.timeClosed - timecard.timeOpened;
+			totalHours += hours;
+		}
+	});
+	return totalHours;
+}
+
+function getVisitorTotal(month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var visitors = Visitors.find({date: {$gte: start, $lt: end}}).fetch();
+	var total = 0;
+	visitors.forEach(function(visit) {
+		total += (visit.numChildren + visit.numAdults + visit.numSeniors);
+	});
+	return total;
+}
+
+function getVisitorChildren(month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var visitors = Visitors.find({date: {$gte: start, $lt: end}}, {fields: {numChildren:1}}).fetch();
+	var total = 0;
+	visitors.forEach(function(visit) {
+		total += visit.numChildren;
+	});
+	return total;
+}
+
+function getVisitorAdults(month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var visitors = Visitors.find({date: {$gte: start, $lt: end}}, {fields: {numAdults:1}}).fetch();
+	var total = 0;
+	visitors.forEach(function(visit) {
+		total += visit.numAdults;
+	});
+	return total;
+}
+
+function getVisitorSeniors(month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var visitors = Visitors.find({date: {$gte: start, $lt: end}}, {fields: {numSeniors:1}}).fetch();
+	var total = 0;
+	visitors.forEach(function(visit) {
+		total += visit.numSeniors;
+	});
+	return total;
+}

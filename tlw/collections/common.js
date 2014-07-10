@@ -367,7 +367,9 @@ Schema.MonthlyReports = new SimpleSchema({
 		type: String,
 		unique: true,
 		autoValue: function() {
-			var monthyearstring = this.field('month').value.toString() + this.field('year').value.toString();
+			var month = this.field('month').value;
+			var year = this.field('year').value;
+			var monthyearstring = month.toString() + year.toString();
 			if (this.isInsert) {
 	          return monthyearstring;
 	        } else if (this.isUpsert) {
