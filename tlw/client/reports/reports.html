@@ -41,6 +41,79 @@
 </template>
 
 <template name="viewReport">
+	{{#with reportSelected}}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Monthly Report<br>
+            <small>{{displayMonth month}} {{year}}</small>
+            </h1>
+        </div><!-- /.jumbotron -->
+    </div><!-- /.container -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Employees</h3>
+                <ul class="list-group">
+	                <li class="list-group-item">Employee count:  {{employeeCount}}</li>
+	                <li class="list-group-item">Employee hours:  {{employeeHours}}</li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h3>Volunteers</h3>
+                <ul class="list-group">
+                	<li class="list-group-item">Volunteer count:  {{volunteerCount}}</li>
+                	<li class="list-group-item">Volunteer hours:  {{volunteerHours}}</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <h3>Visitors</h3>
+                <ul class="list-group">
+	                <li class="list-group-item">Total Visitors:  {{visitorCount}}</li>
+	                <li class="list-group-item">Veteran count:  {{veteranCount}}</li>
+	                <li class="list-group-item">Child visitors:  {{visitorCount_children}}</li>
+	                <li class="list-group-item">Adult visitors:  {{visitorCount_adults}}</li>
+	                <li class="list-group-item">Senior visitors:  {{visitorCount_seniors}}</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <h3>CSA</h3>
+                <ul class="list-group">
+                	<li class="list-group-item">Total CSA:  {{csaTotal}}</li>
+                	<li class="list-group-item">New CSA:  {{csaNew}}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Locations</h3>
+                <ul class="list-group">
+                	<li class="list-group-item">Location:  {{locationInfo}}</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Products</h3>
+                <ul class="list-group">
+                	<li class="list-group-item">Product:  {{productInfo}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    {{/with}}
+
+    <br>
+	<div class="container">
+		<a href="{{pathFor 'admin'}}"><button type="button" class="btn btn-primary">Done</button></a>
+	</div>
 
 </template>
 
@@ -75,7 +148,8 @@
 	        <tr>
 	          <td>
 	            <span data-toggle="modal" href="#deletereport" class="glyphicon glyphicon-trash clickable"></span>
-	            <a href="{{pathFor 'updateReport'}}"><span data-toggle="modal"  class="glyphicon glyphicon-pencil clickable"></span></a>
+	            <a href="{{pathFor 'updateReport'}}"><span class="glyphicon glyphicon-pencil clickable"></span></a>
+	            <a href="{{pathFor 'viewReport'}}"><span  class="glyphicon glyphicon-info-sign clickable"></span></a>	            
 	          </td>
 	          <td>{{displayMonth month}} {{year}}</td>
 	          <td>{{employeeCount}}</td>

@@ -8,6 +8,9 @@
         </div><!-- /.jumbotron -->
     </div><!-- /.container -->
     <div class="container">
+        <h4>Information entered below will be included in the report</h4>
+    </div>
+    <div class="container">
         {{# autoForm collection="MonthlyReports" doc=this id="reportUpdateForm" type="update"}}
         <fieldset>
             <div class="row">
@@ -16,24 +19,8 @@
                     {{> afQuickField name='employeeCount'}}
                     {{> afQuickField name='employeeHours'}}
                 </div>
-                <div class="col-md-4">
-                    <h3>Volunteers</h3>
-                    {{> afQuickField name='volunteerCount'}}
-                    {{> afQuickField name='volunteerHours'}}
-                </div>
             </div>
-            
-            <div class="row">
-                <div class="col-md-4">
-                    <h3>Visitors</h3>
-                    {{> afQuickField name='visitorCount'}}
-                    {{> afQuickField name='veteranCount'}}
-                    {{> afQuickField name='visitorCount_children'}}
-                    {{> afQuickField name='visitorCount_adults'}}
-                    {{> afQuickField name='visitorCount_seniors'}}
-                </div>
-            </div>
-            
+
             <div class="row">
                 <div class="col-md-4">
                     <h3>CSA</h3>
@@ -41,22 +28,9 @@
                     {{> afQuickField name='csaNew'}}
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Locations</h3>
-                    {{> afQuickField name='locationInfo'}}
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Products</h3>
-                    {{> afQuickField name='productInfo'}}
-                </div>
-            </div>
         </fieldset>
-        <button type="submit" class="btn btn-primary" data-toggle="modal" href="#">Submit</button>
+        <a href="{{pathFor 'admin'}}"><button type="button" class="btn btn-default">Cancel</button></a>
+        <button type="submit" class="btn btn-primary" href="{{pathFor 'viewReport'}}">Submit</button>
         {{/autoForm}}
     </div>
     {{/with}}

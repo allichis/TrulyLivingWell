@@ -34,14 +34,9 @@ var reportHelpers = {
 		return getMonthString(month);
 	},
 	years: function() {
-		var reports = MonthlyReports.find().fetch();
-		var years = [2014,2015];
-		/*for(r in reports) {
-			var y = r.year;
-			if(!years.contains(y)) {
-				years.push(y);
-			}
-		}*/
+		var years = _.uniq(MonthlyReports.find({}, {fields: {year:1}})
+			.fetch()
+			.map(function(x){return x.year;}), true);
 		return years;
 	},
 	yearFilter: function() {
@@ -52,7 +47,7 @@ var reportHelpers = {
 var setYearFilter = function(template){
 	var year = template.find(".year-filter").value;
 	Session.set("yearFilter", year);
-	alert("year filter set to " + year);
+	//alert("year filter set to " + year);
 };
 
 Template.selectReport.helpers({
@@ -85,17 +80,18 @@ Template.selectReport.events({
 		// TO DO: check for valid month and year
 		var report = MonthlyReports.find({$and: [{'month': reportmonth}, {'year': reportyear}]}).fetch()[0];
 		if(!report) {
-			alert("Report not found. Creating new report for " + reportmonth + " " + reportyear + ".");
+			//alert("Report not found. Creating new report for " + reportmonth + " " + reportyear + ".");
 			var newreportid = MonthlyReports.insert({month: reportmonth, year: reportyear});
 			report = MonthlyReports.find({'_id': newreportid}).fetch()[0];
-			alert("Report created: ID=" + newreportid);
+			//alert("Report created: ID=" + newreportid);
 		}
 		Session.set('reportSelected', report);
     },
 });
 
-Template.reportForm.helpers(reportHelpers);
+Template.viewReport.helpers(reportHelpers);
 
+Template.reportForm.helpers(reportHelpers);
 
 Template.adminViewMonthlyReports.helpers(reportHelpers);
 
@@ -104,6 +100,9 @@ Template.adminViewMonthlyReports.events({
 		Session.set('reportSelected', this);
     },
     'click .glyphicon-pencil': function(event, template) {
+		Session.set('reportSelected', this);
+    },
+    'click .glyphicon-info-sign': function(event, template) {
 		Session.set('reportSelected', this);
     },
     'click .year-filter': function(event, template) {
