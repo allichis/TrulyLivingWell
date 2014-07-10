@@ -47,9 +47,10 @@ Template.selectReport.events({
 		var report = MonthlyReports.find({reportID: {month: reportmonth, year: reportyear}}).fetch()[0];
 		if(!report) {
 			alert("Report not found. Creating new report for " + reportmonth + " " + reportyear + ".");
-			report = MonthlyReports.insert({reportID: {month: reportmonth, year: reportyear}});
+			var newreportid = MonthlyReports.insert({reportID: {month: reportmonth, year: reportyear}});
+			report = MonthlyReports.find({_id: newreportid}).fetch()[0];
+			alert("Report created: ID=" + newreportid);
 		}
-		alert("Report created: ID=" + report);
 		Session.set('reportSelected', report);
     },
 });

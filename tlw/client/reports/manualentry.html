@@ -13,56 +13,49 @@
                     {{> afQuickField name='reportID'}}
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-md-4">
+                    <h3>Employees</h3>
                     {{> afQuickField name='employeeCount'}}
-                </div>
-                <div class="col-md-4">
                     {{> afQuickField name='employeeHours'}}
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-md-4">
-                    {{> afQuickField name='csaTotal'}}
-                </div>
-                <div class="col-md-4">
-                    {{> afQuickField name='csaNew'}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    {{> afQuickField name='veteranCount'}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-3">
-                    {{> afQuickField name='visitorCount'}}
-                </div>
-                <div class="col-md-3">
-                    {{> afQuickField name='visitorCount_children'}}
-                </div>
-                <div class="col-md-3">
-                    {{> afQuickField name='visitorCount_adults'}}
-                </div>
-                <div class="col-md-3">
-                    {{> afQuickField name='visitorCount_seniors'}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
+                    <h3>Volunteers</h3>
                     {{> afQuickField name='volunteerCount'}}
-                </div>
-                <div class="col-md-4">
                     {{> afQuickField name='volunteerHours'}}
                 </div>
             </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Visitors</h3>
+                    {{> afQuickField name='visitorCount'}}
+                    {{> afQuickField name='veteranCount'}}
+                    {{> afQuickField name='visitorCount_children'}}
+                    {{> afQuickField name='visitorCount_adults'}}
+                    {{> afQuickField name='visitorCount_seniors'}}
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>CSA</h3>
+                    {{> afQuickField name='csaTotal'}}
+                    {{> afQuickField name='csaNew'}}
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
+                    <h3>Locations</h3>
                     {{> afQuickField name='locationInfo'}}
                 </div>
             </div>
+            
             <div class="row">
                 <div class="col-md-12">
+                    <h3>Products</h3>
                     {{> afQuickField name='productInfo'}}
                 </div>
             </div>
@@ -71,7 +64,6 @@
         {{/autoForm}}
     {{/with}}
     </div>
-    <!-- {{> reportFormConfirmation}} -->
 </template>
 
 <template name="reportFormConfirmation">
