@@ -159,6 +159,12 @@ Schema.Visitors = new SimpleSchema({
 		defaultValue: 0,
 		min: 0,
 	},
+	numVeterans: {
+		type: Number,
+		label: "Number of Veterans",
+		defaultValue: 0,
+		min: 0,
+	},
 	/*otherVisitType: {
 		type: String,
 		label: "Other reason for visit",
@@ -367,16 +373,19 @@ Schema.MonthlyReports = new SimpleSchema({
 		type: String,
 		unique: true,
 		autoValue: function() {
-			var month = this.field('month').value;
-			var year = this.field('year').value;
-			var monthyearstring = month.toString() + year.toString();
 			if (this.isInsert) {
-	          return monthyearstring;
+				var month = this.field('month').value;
+				var year = this.field('year').value;
+				var monthyearstring = month + "" + year;
+	          	return monthyearstring;
 	        } else if (this.isUpsert) {
-	          return {$setOnInsert: monthyearstring};
-	        } else {
-	          this.unset();
-	        }
+	        	var month = this.field('month').value;
+				var year = this.field('year').value;
+				var monthyearstring = month + "" + year;
+          		return {$setOnInsert: monthyearstring};
+        	} else {
+        		this.unset();
+        	}
 		}
 	},
 	month: {
@@ -388,7 +397,7 @@ Schema.MonthlyReports = new SimpleSchema({
 	year: {
 		type: Number,
 		min: 2014,
-		max: 3000,
+		max: 9999,
 		label: "Year"
 	},
 	employeeCount: {
