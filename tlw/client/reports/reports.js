@@ -137,7 +137,7 @@ function getReportValues(month, year) {
 	values['volunteerCount'] = getVolunteerCount(month, year);
 	values['volunteerHours'] = getVolunteerHours(month, year);
 	values['visitorCount'] = getVisitorTotal(month,year);
-	values['veteranCount'] = 0;
+	values['veteranCount'] = getVisitorVeterans(month, year);
 	values['visitorCount_children'] = getVisitorChildren(month,year);
 	values['visitorCount_adults'] = getVisitorAdults(month,year);
 	values['visitorCount_seniors'] = getVisitorSeniors(month,year);
@@ -204,6 +204,17 @@ function getVisitorSeniors(month, year) {
 	var total = 0;
 	visitors.forEach(function(visit) {
 		total += visit.numSeniors;
+	});
+	return total;
+}
+
+function getVisitorVeterans(month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var visitors = Visitors.find({date: {$gte: start, $lt: end}}, {fields: {numVeterans:1}}).fetch();
+	var total = 0;
+	visitors.forEach(function(visit) {
+		total += visit.numVeterans;
 	});
 	return total;
 }
