@@ -1,19 +1,13 @@
 <template name="reportForm">
+    {{#with reportSelected}}
     <div class="container">
         <div class="jumbotron">
-            <h1>Report: Manual Entry</h1>
+            <h1>Report: {{monthString reportID.month}} {{reportID.year}}</h1>
         </div><!-- /.jumbotron -->
     </div><!-- /.container -->
     <div class="container">
-    {{#with reportSelected}}
         {{# autoForm collection="MonthlyReports" doc=this id="reportUpdateForm" type="update"}}
         <fieldset>
-            <div class="row">
-                <div class="col-md-4">
-                    {{> afQuickField name='reportID'}}
-                </div>
-            </div>
-            
             <div class="row">
                 <div class="col-md-4">
                     <h3>Employees</h3>
@@ -62,8 +56,8 @@
         </fieldset>
         <button type="submit" class="btn btn-primary" data-toggle="modal" href="#">Submit</button>
         {{/autoForm}}
-    {{/with}}
     </div>
+    {{/with}}
 </template>
 
 <template name="reportFormConfirmation">

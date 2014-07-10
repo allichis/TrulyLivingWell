@@ -58,7 +58,10 @@ Template.selectReport.events({
 Template.reportForm.helpers({
 	reportSelected: function() {
 		return Session.get('reportSelected');
-	}
+	},
+	monthString: function(month) {
+		return getMonthString(month);
+	},
 });
 
 
@@ -73,6 +76,9 @@ Template.adminViewMonthlyReports.helpers({
 
 Template.adminViewMonthlyReports.events({
 	'click .glyphicon-trash': function(event, template) {
+		Session.set('reportSelected', this);
+    },
+    'click .glyphicon-pencil': function(event, template) {
 		Session.set('reportSelected', this);
     },
 });

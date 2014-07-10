@@ -24,6 +24,7 @@ Router.map(function() {
 	this.route('visitorConfirmation');	
 
 	this.route('reports');
+	this.route('selectReport');
 	this.route('updateReport');
 	this.route('viewReport');
 

@@ -4,7 +4,6 @@
             <h1>Monthly Report</h1>
         </div><!-- /.jumbotron -->
     </div><!-- /.container -->
-	{{> selectReport}}
 </template>
 
 <template name="selectReport">
@@ -43,7 +42,7 @@
 
 <template name="adminViewMonthlyReports">
   <h2>Reports</h2>
-  <a href="{{pathFor 'reports'}}"><button type="button" class="btn btn-warning btn-lg" ><span class="glyphicon glyphicon-list-alt" style="padding-right:10px"></span>New Monthly Report</button></a>
+  <a href="{{pathFor 'selectReport'}}"><button type="button" class="btn btn-warning btn-lg" ><span class="glyphicon glyphicon-list-alt" style="padding-right:10px"></span>New Monthly Report</button></a>
   
   <table class="table table-striped">
     <thead>
@@ -61,6 +60,7 @@
         <tr>
           <td>
             <span data-toggle="modal" href="#deletereport" class="glyphicon glyphicon-trash clickable"></span>
+            <a href="{{pathFor 'updateReport'}}"><span data-toggle="modal"  class="glyphicon glyphicon-pencil clickable"></span></a>
           </td>
           <td>{{monthString reportID.month}} {{reportID.year}}</td>
           <td>{{volunteerCount}}</td>
