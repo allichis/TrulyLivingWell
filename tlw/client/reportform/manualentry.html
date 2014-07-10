@@ -5,7 +5,6 @@
         </div><!-- /.jumbotron -->
     </div><!-- /.container -->
     <div class="container">
-    {{#if reportSelected}}
     {{#with reportSelected}}
         {{# autoForm collection="MonthlyReports" doc=this id="reportUpdateForm" type="update"}}
         <fieldset>
@@ -71,7 +70,6 @@
         <button type="submit" class="btn btn-primary" data-toggle="modal" href="#">Submit</button>
         {{/autoForm}}
     {{/with}}
-    {{/if}}
     </div>
     <!-- {{> reportFormConfirmation}} -->
 </template>

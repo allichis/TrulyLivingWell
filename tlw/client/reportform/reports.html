@@ -28,7 +28,7 @@
 	</div>
 	<br>
 	<div class="container">
-		<a href="{{pathFor updateReport}}"><button type="button" class="btn btn-warning btn-lg">Get Report</button></a>
+		<a href="{{pathFor 'updateReport'}}"><button type="button" class="btn btn-warning btn-lg">Get Report</button></a>
 	</div>
 </template>
 
@@ -38,4 +38,59 @@
 
 <template name="viewReport">
 
+</template>
+
+
+<template name="adminViewMonthlyReports">
+  <div class="row">
+    <h2>Reports</h2>
+  </div>
+  <div class="row">
+      <a href="{{pathFor 'reports'}}"><button type="button" class="btn btn-warning btn-lg" ><span class="glyphicon glyphicon-list-alt" style="padding-right:10px"></span>New Monthly Report</button></a>
+  </div><!-- /.row -->
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Date</th>
+        <th>Volunteers</th>
+        <th>Volunteer Hours</th>
+        <th>Visitors</th>
+        <th>Veterans</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each reports}}
+        <tr>
+          <td>
+            <span data-toggle="modal" href="#deletereport" class="glyphicon glyphicon-trash clickable"></span>
+          </td>
+          <td>{{monthString reportID.month}} {{reportID.year}}</td>
+          <td>{{volunteerCount}}</td>
+          <td>{{volunteerHours}}</td>
+          <td>{{visitorCount}}</td>
+          <td>{{veteranCount}}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+  {{> deleteReportModal}}
+</template>
+
+<template name="deleteReportModal">
+	<div id="deletereport" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{#with reportSelected}}
+				 	<div class="modal-body">
+				 		<h4>Are you sure you want to delete the report for <strong>{{monthString reportID.month}} {{reportID.year}}</strong>?</h4>
+				 	</div>
+				 	<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+						<button type="button" class="btn btn-danger">Delete</button>
+					</div>
+				{{/with}}
+			</div>
+		</div>
+	</div>
 </template>

@@ -98,4 +98,9 @@ Meteor.methods({
 	deleteVisitType: function(vId) {
 		VisitTypes.remove(vId);
 	},
+
+	// REPORTS
+	deleteReport: function(id) {
+		MonthlyReports.remove(id);
+	},
 });

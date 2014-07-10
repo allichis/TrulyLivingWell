@@ -371,56 +371,78 @@ Schema.MonthlyReports = new SimpleSchema({
 	employeeCount: {
 		type: Number,
 		label: "Employees this month",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	employeeHours: {
 		type: Number,
 		label: "Employee hours worked",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	csaTotal: {
 		type: Number,
 		label: "Total CSA Subscriptions",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	csaNew: {
 		type: Number,
 		label: "New CSA Subscriptions",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	veteranCount: {
 		type: Number,
 		label: "Veterans",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	visitorCount: {
 		type: Number,
 		label: "Total Visitors",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	visitorCount_children: {
 		type: Number,
 		label: "Child visitors",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	visitorCount_adults: {
 		type: Number,
 		label: "Adult visitors",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	visitorCount_seniors: {
 		type: Number,
 		label: "Senior visitors",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	volunteerCount: {
 		type: Number,
 		label: "Volunteers this month",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	volunteerHours: {
 		type: Number,
 		label: "Volunteer hours worked",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	locationInfo: {
@@ -440,11 +462,17 @@ Schema.LocationTotals = new SimpleSchema({
 	},
 	volunteerCount: {
 		type: Number,
-		label: "Volunteers this month"
+		label: "Volunteers this month",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
 	},
 	volunteerHours: {
 		type: Number,
-		label: "Volunteer hours worked"
+		label: "Volunteer hours worked",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
 	},
 });
 
@@ -456,22 +484,36 @@ Schema.ProductTotals = new SimpleSchema({
 	harvestedUnits: {
 		type: Number,
 		label: "Harvested units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
 	},
 	wholesaleUnits: {
 		type: Number,
 		label: "Wholesale units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
 	},
 	marketUnits: {
 		type: Number,
 		label: "Market units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
 	},
 	marketSales: {
 		type: Number,
 		label: "Market sales",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
 	},
 	otherUnits: {
 		type: Number,
 		label: "Other units (= Harvested - Market - Wholesale)",
+		defaultValue: 0,
+		optional: true,
 	},
 });
 
