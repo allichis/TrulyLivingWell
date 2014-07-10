@@ -8,6 +8,11 @@
 
 <template name="selectReport">
 	<div class="container">
+        <div class="jumbotron">
+            <h1>Monthly Report</h1>
+        </div><!-- /.jumbotron -->
+    </div><!-- /.container -->
+	<div class="container">
 		<form id="selectReportDate">
 			<div class="input-group">
 				<h4>Select Month</h4>
@@ -41,37 +46,48 @@
 
 
 <template name="adminViewMonthlyReports">
-  <h2>Reports</h2>
-  <a href="{{pathFor 'selectReport'}}"><button type="button" class="btn btn-warning btn-lg" ><span class="glyphicon glyphicon-list-alt" style="padding-right:10px"></span>New Monthly Report</button></a>
-  
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th></th>
-        <th>Date</th>
-        <th>Volunteers</th>
-        <th>Volunteer Hours</th>
-        <th>Visitors</th>
-        <th>Veterans</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{#each reports}}
-        <tr>
-          <td>
-            <span data-toggle="modal" href="#deletereport" class="glyphicon glyphicon-trash clickable"></span>
-            <a href="{{pathFor 'updateReport'}}"><span data-toggle="modal"  class="glyphicon glyphicon-pencil clickable"></span></a>
-          </td>
-          <td>{{monthString reportID.month}} {{reportID.year}}</td>
-          <td>{{volunteerCount}}</td>
-          <td>{{volunteerHours}}</td>
-          <td>{{visitorCount}}</td>
-          <td>{{veteranCount}}</td>
-        </tr>
-      {{/each}}
-    </tbody>
-  </table>
-  {{> deleteReportModal}}
+ 	<h2>Reports</h2>
+  	<a href="{{pathFor 'selectReport'}}"><button type="button" class="btn btn-warning btn-lg" ><span class="glyphicon glyphicon-list-alt" style="padding-right:10px"></span>New Monthly Report</button></a>
+
+  	<table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>
+	        	<label for="yearfilter">View reports for:</label>
+		        <select class="form-control year-filter" name="yearfilter">
+					<optgroup>
+					{{#each years}}
+						<option value="{{this}}">{{this}}</option> 
+					{{/each}}
+					</optgroup>
+				</select>
+			</th>
+	        <th>Date</th>
+	        <th>Employees</th>
+	        <th>Employee Hours</th>
+	        <th>Volunteers</th>
+	        <th>Volunteer Hours</th>
+	        <th>Visitors</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      {{#each reports}}
+	        <tr>
+	          <td>
+	            <span data-toggle="modal" href="#deletereport" class="glyphicon glyphicon-trash clickable"></span>
+	            <a href="{{pathFor 'updateReport'}}"><span data-toggle="modal"  class="glyphicon glyphicon-pencil clickable"></span></a>
+	          </td>
+	          <td>{{displayMonth month}} {{year}}</td>
+	          <td>{{employeeCount}}</td>
+	          <td>{{employeeHours}}</td>
+	          <td>{{volunteerCount}}</td>
+	          <td>{{volunteerHours}}</td>
+	          <td>{{visitorCount}}</td>
+	        </tr>
+	      {{/each}}
+	    </tbody>
+  	</table>
+  	{{> deleteReportModal}}
 </template>
 
 <template name="deleteReportModal">
@@ -80,7 +96,7 @@
 			<div class="modal-content">
 				{{#with reportSelected}}
 				 	<div class="modal-body">
-				 		<h4>Are you sure you want to delete the report for <strong>{{monthString reportID.month}} {{reportID.year}}</strong>?</h4>
+				 		<h4>Are you sure you want to delete the report for <strong>{{displayMonth month}} {{year}}</strong>?</h4>
 				 	</div>
 				 	<div class="modal-footer">
 						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>

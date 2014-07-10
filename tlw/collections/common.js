@@ -364,9 +364,23 @@ Schema.MonthYear = new SimpleSchema({
 
 Schema.MonthlyReports = new SimpleSchema({
 	reportID: {
-		type: Schema.MonthYear,
+		type: String,
 		unique: true,
-		label: "Report Date"
+		autoValue: function() {
+			return this.field('month').value.toString() + this.field('year').value.toString();
+		}
+	},
+	month: {
+		type: Number,
+		min: 0,
+		max: 11,
+		label: "Month"
+	},
+	year: {
+		type: Number,
+		min: 2014,
+		max: 3000,
+		label: "Year"
 	},
 	employeeCount: {
 		type: Number,
