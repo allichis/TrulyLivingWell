@@ -80,14 +80,14 @@ Template.selectReport.helpers({
 
 Template.selectReport.events({
 	'click .btn-warning': function(event, template) {
-		var reportmonth = template.find("#selectMonth").value;
-		var reportyear = template.find("#selectYear").value;
+		var reportmonth = Number(template.find("#selectMonth").value);
+		var reportyear = Number(template.find("#selectYear").value);
 		// TO DO: check for valid month and year
-		var report = MonthlyReports.find({$and: [{month: reportmonth}, {year: reportyear}]}).fetch()[0];
+		var report = MonthlyReports.find({$and: [{'month': reportmonth}, {'year': reportyear}]}).fetch()[0];
 		if(!report) {
 			alert("Report not found. Creating new report for " + reportmonth + " " + reportyear + ".");
 			var newreportid = MonthlyReports.insert({month: reportmonth, year: reportyear});
-			report = MonthlyReports.find({_id: newreportid}).fetch()[0];
+			report = MonthlyReports.find({'_id': newreportid}).fetch()[0];
 			alert("Report created: ID=" + newreportid);
 		}
 		Session.set('reportSelected', report);
