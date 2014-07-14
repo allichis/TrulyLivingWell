@@ -191,7 +191,7 @@ Template.volunteersAdmin.helpers({
 	volunteers: function() {
 		filter = Session.get("volunteersFilter");
 		if(!!filter)
-			return Volunteers.find({'lastname': {$regex: filter, $options: 'i'}}, {sort: {lastname:1, firstname:1}})
+			return Volunteers.find({$or: [{'lastname': {$regex: filter, $options: 'i'}}, {'firstname': {$regex: filter, $options: 'i'}}]}, {sort: {lastname:1, firstname:1}})
 		else
 			return Volunteers.find({}, {sort: {lastname:1, firstname:1}})
 	},
