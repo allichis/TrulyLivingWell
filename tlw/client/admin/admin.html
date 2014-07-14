@@ -375,7 +375,8 @@
 <template name="visitTypesAdmin">
   
   <div class="container">
-    <button type="button" data-toggle="modal" href="#insertvisittype" class="btn btn-success" >Add New Visit Type</button>
+    <h3>Visit Types</h3>
+    <button type="button" data-toggle="modal" href="#insertvisittype" class="btn btn-success">Add New Visit Type</button>
   </div>
 
   <div class="container">
@@ -392,8 +393,72 @@
         {{#each visittypes}}
           <tr>
             <td>
+            {{#if isNotTour}}
               <span data-toggle="modal" href="#deletevisittype" class="glyphicon glyphicon-trash clickable"></span>
               <span data-toggle="modal" href="#updatevisittype" class="glyphicon glyphicon-pencil clickable"></span>
+            {{/if}}
+            </td>
+            <td>{{title}}</td>
+            <td>{{cost}}</td>
+            <td>{{notes}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container">
+    <h3>Tours</h3>
+    <button type="button" data-toggle="modal" href="#inserttour" class="btn btn-success" >Add New Tour</button>
+  </div>
+
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Tour</th>
+          <th>Cost</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each tours}}
+          <tr>
+            <td>
+              <span data-toggle="modal" href="#deletetour" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#updatetour" class="glyphicon glyphicon-pencil clickable"></span>
+            </td>
+            <td>{{title}}</td>
+            <td>{{cost}}</td>
+            <td>{{notes}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container">
+    <h3>Tour Add-Ons</h3>
+    <button type="button" data-toggle="modal" href="#inserttouraddon" class="btn btn-success" >Add New Tour Add-On</button>
+  </div>
+
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Tour Add-On</th>
+          <th>Cost</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each touraddons}}
+          <tr>
+            <td>
+              <span data-toggle="modal" href="#deletetouraddon" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#updatetouraddon" class="glyphicon glyphicon-pencil clickable"></span>
             </td>
             <td>{{title}}</td>
             <td>{{cost}}</td>
@@ -407,4 +472,12 @@
   {{> insertVisitTypeModal}}
   {{> deleteVisitTypeModal}}
   {{> updateVisitTypeModal}}
+
+  {{> insertTourModal}}
+  {{> deleteTourModal}}
+  {{> updateTourModal}}
+
+  {{> insertTourAddOnModal}}
+  {{> deleteTourAddOnModal}}
+  {{> updateTourAddOnModal}}
 </template>
