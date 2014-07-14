@@ -100,7 +100,7 @@
               <span data-toggle="modal" href="#updatevolunteer" class="glyphicon glyphicon-pencil clickable"></span>
               <span data-toggle="modal" href="#blankmodal" class="glyphicon glyphicon-info-sign clickable"></span>
             </td>
-            <td>{{fullname.lastname}}, {{fullname.firstname}}</td>
+            <td>{{lastname}}, {{firstname}}</td>
             <td>{{displaydate dob}}</td>
             <td>{{email}}</td>
             <td>{{phone}}</td>
@@ -319,7 +319,7 @@
   <div class="container">
     <div class="row visitors-search">
       <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
-        <h4>Visitor Search <small>(Visit Type, Contact, or Organization)</small></h4>
+        <h4>Visitor Search <small>(Visit Type, Tour Name, Contact, or Organization)</small></h4>
         <div class="input-group">
           <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
           <span class="input-group-btn">
@@ -337,6 +337,7 @@
           <th></th>
           <th>Visit Date</th>
           <th>Visit Type</th>
+          <th>Tour Name</th>
           <th>Children</th>
           <th>Adults</th>
           <th>Seniors</th>
@@ -355,6 +356,7 @@
             </td>
             <td>{{displaydate date}}</td>
             <td>{{visitType}}</td>
+            <td>{{tourType}}</td>
             <td>{{numChildren}}</td>
             <td>{{numAdults}}</td>
             <td>{{numSeniors}}</td>

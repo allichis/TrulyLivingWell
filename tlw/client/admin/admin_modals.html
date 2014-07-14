@@ -351,10 +351,25 @@
 								<div class="col-sm-6"> 
 									{{> afQuickField name='date'}}
 								</div>
-								<div class="col-sm-6">
+							</div>
+							<div class="row">
+								<div class="col-md-6">
 									{{> afQuickField name='visitType' options=visitTypeOptions}}
 								</div>
+								{{#if afFieldValueIs name="visitType" value="Tour"}}
+								<div class="col-md-6">
+									{{> afQuickField name='tourType' options=tourOptions}}
+								</div>
+								{{/if}}
 							</div>
+							{{#if afFieldValueIs name="visitType" value="Tour"}}
+							<div class="row">
+								<div class="col-md-6"><span></span></div>
+								<div class="col-md-6">
+									{{> afQuickField name='addOns' options=tourAddOnOptions noselect=true}}
+								</div>
+							</div>
+							{{/if}}
 							<div class="row">
 								<div class="col-sm-3"> 
 									{{> afQuickField name='numChildren'}}
