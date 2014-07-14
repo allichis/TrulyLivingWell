@@ -236,8 +236,9 @@ function getVisitorVeterans(month, year) {
 // gets tour totals for all the tours this month
 function getTourInfo(month, year) {
 	var tourInfo = [];
-	var alltours = VisitTypes.find();
-	alltours.forEach(function(tour) {
+	var visitsThisMonth = Visitors.find({$and: [{'date': {$gte: start, $lt: end}}, {'visitType': "Tour"}]});
+	var tours = _.uniq(visitsThisMonth.fetch().map(function(visit) { return visit.tourType }), true);
+	tours.forEach(function(tour) {
 		tourInfo.push(getTourTotals(tour['title'], month, year));
 	});
 	return tourInfo;
@@ -248,7 +249,7 @@ function getTourTotals(tourname, month, year) {
 	tourTotals = {};
 	tourTotals['title'] = tourname;
 	tourTotals['totalpeople'] = getTourPeople(tourname, month, year);
-	tourTotals['totalcost'] = getTourCost(tourname, month, year);
+	tourTotals['totalcost'] = tourTotals['totalpeople'] * getTourCost(tourname);
 	return tourTotals;
 }
 
@@ -264,8 +265,6 @@ function getTourPeople(tourname, month, year) {
 }
 
 function getTourCost(tourname, month, year) {
-	var start = new Date(year, month, 1);
-	var end = new Date(year, month+1, 1);
 	var tour = VisitTypes.find({'visitType': tourname}).fetch();
 	return tour['cost'];
 }

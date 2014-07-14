@@ -78,6 +78,14 @@
 	                <li class="list-group-item">Veterans:  {{veteranCount}}</li>
                 </ul>
             </div>
+            <div class="col-md-4">
+                <h3>Tours</h3>
+                <ul class="list-group">
+                {{#each tourInfo}}
+	                <li class="list-group-item">{{this.title}}:  {{this.totalPeople}}</li>
+	            {{/each}}
+                </ul>
+            </div>
         </div>
         
         <div class="row">
