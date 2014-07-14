@@ -317,7 +317,7 @@ var adminHelpers = {
 	visitors: function(template) {
 		filter = Session.get("visitorsFilter");
 		if(!!filter)
-			return Visitors.find({'visitType': {$regex: filter, $options: 'i'}}, {sort: {date:-1, visitType:1}});
+			return Visitors.find({$or: [{'visitType': {$regex: filter, $options: 'i'}}, {'contact': {$regex: filter, $options: 'i'}}, {'organization': {$regex: filter, $options: 'i'}}]}, {sort: {date:-1}});
 		else
 			return Visitors.find({}, {sort: {date:-1, visitType:1}});
 	},
