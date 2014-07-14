@@ -196,7 +196,8 @@ Schema.VisitTypes = new SimpleSchema({
 	},
 	cost: {
 		type: Number,
-		optional: true,
+		defaultValue: 0,
+		min: 0,
 	},
 	notes: {
 		type: String,
@@ -284,7 +285,7 @@ Schema.HarvestLog = new SimpleSchema({
 	itemname: {
 		type: String,
 		label: "Item",
-		max: 45
+		max: 100
 	},
 	// weighed_amt
 	amount: {
@@ -477,17 +478,96 @@ Schema.MonthlyReports = new SimpleSchema({
 		min: 0,
 		optional: true,
 	},
+	tourInfo: {
+		type: [Object],
+		optional: true,
+	},
+	"tourInfo.$.title": {
+		type: String,
+		max: 100,
+		label: "Tour name"
+	},
+	"tourInfo.$.totalpeople": {
+		type: Number,
+		defaultValue: 0,
+		min: 0,
+		label: "Total people"
+	},
+	"tourInfo.$.totalcost": {
+		type: Number,
+		defaultValue: 0,
+		min: 0,
+		label: "Total $"
+	},
 	locationInfo: {
-		type: [Schema.LocationTotals],
+		type: [Object],
+		optional: true,
+	},
+	"locationInfo.$.location": {
+		type: Schema.Locations,
+		label: "Location",
+	},
+	"locationInfo.$.volunteerCount": {
+		type: Number,
+		label: "Volunteers this month",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	"locationInfo.$.volunteerHours": {
+		type: Number,
+		label: "Volunteer hours worked",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
 	productInfo: {
-		type: [Schema.ProductTotals],
+		type: [Object],
+		//optional: true,
+	},
+	"productInfo.$.itemname": {
+		type: String,
+		label: "Item",
+		defaultValue: "item"
+	},
+	"productInfo.$.harvestedUnits": {
+		type: Number,
+		label: "Harvested units",
+		defaultValue: 0,
+		min: 0,
 		optional: true,
 	},
+	"productInfo.$.wholesaleUnits": {
+		type: Number,
+		label: "Wholesale units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	"productInfo.$.marketUnits": {
+		type: Number,
+		label: "Market units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	"productInfo.$.marketSales": {
+		type: Number,
+		label: "Market sales",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	"productInfo.$.otherUnits": {
+		type: Number,
+		label: "Other units (= Harvested - Market - Wholesale)",
+		defaultValue: 0,
+		optional: true,
+	},
+
 });
 
-Schema.LocationTotals = new SimpleSchema({
+/*Schema.LocationTotals = new SimpleSchema({
 	location: {
 		type: Schema.Locations,
 		label: "Location",
@@ -506,12 +586,13 @@ Schema.LocationTotals = new SimpleSchema({
 		min: 0,
 		optional: true,
 	},
-});
+});*/
 
-Schema.ProductTotals = new SimpleSchema({
-	item: {
-		type: Schema.Products,
-		label: "Item"
+/*Schema.ProductTotals = new SimpleSchema({
+	itemname: {
+		type: String,
+		label: "Item",
+		defaultValue: "item"
 	},
 	harvestedUnits: {
 		type: Number,
@@ -547,7 +628,7 @@ Schema.ProductTotals = new SimpleSchema({
 		defaultValue: 0,
 		optional: true,
 	},
-});
+});*/
 
 
 // set up Collections and relate them to some Schema

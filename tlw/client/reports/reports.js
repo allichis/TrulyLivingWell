@@ -91,6 +91,13 @@ Template.viewReport.helpers(reportHelpers);
 
 Template.reportForm.helpers(reportHelpers);
 
+Template.reportForm.events({
+	'click .btn-primary': function(event, template) {
+		// user clicked "submit", go to "viewReport" template
+		Router.go('viewReport');
+	}
+});
+
 Template.adminViewMonthlyReports.helpers(reportHelpers);
 
 Template.adminViewMonthlyReports.events({
@@ -134,20 +141,27 @@ function getReportValues(month, year) {
 	values['year'] =  year;
 	values['employeeCount'] = 0;
 	values['employeeHours'] = 0;
-	values['volunteerCount'] = getVolunteerCount(month, year);
-	values['volunteerHours'] = getVolunteerHours(month, year);
+	values['volunteerCount'] = getVolunteerCount(month,year);
+	values['volunteerHours'] = getVolunteerHours(month,year);
 	values['visitorCount'] = getVisitorTotal(month,year);
-	values['veteranCount'] = getVisitorVeterans(month, year);
+	values['veteranCount'] = getVisitorVeterans(month,year);
 	values['visitorCount_children'] = getVisitorChildren(month,year);
 	values['visitorCount_adults'] = getVisitorAdults(month,year);
 	values['visitorCount_seniors'] = getVisitorSeniors(month,year);
+	values['tourInfo'] = getTourInfo(month,year);
 	// location data
 	// product data
+	values['productInfo'] = getProductInfo(month,year);
 	return values;
 }
 
 function getVolunteerCount(month, year) {
-	return 0;
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}});
+	var vols = _.uniq(volTimes.fetch().map(function(timecard) { return timecard.volId}), true);
+	var numvols = vols.size;
+	return numvols;
 }
 
 function getVolunteerHours(month, year) {
@@ -217,4 +231,104 @@ function getVisitorVeterans(month, year) {
 		total += visit.numVeterans;
 	});
 	return total;
+}
+
+// gets tour totals for all the tours this month
+function getTourInfo(month, year) {
+	var tourInfo = [];
+	var alltours = VisitTypes.find();
+	alltours.forEach(function(tour) {
+		tourInfo.push(getTourTotals(tour['title'], month, year));
+	});
+	return tourInfo;
+}
+
+// gets product totals for one product
+function getTourTotals(tourname, month, year) {
+	tourTotals = {};
+	tourTotals['title'] = tourname;
+	tourTotals['totalpeople'] = getTourPeople(tourname, month, year);
+	tourTotals['totalcost'] = getTourCost(tourname, month, year);
+	return tourTotals;
+}
+
+function getTourPeople(tourname, month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var visitors = Visitors.find({$and: [{'date': {$gte: start, $lt: end}}, {'visitType': tourname}]}).fetch();
+	var total = 0;
+	visitors.forEach(function(visit) {
+		total += (visit.numChildren + visit.numAdults + visit.numSeniors);
+	});
+	return total;
+}
+
+function getTourCost(tourname, month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var tour = VisitTypes.find({'visitType': tourname}).fetch();
+	return tour['cost'];
+}
+
+// gets product totals for all the products harvested this month
+function getProductInfo(month, year) {
+	var productInfo = [];
+	/*var allproducts = Products.find();
+	allproducts.forEach(function(product) {
+		productInfo.push(getProductTotals(productname, month, year));
+	});*/
+	var products = getProductsHarvested(month,year);
+	products.forEach(function(productname) {
+		productInfo.push(getProductTotals(productname, month, year));
+	});
+	return productInfo;
+}
+
+// gets a list of the products harvested this month
+function getProductsHarvested(month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var harvestsInDateRange = HarvestLog.find({'date': {$gte: start, $lt: end}}, {fields: {itemname:1}});
+	var products = _.uniq(harvestsInDateRange.fetch().map(function(log) { return log.itemname}), true);
+	return products;
+}
+
+// gets product totals for one product
+function getProductTotals(productname, month, year) {
+	productTotals = {};
+	productTotals['itemname'] = productname;
+	productTotals['harvestedUnits'] = getHarvestedUnits(productname, month, year);
+	productTotals['wholesaleUnits'] = getWholesaleUnits(productname, month, year);
+	productTotals['marketUnits'] = getMarketUnits(productname, month, year);
+	productTotals['marketSales'] = getMarketSales(productname, month, year);
+	productTotals['otherUnits'] = productTotals['harvestedUnits'] 
+									- productTotals['wholesaleUnits'] 
+									- productTotals['marketUnits'];
+	//var newid = ProductTotals.insert(productTotals);
+	//var object = ProductTotals.findOne({'_id': newid});
+	//return object;
+	return productTotals;
+}
+
+function getHarvestedUnits(productname, month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var harvestsInDateRange = HarvestLog.find({$and: [{'date': {$gte: start, $lt: end}}, {'itemname': productname}]}, {fields: {amount:1}}).fetch();
+	var total = 0;
+	harvestsInDateRange.forEach(function(log) {
+		total += log.amount;
+	});
+	return total;
+}
+
+function getWholesaleUnits(productname, month, year) {
+	return 0;
+}
+
+function getMarketUnits(productname, month, year) {
+	return 0;
+}
+
+function getMarketSales(productname, month, year) {
+	return 0;
 }
