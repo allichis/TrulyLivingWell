@@ -140,6 +140,7 @@ Schema.Visitors = new SimpleSchema({
 		type: String,
 		label: "Type of visit",
 		max: 45,
+		defaultValue: "Tour",
 	},
 	tourType: {
 		type: String,
@@ -150,7 +151,7 @@ Schema.Visitors = new SimpleSchema({
 	      if ((this.field('visitType').value === "Tour") && !this.isSet && (!this.operator || (this.value === null || this.value === ""))) {
 	        return "required";
 	      }
-	    }
+	    },
 	},
 	addOns: {
 		type: [String],
