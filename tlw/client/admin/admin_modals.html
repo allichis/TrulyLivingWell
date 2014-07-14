@@ -466,3 +466,143 @@
 		</div>
 	</div>
 </template>
+
+<template name="insertTourModal">
+	<div id="inserttour" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>New Tour</h3>
+				</div>
+				<div class="modal-body">
+					{{# autoForm collection="Tours" id="insertTourForm" type="insert"}}
+					<fieldset>
+						{{> afQuickField name='title'}}
+						{{> afQuickField name='cost'}}
+						{{> afQuickField name='notes'}}
+					</fieldset>
+					<div class="modal-footer">
+				    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+				    	<button type="submit" class="btn btn-primary" onclick="$('#inserttour').modal('hide');">Submit</button>
+				    </div>
+					{{/autoForm}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="deleteTourModal">
+	<div id="deletetour" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{#with itemInScope}}
+				<div class="modal-body">
+					<h4>Are you sure you want to delete <strong>{{title}}</strong>?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+					<button type="button" class="btn btn-danger">Delete</button>
+				</div>
+				{{/with}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="updateTourModal">
+	<div id="updatetour" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{#with itemInScope}}
+				<div class="modal-header">
+					<h3>Update Tour</h3>
+				</div>
+				<div class="modal-body">
+					{{# autoForm collection="Tours" doc=this id="updateTourForm" type="update"}}
+					<fieldset>
+						{{> afQuickField name='title'}}
+						{{> afQuickField name='cost'}}
+						{{> afQuickField name='notes'}}
+					</fieldset>
+					<div class="modal-footer">
+				    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+				    	<button type="submit" class="btn btn-primary" onclick="$('#updatetour').modal('hide');">Submit</button>
+				    </div>
+					{{/autoForm}}
+				</div>
+				{{/with}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="insertTourAddOnModal">
+	<div id="inserttouraddon" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h3>New Tour Add-On</h3>
+				</div>
+				<div class="modal-body">
+					{{# autoForm collection="TourAddOns" id="insertTourAddOnForm" type="insert"}}
+					<fieldset>
+						{{> afQuickField name='title'}}
+						{{> afQuickField name='cost'}}
+						{{> afQuickField name='notes'}}
+					</fieldset>
+					<div class="modal-footer">
+				    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+				    	<button type="submit" class="btn btn-primary" onclick="$('#inserttouraddon').modal('hide');">Submit</button>
+				    </div>
+					{{/autoForm}}
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="deleteTourAddOnModal">
+	<div id="deletetouraddon" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{#with itemInScope}}
+				<div class="modal-body">
+					<h4>Are you sure you want to delete <strong>{{title}}</strong>?</h4>
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+					<button type="button" class="btn btn-danger">Delete</button>
+				</div>
+				{{/with}}
+			</div>
+		</div>
+	</div>
+</template>
+
+<template name="updateTourAddOnModal">
+	<div id="updatetouraddon" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{#with itemInScope}}
+				<div class="modal-header">
+					<h3>Update Tour</h3>
+				</div>
+				<div class="modal-body">
+					{{# autoForm collection="TourAddOns" doc=this id="updateTourAddOnForm" type="update"}}
+					<fieldset>
+						{{> afQuickField name='title'}}
+						{{> afQuickField name='cost'}}
+						{{> afQuickField name='notes'}}
+					</fieldset>
+					<div class="modal-footer">
+				    	<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+				    	<button type="submit" class="btn btn-primary" onclick="$('#updatetour').modal('hide');">Submit</button>
+				    </div>
+					{{/autoForm}}
+				</div>
+				{{/with}}
+			</div>
+		</div>
+	</div>
+</template>

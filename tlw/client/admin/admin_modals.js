@@ -214,6 +214,24 @@ var modalHelpers = {
 	    }
 	    return options;
 	},
+	tourOptions: function() {
+	    var options = [];
+	    var tours = Tours.find({}, {sort: {title:1}}).fetch();
+	    for(i=0; i<tours.length; i++){
+	    	var title = tours[i].title;
+	    	options.push({label: title, value: title})
+	    }
+	    return options;
+	},
+	tourAddOnOptions: function() {
+	    var options = [];
+	    var tours = TourAddOns.find({}, {sort: {title:1}}).fetch();
+	    for(i=0; i<tours.length; i++){
+	    	var title = tours[i].title;
+	    	options.push({label: title, value: title})
+	    }
+	    return options;
+	},
 };
 
 // REQUESTS
@@ -317,5 +335,58 @@ Template.deleteVisitTypeModal.events({
 });
 
 Template.updateVisitTypeModal.helpers(
+	modalHelpers
+);
+
+// TOURS
+
+Template.deleteTourModal.helpers(
+	modalHelpers
+);
+
+Template.deleteTourModal.events({
+	'click .btn-danger': function(event, template) {
+		Meteor.call('deleteTour', this._id, function(error) {
+			if (error) {
+				// optionally use a meteor errors package
+				if (typeof Errors === "undefined")
+					Log.error('Error: ' + error.reason);
+				else {
+					Errors.throw(error.reason);
+				}
+			}
+			$("#deletetour").modal("hide");
+		});
+	}
+});
+
+Template.updateTourModal.helpers(
+	modalHelpers
+);
+
+
+// TOUR ADD_ONS
+
+Template.deleteTourAddOnModal.helpers(
+	modalHelpers
+);
+
+Template.deleteTourAddOnModal.events({
+	'click .btn-danger': function(event, template) {
+		Meteor.call('deleteTourAddOn', this._id, function(error) {
+			if (error) {
+				// optionally use a meteor errors package
+				if (typeof Errors === "undefined")
+					Log.error('Error: ' + error.reason);
+				else {
+					Errors.throw(error.reason);
+				}
+			}
+			$("#deletetouraddon").modal("hide");
+		});
+	}
+});
+
+Template.updateTourAddOnModal.helpers(
 	modalHelpers
 );

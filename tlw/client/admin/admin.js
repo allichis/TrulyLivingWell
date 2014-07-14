@@ -324,6 +324,12 @@ var adminHelpers = {
 	visittypes: function(template) {
 		return VisitTypes.find({}, {sort: {title:1}});
 	},
+	tours: function(template) {
+		return Tours.find({}, {sort: {title:1}});
+	},
+	touraddons: function(template) {
+		return TourAddOns.find({}, {sort: {title:1}});
+	},
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
 	},
@@ -344,6 +350,9 @@ var adminHelpers = {
 			return "color:green; font-weight:bold;";
 		}
 		return "";
+	},
+	isNotTour: function(template) {
+		return this.title != "Tour";
 	},
 };
 

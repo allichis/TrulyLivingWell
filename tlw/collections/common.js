@@ -141,6 +141,22 @@ Schema.Visitors = new SimpleSchema({
 		label: "Type of visit",
 		max: 45,
 	},
+	tourType: {
+		type: String,
+		label: "Tour name",
+		max: 100,
+		optional: true,
+		custom: function () {
+	      if ((this.field('visitType').value === "Tour") && !this.isSet && (!this.operator || (this.value === null || this.value === ""))) {
+	        return "required";
+	      }
+	    }
+	},
+	addOns: {
+		type: [String],
+		optional: true,
+		label: "Tour Add-Ons",
+	},
 	numChildren: {
 		type: Number,
 		label: "Number of children",
@@ -190,6 +206,38 @@ Schema.Visitors = new SimpleSchema({
 });
 
 Schema.VisitTypes = new SimpleSchema({
+	title: {
+		type: String,
+		max: 100,
+	},
+	cost: {
+		type: Number,
+		defaultValue: 0,
+		min: 0,
+	},
+	notes: {
+		type: String,
+		optional: true,
+	},
+});
+
+Schema.Tours = new SimpleSchema({
+	title: {
+		type: String,
+		max: 100,
+	},
+	cost: {
+		type: Number,
+		defaultValue: 0,
+		min: 0,
+	},
+	notes: {
+		type: String,
+		optional: true,
+	},
+});
+
+Schema.TourAddOns = new SimpleSchema({
 	title: {
 		type: String,
 		max: 100,
@@ -656,6 +704,14 @@ Visitors.attachSchema(Schema.Visitors);
 // Visit Types
 VisitTypes = new Meteor.Collection("visittypes");
 VisitTypes.attachSchema(Schema.VisitTypes);
+
+// Tours
+Tours = new Meteor.Collection("tours");
+Tours.attachSchema(Schema.Tours);
+
+// Tour Add-Ons
+TourAddOns = new Meteor.Collection("touraddons");
+TourAddOns.attachSchema(Schema.TourAddOns);
 
 // Requests
 Requests = new Meteor.Collection("requests");

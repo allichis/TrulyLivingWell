@@ -90,13 +90,23 @@ Meteor.methods({
 	},
 
 	// VISITORS
-	deleteVisitor: function(vId) {
-		Visitors.remove(vId);
+	deleteVisitor: function(id) {
+		Visitors.remove(id);
 	},
 
 	// VISIT TYPES
-	deleteVisitType: function(vId) {
-		VisitTypes.remove(vId);
+	deleteVisitType: function(id) {
+		VisitTypes.remove(id);
+	},
+
+	// TOURS
+	deleteTour: function(id) {
+		Tours.remove(id);
+	},
+
+	// TOUR ADD-ONS
+	deleteTourAddOn: function(id) {
+		TourAddOns.remove(id);
 	},
 
 	// REPORTS
