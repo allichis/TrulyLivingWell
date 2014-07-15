@@ -26,6 +26,10 @@ Meteor.subscribe("locations");
 Meteor.subscribe("volunteers");
 Meteor.subscribe("visitors");
 Meteor.subscribe("requests");
+Meteor.subscribe("harvests");
+Meteor.subscribe("visittypes");
+Meteor.subscribe("tours");
+Meteor.subscribe("touraddons");
 
 // do something any time a user logs in...
 Hooks.onLoggedIn = function() {
