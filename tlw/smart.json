@@ -10,6 +10,7 @@
     "roles": {},
     "accounts-admin-ui-bootstrap-3": {},
     "bootstrap3-datetimepicker": {},
-    "moment-timezone": {}
+    "moment-timezone": {},
+    "bootstrap-alerts": {}
   }
 }
