@@ -1,0 +1,89 @@
+<template name="reportForm">
+    {{#with reportSelected}}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Monthly Report<br>
+            <small>{{displayMonth month}} {{year}}</small>
+            </h1>
+        </div><!-- /.jumbotron -->
+    </div><!-- /.container -->
+    <div class="container">
+        <h4>Information entered below will be included in the report</h4>
+    </div>
+    <div class="container">
+        {{# autoForm collection="MonthlyReports" doc=this name="reportUpdateForm" id="reportUpdateForm" type="update"}}
+        <fieldset>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Employees</h3>
+                    {{> afQuickField name='employeeCount'}}
+                    {{> afQuickField name='employeeHours'}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>CSA</h3>
+                    {{> afQuickField name='csaNew'}}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>Products</h3>
+                    <!-- {{> afArrayField name='productInfo' template='reportproducttable' label=false fields=['itemname', 'wholesaleUnits', 'marketUnits', 'marketSales']}} -->
+                    <!-- <form name="productInfoForm"> -->
+                    <table>
+                        <thead>
+                            <th>Item</th>
+                            <th>Wholesale Units</th>
+                            <th>Market Units</th>
+                            <th>Market Sales</th>
+                        </thead>
+                        <tbody>
+                        
+                        {{#each productInfo}}
+                            <tr>
+                                <td>{{itemname}}</td>
+                                <td><input id={{wholesaleUnitsInputId this}} name="wholesaleUnits" type="Number" value="{{wholesaleUnits}}"></td>
+                                <td><input id={{marketUnitsInputId this}} name="marketUnits" type="Number" value="{{marketUnits}}"></td>
+                                <td><input id={{marketSalesInputId this}} name="marketSales" type="Number" value="{{marketSales}}"></td>
+                                <!-- <td>{{> afFieldInput name='productInfo.0.wholesaleUnits' autoform=..}}</td>
+                                <td>{{> afFieldInput name='productInfo.0.marketUnits' autoform=..}}</td>
+                                <td>{{> afFieldInput name='productInfo.0.marketSales' autoform=..}}</td> -->
+                            </tr>
+                        {{/each}}
+                        
+                        </tbody>
+                    </table>
+                    <!-- </form> -->
+                </div>
+            </div>
+        </fieldset>
+        <a href="{{pathFor 'admin'}}"><button type="button" class="btn btn-default">Cancel</button></a>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        {{/autoForm}}
+    </div>
+    {{/with}}
+</template>
+
+<template name="reportFormConfirmation">
+    <div class="container text-center">
+        <h1>Thank You!<br><small>our information has been recorded.</small></h1>
+    </div>
+</template>
+
+<template name="reportFormConfirmationModal">
+    <div id="reportFormConfirmation" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h3>Manual input done!</h3>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

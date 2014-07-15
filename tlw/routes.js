@@ -17,8 +17,16 @@ Router.map(function() {
 	this.route('newvol');	
 	this.route('volsignin');	
 	this.route('volsignout');
+
+	this.route('visitorCheckIn');
+	this.route('visitorForm');
 	this.route('visitors');
 	this.route('visitorConfirmation');	
+
+	this.route('reports');
+	this.route('selectReport');
+	this.route('updateReport');
+	this.route('viewReport');
 
 	this.route('farmops', {
 		layoutTemplate: 'layoutFarmops',
@@ -88,5 +96,9 @@ Router.onBeforeAction(IR_BeforeHooks.isLoggedIn, {
 			'newvol',
 			'volsignin',
 			'volsignout',
+			'visitorCheckIn',
+			'visitorForm',
+			'visitors',
+			'visitorConfirmation',	
 	]
 });

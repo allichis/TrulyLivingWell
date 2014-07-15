@@ -13,7 +13,7 @@
         <li class="{{activeIfTemplateIs 'visitorsAdmin'}}"><a href="{{pathFor 'visitorsAdmin'}}">Visitors</a></li>
         <li class="{{activeIfTemplateIs 'visitTypesAdmin'}}"><a href="{{pathFor 'visitTypesAdmin'}}">Visit Types</a></li>
         <li class="{{activeIfTemplateIs 'requestsAdmin'}}"><a href="{{pathFor 'requestsAdmin'}}">Requests</a></li>
-        <li class="{{activeIfTemplateIs 'harvestAdmin'}}"><a href="{{pathFor 'harvestAdmin'}}">Harvest</a></li>
+        <li class="{{activeIfTemplateIs 'harvestAdmin'}}"><a href="{{pathFor 'harvestAdmin'}}">Harvest Log</a></li>
       </ul>
     </div><!-- /.row -->
   </div><!-- /.container -->
@@ -22,13 +22,27 @@
 <template name="admin">
   <div class="container">
     <div class="row">
-      {{>adminOverview}}
-    </div><!-- /.row -->
+      <h2>Overview</h2>
+      <div class="col-sm-4"> 
+        {{> adminOverview}}
+      </div>
+      <div class="col-sm-4"> 
+        {{> adminThisMonthOverview}}
+      </div>
+      <div class="col-sm-4"> 
+        {{> adminLastMonthOverview}}
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      {{> adminViewMonthlyReports}}
+    </div>
   </div><!-- /.container -->
 </template>
 
 <template name="adminOverview">
-  <h2>Totals</h2>
+  <h3>Totals</h3>
   <p>Total Users: {{usersTotal}} (n staff accounts, m administrators)</p>
   <p>Total Products: {{productsTotal}}</p>
   <p>Total Locations: {{locsTotal}}</p>
@@ -36,11 +50,23 @@
   <p>Total Visitors: {{visitorsTotal}}</p>
 </template>
 
+<template name="adminThisMonthOverview">
+  <h3>This Month <small>({{thismonth}})</small></h3>
+  <p>Total Volunteer Hours: {{volHoursTotal}}</p>
+  <p>Total Visitors: {{visitorsTotal}}</p>
+</template>
+
+<template name="adminLastMonthOverview">
+  <h3>Last Month <small>({{lastmonth}})</small></h3>
+  <p>Total Volunteer Hours: {{volHoursTotal}}</p>
+  <p>Total Visitors: {{visitorsTotal}}</p>
+</template>
+
 <template name="volunteersAdmin">
   <div class="container">
     <div class="row products-search">
       <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
-        <h4>Volunteer Search <small>(Last Name)</small></h4>
+        <h4>Volunteer Search <small>(Name)</small></h4>
         <div class="input-group">
           <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
           <span class="input-group-btn">
@@ -211,6 +237,7 @@
           <th>Strip?</th>
           <th>Location</th>
           <th>Date</th>
+          <th>Requested for</th>
           <th>Notes</th>
         </tr>
       </thead>
@@ -226,6 +253,7 @@
             <td>{{strip}}</td>
             <td>{{location}}</td>
             <td>{{displaydate date}}</td>
+            <td>{{requestedFor}}</td>
             <td>{{notes}}</td>
           </tr>
         {{/each}}
@@ -291,7 +319,7 @@
   <div class="container">
     <div class="row visitors-search">
       <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
-        <h4>Visitor Search <small>(Visit Type)</small></h4>
+        <h4>Visitor Search <small>(Visit Type, Tour Name, Contact, or Organization)</small></h4>
         <div class="input-group">
           <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
           <span class="input-group-btn">
@@ -309,9 +337,14 @@
           <th></th>
           <th>Visit Date</th>
           <th>Visit Type</th>
-          <th>Contact Name</th>
+          <th>Tour Name</th>
+          <th>Children</th>
+          <th>Adults</th>
+          <th>Seniors</th>
+          <th>Veterans</th>
+          <th>Contact</th>
           <th>Organization</th>
-          <th>Number of People</th>
+          <th>Comments</th>
         </tr>
       </thead>
       <tbody>
@@ -324,9 +357,14 @@
             </td>
             <td>{{displaydate date}}</td>
             <td>{{visitType}}</td>
-            <td>{{contact.lastname}}, {{contact.firstname}}</td>
+            <td>{{tourType}}</td>
+            <td>{{numChildren}}</td>
+            <td>{{numAdults}}</td>
+            <td>{{numSeniors}}</td>
+            <td>{{numVeterans}}</td>
+            <td>{{contact}}</td>
             <td>{{organization}}</td>
-            <td>{{numPeople}}</td>
+            <td>{{comments}}</td>
           </tr>
         {{/each}}
       </tbody>
@@ -341,7 +379,8 @@
 <template name="visitTypesAdmin">
   
   <div class="container">
-      <button type="button" data-toggle="modal" href="#insertvisittype" class="btn btn-success" >Add New Visit Type</button>
+    <h3>Visit Types</h3>
+    <button type="button" data-toggle="modal" href="#insertvisittype" class="btn btn-success">Add New Visit Type</button>
   </div>
 
   <div class="container">
@@ -351,19 +390,83 @@
           <th></th>
           <th>Visit Type</th>
           <th>Cost</th>
-          <th>Location</th>
+          <th>Notes</th>
         </tr>
       </thead>
       <tbody>
         {{#each visittypes}}
           <tr>
             <td>
+            {{#if isNotTour}}
               <span data-toggle="modal" href="#deletevisittype" class="glyphicon glyphicon-trash clickable"></span>
               <span data-toggle="modal" href="#updatevisittype" class="glyphicon glyphicon-pencil clickable"></span>
+            {{/if}}
             </td>
             <td>{{title}}</td>
             <td>{{cost}}</td>
-            <td>{{location}}</td>
+            <td>{{notes}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container">
+    <h3>Tours</h3>
+    <button type="button" data-toggle="modal" href="#inserttour" class="btn btn-success" >Add New Tour</button>
+  </div>
+
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Tour</th>
+          <th>Cost</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each tours}}
+          <tr>
+            <td>
+              <span data-toggle="modal" href="#deletetour" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#updatetour" class="glyphicon glyphicon-pencil clickable"></span>
+            </td>
+            <td>{{title}}</td>
+            <td>{{cost}}</td>
+            <td>{{notes}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="container">
+    <h3>Tour Add-Ons</h3>
+    <button type="button" data-toggle="modal" href="#inserttouraddon" class="btn btn-success" >Add New Tour Add-On</button>
+  </div>
+
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Tour Add-On</th>
+          <th>Cost</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each touraddons}}
+          <tr>
+            <td>
+              <span data-toggle="modal" href="#deletetouraddon" class="glyphicon glyphicon-trash clickable"></span>
+              <span data-toggle="modal" href="#updatetouraddon" class="glyphicon glyphicon-pencil clickable"></span>
+            </td>
+            <td>{{title}}</td>
+            <td>{{cost}}</td>
+            <td>{{notes}}</td>
           </tr>
         {{/each}}
       </tbody>
@@ -373,4 +476,12 @@
   {{> insertVisitTypeModal}}
   {{> deleteVisitTypeModal}}
   {{> updateVisitTypeModal}}
+
+  {{> insertTourModal}}
+  {{> deleteTourModal}}
+  {{> updateTourModal}}
+
+  {{> insertTourAddOnModal}}
+  {{> deleteTourAddOnModal}}
+  {{> updateTourAddOnModal}}
 </template>

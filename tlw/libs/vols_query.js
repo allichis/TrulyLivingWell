@@ -1,15 +1,15 @@
-filteredVolsQuery = function(filter) {
-	// TODO: configurable limit and paginiation
+searchVols = function (searchTerm) {
 	var queryLimit = 25;
 
-	if(!!filter) {
-		vols = Volunteers.find({
+	if (!!searchTerm) {
+		volsFound = Volunteers.find({
 			$or: [
-				// TODO: passing to regex directly could be dangerous
-				{'firstname': {$regex: filter, $options: 'i'}},
-				{'lastname': {$regex: filter, $options: 'i'}},
-				{'phone': {$regex: filter, $options: 'i'}}
+				// TODO: passing to regex directly could be dangerous...
+		{'firstname': {$regex: searchTerm, $options: 'i'}},
+		{'lastname': {$regex: searchTerm, $options: 'i'}},
+		{'phone': {$regex: searchTerm, $options: 'i'}},
 			]
+<<<<<<< HEAD
 		}, {sort: {firstname: 1}, limit: queryLimit});
 		if (vols.count() === 1) {
 			volSigning = vols.fetch();
@@ -21,23 +21,17 @@ filteredVolsQuery = function(filter) {
 	}
 	return vols;
 };
+=======
+			// probably change this sorting key...
+		}, {sort: {phone: 1}, limit: queryLimit});
+>>>>>>> master
 
-initTimecard = function(vid) {
-	tc = VolunteerTimecards.find({
-			'volId': vid,
-			'tcStatus': "Open"
-	});
-
-	if (tc.count() >= 1) {
-		throw new Meteor.Error(444, "Problem");
+		// if a unique match is found, just return vols, which should only contain that volunteer record
+		if (volsFound.count() === 1) {
+			return volsFound;
+		} else { 
+			return volsFound.count();
+		}
 	}
-
-	// create the new timecard for vid
-	var newTc = {
-		volId: vid,
-		location: "Wheat Street",
-		tcStatus: "Open",
-		timeOpened: new Date()
-	};
-	return VolunteerTimecards.insert(newTc);
+	return 0;
 };

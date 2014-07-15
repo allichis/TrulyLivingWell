@@ -9,12 +9,12 @@
     <div class="row">
 {{> bootstrapAlerts}}
       <div class="col-md-6">
-        <h2>Are you a new volunteer?</h2>
-        <a href="{{pathFor 'newvol'}}"><button type="button" class="btn btn-info btn-large">Register as new volunteer</button></a>
+        <h2>Ready to work?</h2>
+        <a href="{{pathFor 'volsignin'}}"><button type="button" class="btn btn-default btn-large">Sign In / Sign Out</button></a>
       </div><!-- /.col-md-6 -->
       <div class="col-md-6">
-        <h2>Ready to volunteer?</h2>
-        <a href="{{pathFor 'volsignin'}}"><button type="button" class="btn btn-default btn-large">Sign In / Sign Out</button></a>
+        <h2>New volunteer? Register now!</h2>
+        <a href="{{pathFor 'newvol'}}"><button type="button" class="btn btn-info btn-large">Register as new volunteer</button></a>
       </div><!-- /.col-md-6 -->
     </div><!-- /.row -->
   </div><!-- /.container -->
@@ -41,9 +41,10 @@
 
 <template name="volsignin">
   <div class="container">
-    {{#unless signedIn}}
+    {{#unless volFound}}
       <div class="row">
-      <h2>volunteer lookup by name or phone number:</h2>
+        <h1>Volunteer lookup</h1>
+        <h3>Enter name or phone number:</h3>
         <div class="input-group">
           <input type="text" class="form-control vol-phone-input" value="{{searchFilter}}">
           <span class="input-group-btn">
@@ -51,28 +52,11 @@
           </span>
         </div><!-- /.input-group -->
       </div><!-- /.row -->
-      {{#if uniqueVolFound}}
-        <br><br>
-        {{> volMatch}}
-        <br><br>
-      {{/if}}
     {{/unless}}
     {{#if signedIn}}
       {{>signinSuccess}}
     {{/if}}
   </div><!-- /.container -->
-</template>
-
-<template name="volMatch">
-<div class="container">
-  <div class="row">
-    {{#each vols}}
-      <h4>Welcome back, {{firstname}} {{lastname}}!</h4>
-      <h5>Just one more click to sign in for volunteering today.</h5>
-      <button type="submit" class="btn btn-large">Get started!</button>
-    {{/each}}
-  </div>
-</div>
 </template>
 
 <template name="signinSuccess">

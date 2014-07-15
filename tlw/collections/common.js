@@ -20,12 +20,12 @@ Schema.Volunteers = new SimpleSchema({
 	firstname: {
 		type: String,
 		label: "* First name",
-		max: 45
+		max: 128
 	},
 	lastname: {
 		type: String,
 		label: "* Last name",
-		max: 45
+		max: 128
 	},
 	dob: {
 		type: Date,
@@ -66,10 +66,6 @@ Schema.Volunteers = new SimpleSchema({
 		max: 256,
 		optional: true,
 	},
-	// still to come:
-	// emergency contact info
-	// ...
-	// isVeteran
 });
 
 Schema.VolunteerTimecards = new SimpleSchema({
@@ -136,9 +132,65 @@ Schema.Visitors = new SimpleSchema({
 	// number in group
 	// donation and/or tour type
 	// oh yeah, date of visit?
+	date: {
+		type: Date,
+		label: "Date of visit"
+	},
+	visitType: {
+		type: String,
+		label: "Type of visit",
+		max: 45,
+		defaultValue: "Tour",
+	},
+	tourType: {
+		type: String,
+		label: "Tour name",
+		max: 100,
+		optional: true,
+		custom: function () {
+	      if ((this.field('visitType').value === "Tour") && !this.isSet && (!this.operator || (this.value === null || this.value === ""))) {
+	        return "required";
+	      }
+	    },
+	},
+	addOns: {
+		type: [String],
+		optional: true,
+		label: "Tour Add-Ons",
+	},
+	numChildren: {
+		type: Number,
+		label: "Number of children",
+		defaultValue: 0,
+		min: 0,
+	},
+	numAdults: {
+		type: Number,
+		label: "Number of adults",
+		defaultValue: 0,
+		min: 0,
+	},
+	numSeniors: {
+		type: Number,
+		label: "Number of seniors",
+		defaultValue: 0,
+		min: 0,
+	},
+	numVeterans: {
+		type: Number,
+		label: "Number of Veterans",
+		defaultValue: 0,
+		min: 0,
+	},
+	/*otherVisitType: {
+		type: String,
+		label: "Other reason for visit",
+	},*/
 	contact: {
-		type: Schema.VisitorContact,
-		label: "Contact Person",
+		type: String,
+		label: "Contact",
+		max: 45,
+		optional: true,
 	},
 	organization: {
 		type: String,
@@ -146,40 +198,57 @@ Schema.Visitors = new SimpleSchema({
 		max: 45,
 		optional: true,
 	},
-	numPeople: {
-		type: Number,
-		label: "How many people are in your group?",
-	},
-	visitType: {
-		type: String,
-		label: "What brings you to Truly Living Well?",
-	},
-	/*otherVisitType: {
-		type: String,
-		label: "Other reason for visit",
-	},*/
 	comments: {
 		type: String,
 		label: "Comments",
 		max: 256,
 		optional: true,
 	},
-	date: {
-		type: Date,
-		label: "Date of Visit"
-	}
 });
 
 Schema.VisitTypes = new SimpleSchema({
 	title: {
 		type: String,
-		max: 45,
+		max: 100,
 	},
 	cost: {
 		type: Number,
+		defaultValue: 0,
+		min: 0,
+	},
+	notes: {
+		type: String,
 		optional: true,
 	},
-	location: {
+});
+
+Schema.Tours = new SimpleSchema({
+	title: {
+		type: String,
+		max: 100,
+	},
+	cost: {
+		type: Number,
+		defaultValue: 0,
+		min: 0,
+	},
+	notes: {
+		type: String,
+		optional: true,
+	},
+});
+
+Schema.TourAddOns = new SimpleSchema({
+	title: {
+		type: String,
+		max: 100,
+	},
+	cost: {
+		type: Number,
+		defaultValue: 0,
+		min: 0,
+	},
+	notes: {
 		type: String,
 		optional: true,
 	},
@@ -198,8 +267,8 @@ Schema.Products = new SimpleSchema({
 	// this is just a list...? might need tho.
 	itemname: {
 		type: String,
-		label: "Product name",
-		max: 256
+		label: "Item name",
+		max: 100,
 	}
 });
 
@@ -214,7 +283,17 @@ Schema.Requests = new SimpleSchema({
 	amount: {
 		type: Number,
 		label: "Amount",
-		min: 0,
+		min: 1,
+		/*autoValue: function(){
+			if(field(strip).value === false) {
+				if(this.isSet && this.value > 0) {
+					return this.value;
+				}
+				else {
+					return 1;
+				}
+			}
+		},*/
 		optional: true,
 	},
 	strip: {
@@ -231,6 +310,12 @@ Schema.Requests = new SimpleSchema({
 	date: {
 		type: Date,
 		label: "Date needed",
+	},
+	requestedFor: {
+		type: String,
+		label: "Requested for",
+		allowedValues: ["Market","Wholesale","Other"],
+		defaultValue: "Market",
 	},
 	// notes
 	notes: {
@@ -249,7 +334,7 @@ Schema.HarvestLog = new SimpleSchema({
 	itemname: {
 		type: String,
 		label: "Item",
-		max: 45
+		max: 100
 	},
 	// weighed_amt
 	amount: {
@@ -318,6 +403,283 @@ Schema.Tasks = new SimpleSchema({
 	// this one needs a lot more thinking...
 });
 
+Schema.MonthYear = new SimpleSchema({
+	month: {
+		type: Number,
+		min: 0,
+		max: 11,
+		label: "Month"
+	},
+	year: {
+		type: Number,
+		min: 2014,
+		max: 3000,
+		label: "Year"
+	},
+});
+
+Schema.MonthlyReports = new SimpleSchema({
+	reportID: {
+		type: String,
+		unique: true,
+		autoValue: function() {
+			if (this.isInsert) {
+				var month = this.field('month').value;
+				var year = this.field('year').value;
+				var monthyearstring = month + "" + year;
+	          	return monthyearstring;
+	        } else if (this.isUpsert) {
+	        	var month = this.field('month').value;
+				var year = this.field('year').value;
+				var monthyearstring = month + "" + year;
+          		return {$setOnInsert: monthyearstring};
+        	} else {
+        		this.unset();
+        	}
+		}
+	},
+	month: {
+		type: Number,
+		min: 0,
+		max: 11,
+		label: "Month"
+	},
+	year: {
+		type: Number,
+		min: 2014,
+		max: 9999,
+		label: "Year"
+	},
+	employeeCount: {
+		type: Number,
+		label: "Employees this month",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	employeeHours: {
+		type: Number,
+		label: "Employee hours worked",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	csaTotal: {
+		type: Number,
+		label: "Total CSA Subscriptions",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	csaNew: {
+		type: Number,
+		label: "New CSA Subscriptions",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	veteranCount: {
+		type: Number,
+		label: "Veterans",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	visitorCount: {
+		type: Number,
+		label: "Total Visitors",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	visitorCount_children: {
+		type: Number,
+		label: "Child visitors",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	visitorCount_adults: {
+		type: Number,
+		label: "Adult visitors",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	visitorCount_seniors: {
+		type: Number,
+		label: "Senior visitors",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	volunteerCount: {
+		type: Number,
+		label: "Volunteers this month",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	volunteerHours: {
+		type: Number,
+		label: "Volunteer hours worked",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	tourInfo: {
+		type: [Object],
+		optional: true,
+	},
+	"tourInfo.$.title": {
+		type: String,
+		max: 100,
+		label: "Tour name"
+	},
+	"tourInfo.$.totalpeople": {
+		type: Number,
+		defaultValue: 0,
+		min: 0,
+		label: "Total people"
+	},
+	"tourInfo.$.totalcost": {
+		type: Number,
+		defaultValue: 0,
+		min: 0,
+		label: "Total $"
+	},
+	locationInfo: {
+		type: [Object],
+		optional: true,
+	},
+	"locationInfo.$.location": {
+		type: Schema.Locations,
+		label: "Location",
+	},
+	"locationInfo.$.volunteerCount": {
+		type: Number,
+		label: "Volunteers this month",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	"locationInfo.$.volunteerHours": {
+		type: Number,
+		label: "Volunteer hours worked",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	productInfo: {
+		type: [Object],
+		//optional: true,
+	},
+	"productInfo.$.itemname": {
+		type: String,
+		label: "Item",
+		defaultValue: "item"
+	},
+	"productInfo.$.harvestedUnits": {
+		type: Number,
+		label: "Harvested units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	"productInfo.$.wholesaleUnits": {
+		type: Number,
+		label: "Wholesale units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	"productInfo.$.marketUnits": {
+		type: Number,
+		label: "Market units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	"productInfo.$.marketSales": {
+		type: Number,
+		label: "Market sales",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	"productInfo.$.otherUnits": {
+		type: Number,
+		label: "Other units (= Harvested - Market - Wholesale)",
+		defaultValue: 0,
+		optional: true,
+	},
+
+});
+
+/*Schema.LocationTotals = new SimpleSchema({
+	location: {
+		type: Schema.Locations,
+		label: "Location",
+	},
+	volunteerCount: {
+		type: Number,
+		label: "Volunteers this month",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	volunteerHours: {
+		type: Number,
+		label: "Volunteer hours worked",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+});*/
+
+/*Schema.ProductTotals = new SimpleSchema({
+	itemname: {
+		type: String,
+		label: "Item",
+		defaultValue: "item"
+	},
+	harvestedUnits: {
+		type: Number,
+		label: "Harvested units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	wholesaleUnits: {
+		type: Number,
+		label: "Wholesale units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	marketUnits: {
+		type: Number,
+		label: "Market units",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	marketSales: {
+		type: Number,
+		label: "Market sales",
+		defaultValue: 0,
+		min: 0,
+		optional: true,
+	},
+	otherUnits: {
+		type: Number,
+		label: "Other units (= Harvested - Market - Wholesale)",
+		defaultValue: 0,
+		optional: true,
+	},
+});*/
+
+
 // set up Collections and relate them to some Schema
 
 // Products
@@ -344,6 +706,14 @@ Visitors.attachSchema(Schema.Visitors);
 VisitTypes = new Meteor.Collection("visittypes");
 VisitTypes.attachSchema(Schema.VisitTypes);
 
+// Tours
+Tours = new Meteor.Collection("tours");
+Tours.attachSchema(Schema.Tours);
+
+// Tour Add-Ons
+TourAddOns = new Meteor.Collection("touraddons");
+TourAddOns.attachSchema(Schema.TourAddOns);
+
 // Requests
 Requests = new Meteor.Collection("requests");
 Requests.attachSchema(Schema.Requests);
@@ -351,6 +721,10 @@ Requests.attachSchema(Schema.Requests);
 // Harvest Log
 HarvestLog = new Meteor.Collection("harvestlog");
 HarvestLog.attachSchema(Schema.HarvestLog);
+
+// REPORTS
+MonthlyReports = new Meteor.Collection("monthlyreports");
+MonthlyReports.attachSchema(Schema.MonthlyReports);
 
 // contexts for validation...
 var vContext = Schema.Volunteers.namedContext("newVolForm");

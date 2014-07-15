@@ -4,6 +4,24 @@ var today = function() {
 	return date;
 };
 
+var getMonthString = function(monthIndex) {
+	switch(monthIndex) {
+		case 0: return "Jan"
+		case 1: return "Feb"
+		case 2: return "Mar"
+		case 3: return "Apr"
+		case 4: return "May"
+		case 5: return "Jun"
+		case 6: return "Jul"
+		case 7: return "Aug"
+		case 8: return "Sept"
+		case 9: return "Oct"
+		case 10: return "Nov"
+		case 11: return "Dec"
+		default: return "Error"
+	}
+};
+
 Template.adminOverview.helpers({
 	usersTotal: function () {
 		return Meteor.users.find().count();
@@ -19,6 +37,98 @@ Template.adminOverview.helpers({
 	},
 	visitorsTotal: function () {
 		return Visitors.find().count();
+	},
+});
+
+Template.adminThisMonthOverview.helpers({
+	volHoursTotal: function () {
+		var date = new Date();
+		var month = date.getMonth();
+		var year = date.getFullYear();
+		var start = new Date(year, month, 1);
+		var end = new Date(year, month+1, 1);
+		var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}}).fetch();
+		var totalHours = 0;
+		volTimes.forEach(function(timecard) {
+			if(timecard.tcStatus === "Closed") {
+				var hours = timecard.timeClosed - timecard.timeOpened;
+				totalHours += hours;
+			}
+		});
+		return totalHours;
+	},
+	visitorsTotal: function () {
+		var date = new Date();
+		var month = date.getMonth();
+		var year = date.getFullYear();
+		var start = new Date(year, month, 1);
+		var end = new Date(year, month+1, 1);
+		var visitors = Visitors.find({date: {$gte: start, $lt: end}}).fetch();
+		var total = 0;
+		visitors.forEach(function(visit) {
+			total += (visit.numChildren + visit.numAdults + visit.numSeniors);
+		});
+		return total;
+	},
+	thismonth: function() {
+		month = new Date().getMonth();
+		return getMonthString(month);
+	},
+});
+
+Template.adminLastMonthOverview.helpers({
+	volHoursTotal: function () {
+		var date = new Date();
+		var month = date.getMonth();
+		var year = date.getFullYear();
+		if(month === 0) {
+			month = 11;
+			year -= 1;
+		}
+		else {
+			month -= 1;
+		}
+		var start = new Date(year, month, 1);
+		var end = new Date(year, month+1, 1);
+		var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}}).fetch();
+		var totalHours = 0;
+		volTimes.forEach(function(timecard) {
+			if(timecard.tcStatus === "Closed") {
+				var hours = timecard.timeClosed - timecard.timeOpened;
+				totalHours += hours;
+			}
+		});
+		return totalHours;
+	},
+	visitorsTotal: function () {
+		var date = new Date();
+		var month = date.getMonth();
+		var year = date.getFullYear();
+		if(month === 0) {
+			month = 11;
+			year -= 1;
+		}
+		else {
+			month -= 1;
+		}
+		var start = new Date(year, month, 1);
+		var end = new Date(year, month+1, 1);
+		var visitors = Visitors.find({date: {$gte: start, $lt: end}}).fetch();
+		var total = 0;
+		visitors.forEach(function(visit) {
+			total += (visit.numChildren + visit.numAdults + visit.numSeniors);
+		});
+		return total;
+	},
+	lastmonth: function() {
+		month = new Date().getMonth();
+		if(month === 0) {
+			month = 11;
+		}
+		else {
+			month -= 1;
+		}
+		return getMonthString(month);
 	},
 });
 
@@ -81,7 +191,7 @@ Template.volunteersAdmin.helpers({
 	volunteers: function() {
 		filter = Session.get("volunteersFilter");
 		if(!!filter)
-			return Volunteers.find({'lastname': {$regex: filter, $options: 'i'}}, {sort: {lastname:1, firstname:1}})
+			return Volunteers.find({$or: [{'lastname': {$regex: filter, $options: 'i'}}, {'firstname': {$regex: filter, $options: 'i'}}]}, {sort: {lastname:1, firstname:1}})
 		else
 			return Volunteers.find({}, {sort: {lastname:1, firstname:1}})
 	},
@@ -207,12 +317,18 @@ var adminHelpers = {
 	visitors: function(template) {
 		filter = Session.get("visitorsFilter");
 		if(!!filter)
-			return Visitors.find({'visitType': {$regex: filter, $options: 'i'}}, {sort: {date:-1, visitType:1}});
+			return Visitors.find({$or: [{'visitType': {$regex: filter, $options: 'i'}}, {'tourType': {$regex: filter, $options: 'i'}}, {'contact': {$regex: filter, $options: 'i'}}, {'organization': {$regex: filter, $options: 'i'}}]}, {sort: {date:-1}});
 		else
 			return Visitors.find({}, {sort: {date:-1, visitType:1}});
 	},
 	visittypes: function(template) {
 		return VisitTypes.find({}, {sort: {title:1}});
+	},
+	tours: function(template) {
+		return Tours.find({}, {sort: {title:1}});
+	},
+	touraddons: function(template) {
+		return TourAddOns.find({}, {sort: {title:1}});
 	},
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
@@ -234,6 +350,9 @@ var adminHelpers = {
 			return "color:green; font-weight:bold;";
 		}
 		return "";
+	},
+	isNotTour: function(template) {
+		return this.title != "Tour";
 	},
 };
 

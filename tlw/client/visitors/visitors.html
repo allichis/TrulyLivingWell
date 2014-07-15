@@ -1,33 +1,108 @@
 <template name="visitors">
 	<div class="container">
-	    <div class="row">
-	      <div class="jumbotron">
-	        <h1>Visitors</h1>
-	        <p>Welcome to Truly Living Well!</p>
-	      </div><!-- /.jumbotron -->
-	    </div><!-- /.row -->
+	{{> visitorCheckIn}}
+	</div>
+</template>
+
+<template name="visitorCheckIn">
+	<div class="container">
+      <div class="jumbotron">
+        <h1>Visitor Check-In</h1>
+      </div><!-- /.jumbotron -->
 	</div><!-- /.container -->
-	{{> visitorForm}}
+	<div class="container">
+		<!-- {{> quickForm collection="Visitors" id="visitorForm" type="insert"}} -->
+		{{# autoForm collection="Visitors" id="visitorForm" type="insert" resetOnSuccess='true'}}
+		<fieldset>
+			<div class="row">
+				<div class="col-md-4"> 
+					{{> afQuickField name='date'}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4">
+					{{> afQuickField name='visitType' options=visitTypeOptions}}
+				</div>
+				{{#if afFieldValueIs name="visitType" value="Tour"}}
+				<div class="col-md-4">
+					{{> afQuickField name='tourType' options=tourOptions}}
+				</div>
+				{{/if}}
+			</div>
+			{{#if afFieldValueIs name="visitType" value="Tour"}}
+			<div class="row">
+				<div class="col-md-4"><span></span></div>
+				<div class="col-md-4">
+					{{> afQuickField name='addOns' options=tourAddOnOptions noselect=true}}
+				</div>
+			</div>
+			{{/if}}
+			<div class="row">
+				<div class="col-md-2"> 
+					{{> afQuickField name='numChildren'}}
+				</div>
+				<div class="col-md-2">
+					{{> afQuickField name='numAdults'}}
+				</div>
+				<div class="col-md-2">
+					{{> afQuickField name='numSeniors'}}
+				</div>
+				<div class="col-md-2">
+					{{> afQuickField name='numVeterans'}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4"> 
+					{{> afQuickField name='contact'}}
+				</div>
+				<div class="col-md-4">
+					{{> afQuickField name='organization'}}
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8"> 
+					{{> afQuickField name='comments'}}
+				</div>
+			</div>
+		</fieldset>
+	    <button type="submit" class="btn btn-primary" data-toggle="modal" href="#visitorconfirmation">Submit</button>
+		{{/autoForm}}
+	</div>
+	{{> visitorConfirmationModal}}
 </template>
 
 <template name="visitorForm">
+	<!-- replace this with link to google form? let TLW handle the visit scheduling -->
 	<div class="container">
-		{{# autoForm collection="Visitors" id="visitorForm" type="insert"}}
-		<fieldset>
-			{{> afQuickField name='contact'}}
-			{{> afQuickField name='organization'}}
-			{{> afQuickField name='numPeople'}}
-			{{> afQuickField name='visitType' options=visitTypeOptions}}
-			{{> afQuickField name='comments'}}
-			{{> afQuickField name='date'}}
-		</fieldset>
-	    <a href="{{ pathFor 'visitorConfirmation' }}"><button type="submit" class="btn btn-primary">Submit</button></a>
-		{{/autoForm}}
+	    <div class="row">
+	      <div class="jumbotron">
+	        <h2>Request/Schedule a visit with Truly Living Well!</h2>
+	        <p>(link to google form here)</p>
+	      </div><!-- /.jumbotron -->
+	    </div><!-- /.row -->
+	</div><!-- /.container -->
+	<div class="container">
+		
 	</div>
 </template>
 
 <template name="visitorConfirmation">
-	<div id="visitorconfirmation" class="container text-center">
+	<div class="container text-center">
 		<h1>Thank You for visiting Truly Living Well! <br><small>We hope to see you again soon!</small></h1>
+	</div>
+</template>
+
+<template name="visitorConfirmationModal">
+	<div id="visitorconfirmation" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body">
+					<h3>Visitor check-in done!</h3>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-success" data-dismiss="modal">OK</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </template>

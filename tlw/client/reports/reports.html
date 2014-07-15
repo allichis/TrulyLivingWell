@@ -1,0 +1,219 @@
+<template name="reports">
+	<div class="container">
+        <div class="jumbotron">
+            <h1>Monthly Report</h1>
+        </div><!-- /.jumbotron -->
+    </div><!-- /.container -->
+</template>
+
+<template name="selectReport">
+	<div class="container">
+        <div class="jumbotron">
+            <h1>Monthly Report</h1>
+        </div><!-- /.jumbotron -->
+    </div><!-- /.container -->
+	<div class="container">
+		<form id="selectReportDate">
+			<div class="input-group">
+				<h4>Select Month</h4>
+				<select class="form-control" id="selectMonth" name="month" options="{{monthOptions}}">
+					<optgroup>
+					{{#each monthOptions}}
+						<option value="{{this.value}}">{{this.label}}</option> 
+					{{/each}}
+					</optgroup>
+				</select>
+			</div>
+			<div class="input-group">
+				<h4>Select Year</h4>
+				<input class="form-control" id="selectYear" name="year" type="number" value="{{thisYear}}">
+			</div>
+		</form>
+	</div>
+	<br>
+	<div class="container">
+		<a href="{{pathFor 'updateReport'}}"><button type="button" class="btn btn-warning btn-lg">Get Report</button></a>
+	</div>
+</template>
+
+<template name="updateReport">
+	{{> reportForm}}
+</template>
+
+<template name="viewReport">
+	{{#with reportSelected}}
+    <div class="container">
+        <div class="jumbotron">
+            <h1>Monthly Report<br>
+            <small>{{displayMonth month}} {{year}}</small>
+            </h1>
+        </div><!-- /.jumbotron -->
+    </div><!-- /.container -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Employees</h3>
+                <ul class="list-group">
+	                <li class="list-group-item">Employee count:  {{employeeCount}}</li>
+	                <li class="list-group-item">Employee hours:  {{employeeHours}}</li>
+                </ul>
+            </div>
+            <div class="col-sm-4">
+                <h3>Volunteers</h3>
+                <ul class="list-group">
+                	<li class="list-group-item">Volunteer count:  {{volunteerCount}}</li>
+                	<li class="list-group-item">Volunteer hours:  {{volunteerHours}}</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Visitors</h3>
+                <ul class="list-group">
+	                <li class="list-group-item">Total Visitors:  {{visitorCount}}</li>
+	                <li class="list-group-item">Children:  {{visitorCount_children}}</li>
+	                <li class="list-group-item">Adults:  {{visitorCount_adults}}</li>
+	                <li class="list-group-item">Seniors:  {{visitorCount_seniors}}</li>
+	                <li class="list-group-item">Veterans:  {{veteranCount}}</li>
+                </ul>
+            </div>
+            <div class="col-sm-6">
+                <h3>Tours</h3>
+                <table class="table table-striped table-bordered">
+                	<thead>
+                		<th>Tour name</th>
+                		<th>Total people</th>
+                		<th>Total $</th>
+                	</thead>
+                	<tbody>
+                	{{#each tourInfo}}
+                		<tr>
+                			<td>{{this.title}}</td>
+                			<td>{{this.totalpeople}}</td>
+                			<td>{{this.totalcost}}</td>
+                		</tr>
+                	{{/each}}
+                	</tbody>
+                </table>                
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>CSA</h3>
+                <ul class="list-group">
+                	<!--<li class="list-group-item">Total CSA:  {{csaTotal}}</li>-->
+                	<li class="list-group-item">New CSA:  {{csaNew}}</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Locations</h3>
+                Locations:  {{locationInfo}}
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>Products</h3>
+                <table class="table table-striped">
+                	<thead>
+                		<th>Item</th>
+                		<th>Harvested Units</th>
+                		<th>Wholesale Units</th>
+                		<th>Market Units</th>
+                		<th>Market Sales</th>
+                		<th>Other Units</th>
+                	</thead>
+                	<tbody>
+                	{{#each productInfo}}
+                		<tr>
+                			<td>{{itemname}}</td>
+                			<td>{{harvestedUnits}}</td>
+                			<td>{{wholesaleUnits}}</td>
+                			<td>{{marketUnits}}</td>
+                			<td>{{marketSales}}</td>
+                			<td>{{otherUnits}}</td>
+                		</tr>
+                	{{/each}}
+                	</tbody>
+                </table>                
+            </div>
+        </div>
+    </div>
+    {{/with}}
+
+    <br>
+	<div class="container">
+		<a href="{{pathFor 'admin'}}"><button type="button" class="btn btn-primary">Done</button></a>
+	</div>
+
+</template>
+
+
+<template name="adminViewMonthlyReports">
+ 	<h2>Reports</h2>
+  	<a href="{{pathFor 'selectReport'}}"><button type="button" class="btn btn-warning btn-lg" ><span class="glyphicon glyphicon-list-alt" style="padding-right:10px"></span>New Monthly Report</button></a>
+
+  	<table class="table table-striped">
+	    <thead>
+	      <tr>
+	        <th>
+	        	<label for="yearfilter">View reports for:</label>
+		        <select class="form-control year-filter" name="yearfilter">
+					<optgroup>
+					{{#each years}}
+						<option value="{{this}}">{{this}}</option> 
+					{{/each}}
+					</optgroup>
+				</select>
+			</th>
+	        <th>Date</th>
+	        <th>Employees</th>
+	        <th>Employee Hours</th>
+	        <th>Volunteers</th>
+	        <th>Volunteer Hours</th>
+	        <th>Visitors</th>
+	      </tr>
+	    </thead>
+	    <tbody>
+	      {{#each reports}}
+	        <tr>
+	          <td>
+	            <span data-toggle="modal" href="#deletereport" class="glyphicon glyphicon-trash clickable"></span>
+	            <a href="{{pathFor 'updateReport'}}"><span class="glyphicon glyphicon-pencil clickable"></span></a>
+	            <a href="{{pathFor 'viewReport'}}"><span  class="glyphicon glyphicon-info-sign clickable"></span></a>	            
+	          </td>
+	          <td>{{displayMonth month}} {{year}}</td>
+	          <td>{{employeeCount}}</td>
+	          <td>{{employeeHours}}</td>
+	          <td>{{volunteerCount}}</td>
+	          <td>{{volunteerHours}}</td>
+	          <td>{{visitorCount}}</td>
+	        </tr>
+	      {{/each}}
+	    </tbody>
+  	</table>
+  	{{> deleteReportModal}}
+</template>
+
+<template name="deleteReportModal">
+	<div id="deletereport" class="modal fade" tabindex="-1" data-width="760" style="display:none;">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				{{#with reportSelected}}
+				 	<div class="modal-body">
+				 		<h4>Are you sure you want to delete the report for <strong>{{displayMonth month}} {{year}}</strong>?</h4>
+				 	</div>
+				 	<div class="modal-footer">
+						<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+						<button type="button" class="btn btn-danger">Delete</button>
+					</div>
+				{{/with}}
+			</div>
+		</div>
+	</div>
+</template>
