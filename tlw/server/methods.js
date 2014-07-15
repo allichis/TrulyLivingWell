@@ -115,6 +115,6 @@ Meteor.methods({
 	},
 
 	updateReport: function(id, updates) {
-		MonthlyReports.updates(id, {$set: updates});
+		MonthlyReports.update(id, {$set: updates});
 	},
 });
