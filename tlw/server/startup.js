@@ -105,6 +105,29 @@ Meteor.startup(function () {
 		}
 	}
 
+
+	/***********************
+	 * VISIT TYPES 
+	 **********************/
+	if (VisitTypes.find().count() === 0) {
+		var items = ["Tour", "Meeting", "Other"];
+		
+		for (var i = 0; i < items.length; i++) {
+			VisitTypes.insert({title: items[i], cost: 0});
+		}
+	}
+
+	/***********************
+	 * TOURS
+	 **********************/
+	if (Tours.find().count() === 0) {
+		var items = ["General Tour"];
+		
+		for (var i = 0; i < items.length; i++) {
+			Tours.insert({title: items[i], cost: 10});
+		}
+	}
+
 	/*
   if (Lists.find().count() === 0) {
     var data = [
