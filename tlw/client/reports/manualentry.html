@@ -33,7 +33,7 @@
                     <h3>Products</h3>
                     <!-- {{> afArrayField name='productInfo' template='reportproducttable' label=false fields=['itemname', 'wholesaleUnits', 'marketUnits', 'marketSales']}} -->
                     <!-- <form name="productInfoForm"> -->
-                    <table>
+                    <table class="table table-striped">
                         <thead>
                             <th>Item</th>
                             <th>Wholesale Units</th>
@@ -53,7 +53,7 @@
                                 <td>{{> afFieldInput name='productInfo.0.marketSales' autoform=..}}</td> -->
                             </tr>
                         {{/each}}
-                        
+
                         </tbody>
                     </table>
                     <!-- </form> -->

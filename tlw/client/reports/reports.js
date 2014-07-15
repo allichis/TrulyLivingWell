@@ -110,15 +110,15 @@ Template.reportForm.events({
 	}
 });
 
-/*AutoForm.hooks({
+AutoForm.hooks({
 	reportUpdateForm: {
 		onSuccess: function () {
 			console.log("form submit success...");
-			Router.go('viewReport');
+			//Router.go('viewReport');
 			return false;
 		}
 	}
-});*/
+});
 
 function updateProductInfo(template) {
 	var report = Session.get('reportSelected');
