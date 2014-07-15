@@ -98,6 +98,15 @@ Template.selectReport.events({
 
 Template.viewReport.helpers(reportHelpers);
 
+Template.viewReport.events({
+	'click #btn-printReport': function(event, tempate) {
+		printReport();
+	},
+	'click #btn-exportReport': function(event, tempate) {
+		exportReport(this);
+	},
+});
+
 Template.reportForm.helpers(reportHelpers);
 
 Template.reportForm.events({
@@ -396,4 +405,25 @@ function getMarketUnits(productname, month, year) {
 
 function getMarketSales(productname, month, year) {
 	return 0;
+}
+
+function printReport() {
+	 window.print();
+}
+
+function exportReport(e) {
+	var report = Session.get('reportSelected');
+	var csv = json2csv(report, true, true);
+	var filename = "TLWReport_" + getMonthString(report.month) + report.year + ".csv";
+	//e.target.href = "data:text/csv;charset=utf-8," + escape(csv);
+    //e.target.download = "TLWReport_" + getMonthString(report.month) + report.year + ".csv";
+
+    var a = document.createElement('a');
+	//a.href = 'data:attachment/csv,' + csvString;
+	a.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+	a.target = "_blank";
+	a.download = filename;
+	//document.body.appendChild(a);
+	window.open(a);
+	//a.click(); 
 }

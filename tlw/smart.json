@@ -11,6 +11,8 @@
     "accounts-admin-ui-bootstrap-3": {},
     "bootstrap3-datetimepicker": {},
     "moment-timezone": {},
-    "bootstrap-alerts": {}
+    "bootstrap-alerts": {},
+    "json2csv": {},
+    "node-csv-npm": {}
   }
 }

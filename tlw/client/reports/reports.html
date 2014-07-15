@@ -41,6 +41,8 @@
 </template>
 
 <template name="viewReport">
+	<div id="printableArea">
+
 	{{#with reportSelected}}
     <div class="container">
         <div class="jumbotron">
@@ -119,8 +121,8 @@
         <div class="row">
             <div class="col-sm-12">
                 <h3>Products</h3>
-                <table class="table table-striped">
-                	<thead>
+                <table class="table table-striped table-bordered" style="text-align: right;">
+                	<thead align="center">
                 		<th>Item</th>
                 		<th>Harvested Units</th>
                 		<th>Wholesale Units</th>
@@ -132,7 +134,7 @@
                 	{{#each productInfo}}
                 		<tr>
                 			<td>{{itemname}}</td>
-                			<td>{{harvestedUnits}}</td>
+                			<td style="border-right: solid 1px;">{{harvestedUnits}}</td>
                 			<td>{{wholesaleUnits}}</td>
                 			<td>{{marketUnits}}</td>
                 			<td>{{marketSales}}</td>
@@ -146,9 +148,12 @@
     </div>
     {{/with}}
 
+    </div><!-- div #printableArea -->
     <br>
 	<div class="container">
 		<a href="{{pathFor 'admin'}}"><button type="button" class="btn btn-primary">Done</button></a>
+		<button type="button" id="btn-printReport" class="btn btn-primary">Print</button>
+		<button type="button" id="btn-exportReport" class="btn btn-primary">Export</button>
 	</div>
 
 </template>
