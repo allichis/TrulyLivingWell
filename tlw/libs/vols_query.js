@@ -10,13 +10,13 @@ searchVols = function (searchTerm) {
 		{'phone': {$regex: searchTerm, $options: 'i'}},
 			]
 		}, {sort: {firstname: 1}, limit: queryLimit});
-		if (vols.count() === 1) {
-			volSigning = vols.fetch();
+		if (volsFound.count() === 1) {
+			volSigning = volsFound.fetch();
 			Session.set('volSigning', volSigning);
 		}
 	} else {
-		vols = Volunteers.find();
+		volsFound = Volunteers.find();
 		//Session.set('volSigning', undefined);
 	}
-	return vols;
+	return volsFound;
 };
