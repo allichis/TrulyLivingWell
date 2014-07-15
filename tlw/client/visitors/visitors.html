@@ -12,7 +12,7 @@
 	</div><!-- /.container -->
 	<div class="container">
 		<!-- {{> quickForm collection="Visitors" id="visitorForm" type="insert"}} -->
-		{{# autoForm collection="Visitors" id="visitorForm" type="insert" resetOnSuccess='true'}}
+		{{# autoForm collection="Visitors" id="insertVisitorForm" type="insert" resetOnSuccess='true'}}
 		<fieldset>
 			<div class="row">
 				<div class="col-md-4"> 
@@ -65,7 +65,7 @@
 				</div>
 			</div>
 		</fieldset>
-	    <button type="submit" class="btn btn-primary" data-toggle="modal" href="#visitorconfirmation">Submit</button>
+	    <button type="submit" class="btn btn-primary" data-toggle="modal" >Submit</button>
 		{{/autoForm}}
 	</div>
 	{{> visitorConfirmationModal}}
@@ -83,12 +83,6 @@
 	</div><!-- /.container -->
 	<div class="container">
 		
-	</div>
-</template>
-
-<template name="visitorConfirmation">
-	<div class="container text-center">
-		<h1>Thank You for visiting Truly Living Well! <br><small>We hope to see you again soon!</small></h1>
 	</div>
 </template>
 

@@ -39,3 +39,14 @@ Template.visitorForm.helpers({
 	    return options;
 	},
 });
+
+AutoForm.hooks({
+	insertVisitorForm: {
+		onSuccess: function () {
+			// show visitor check-in confirmation modal...
+			console.log("form submit success...");
+			$('#visitorconfirmation').modal("show");
+			return false;
+		}
+	}
+});
