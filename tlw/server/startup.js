@@ -98,7 +98,229 @@ Meteor.startup(function () {
 	 * PRODUCTS 
 	 **********************/
 	if (Products.find().count() === 0) {
-		var items = ["Apples", "Broccoli", "Canteloupe"];
+		var items = [
+					 "Arugula",
+					 "Baby Bok Choy",
+					 "Basil",
+					 "Beets",
+					 "Broccolli",
+					 "Cabbage",
+					 "Carrots",
+					 "Chives",
+					 "Collards",
+					 "Daikon Radish",
+					 "Field Greens Mix",
+					 "Green Garlic",
+					 "Kale",
+					 "Micro Greens",
+					 "Mizuna",
+					 "Mustard Greens",
+					 "Napa Cabbage",
+					 "Oregano",
+					 "Parsley",
+					 "Pecans",
+					 "Peppermint",
+					 "Pickles",
+					 "Pineapple Sage",
+					 "Radish",
+					 "Rosemary",
+					 "Spearmint",
+					 "Spinach",
+					 "Sweet Potato",
+					 "Swiss Chard",
+					 "Tarragon",
+					 "Thyme",
+					 "Turnips",
+					 "Kohlrabi",
+					 "Rutabaga",
+					 "Salad Mix",
+					 "Broccoli",
+					 "Broccoli Leaves",
+					 "Green Onions",
+					 "Greenleaf Lettuce",
+					 "Romaine Lettuce",
+					 "Cilantro",
+					 "Parsley",
+					 "Carrots (baby)",
+					 "Broccoli Florets",
+					 "Fava Beans",
+					 "Green Beans",
+					 "Marjoram",
+					 "Turnip Greens",
+					 "Cucumber",
+					 "Garlic",
+					 "Onion",
+					 "Squash",
+					 "Lemon Balm",
+					 "Mint",
+					 "Tomato",
+					 "Zucchini",
+					 "Black Eye Peas",
+					 "Beans",
+					 "Dill",
+					 "Lettuce (Spring Mix)",
+					 "Malabar Spinach",
+					 "Patty Pan Squash",
+					 "Peas",
+					 "Sage",
+					 "Eggplant",
+					 "Eggplant, Black Beauty",
+					 "Eggplant, Japanese White",
+					 "Eggplant, Rosa Bianca",
+					 "Okra",
+					 "Lima Beans",
+					 "Stripped Cavern",
+					 "Heirloom Tomato",
+					 "Cherry Tomato",
+					 "Roma",
+					 "Sweet Potato Green",
+					 "Holy Basil",
+					 "Japanese White Eggplant",
+
+"Peppers, Bell",
+"Peppers, Chinese 5 Spice",
+"Peppers, Jalapeno",
+"Peppers, Cayenne",
+
+"Peas, Black Eye",
+"Peas, Cow",
+"Peas, Edamame",
+
+
+
+"Garlic, Green",
+
+"Lettuce, Greenleaf",
+
+"Spinach, Malabar",
+
+"Squash, Crook Neck",
+
+"Squash, Patty Pan",
+
+"Squash, Butternut",
+
+"Squash, Zucchini",
+
+"Tomato, Cherry",
+
+"Tomato, Heirloom",
+
+"Tomato, Green",
+
+"Onion, Green",
+
+"Onion, White",
+
+"Onion, Yellow",
+
+"Beans, Limas",
+
+"Herbs, Thyme",
+
+"Herbs, Tarragon",
+
+"Herbs, Thyme (dried)",
+
+"Herbs, Tarragon (dried)",
+
+"Herbs, Basil (dried",
+
+"Herbs, Marjoram (dried)",
+
+"Herbs, Oregano (dried)",
+
+"Herbs, Holy Basil (dried)",
+
+"Herbs, Lemon Balm (dried)",
+
+"Herbs, Peppermint (dried)",
+
+"Herbs, Spearmint (dried)",
+
+"Herbs, Rosemary (dried)",
+
+"Herbs, Pineapple Sage (dried)",
+
+"Herbs, Monthly Flower Club Du",
+
+"Herbs, Silver Sage (dried)",
+
+"Greens, Sweet Potato Greens",
+
+"figs",
+
+"Herbs, Oregano (fresh)",
+
+"Herbs, Oregano (fresh)",
+
+"Herbs, Marjoram (fresh)",
+
+"Potatoes, Yukon Gold",
+
+
+
+
+"Oil, Rosemary",
+
+"Oil, Garlic Chili",
+
+"Herbs, Peppermint (fresh)",
+
+"Potatoes, Sweet Potatoes",
+
+"Cabbage, Leaves",
+
+"Sprouts, Gourmet Blend",
+
+"Sprouts, Wheatgrass Shot",
+
+"Peppers, Jamaican Hot Peppers",
+
+"Mizuna (half pound",
+
+"Herbs, hot teas",
+
+
+
+"Herbs, hot herb teas",
+
+"Herbs, herbal culinary salt",
+
+
+
+"CSA, Full Share",
+
+"Lettuce, Romaine (head)",
+
+"Lettuce, Bibb (head)",
+
+"Herbs, Herb and Flower Potpour",
+
+"Peppers, Bell (Colors)",
+
+"Lettuce, Drunken Woman",
+
+"Braising Mix",
+
+"Herbs, Cilantro (fresh)",
+
+"Herbs, Fennel (fresh)",
+
+"Stir Fry Mix",
+
+"Lettuce, Mesclun Mix",
+
+"Apples",
+
+"Bok Choy",
+
+"Cauliflower Greens",
+
+"Cauliflower",
+
+"Tours, Service Learning"
+];
 		
 		for (var i = 0; i < items.length; i++) {
 			Products.insert({itemname: items[i]});
@@ -120,12 +342,26 @@ Meteor.startup(function () {
 	/***********************
 	 * TOURS
 	 **********************/
-	if (Tours.find().count() === 0) {
-		var items = ["General Tour"];
-		
-		for (var i = 0; i < items.length; i++) {
-			Tours.insert({title: items[i], cost: 10});
-		}
+	if (Tours.find().count() === 0) {		
+		Tours.insert({title: "General Tour", cost: 10, notes: "(30-45 minutes)"});
+		Tours.insert({title: "Driving Tour of 3 Farms", cost: 35, notes: "(2-3 hours)"});
+		Tours.insert({title: "I. D. Me!", cost: 10, notes: "(30-40 minutes)"});
+		Tours.insert({title: "A Rhyme in Time Scavenger Hunt", cost: 10, notes: "(45 minutes)"});
+		Tours.insert({title: "Creepy Crawly Garden Friends and Foes", cost: 10, notes: "(30-40 minutes)"});
+		Tours.insert({title: "Ahoy Mateys!  There's Buried Treasure at Wheat Street Gardens", cost: 12, notes: "(60 minutes)"});
+		Tours.insert({title: "Follow that Scent! Or Blind Man's Bluff!", cost: 15, notes: "(90 minutes)"});
+		Tours.insert({title: "Taste and Touch It!", cost: 15, notes: "(90 minutes)"});
+		Tours.insert({title: "Just us Chickens", cost: 12, notes: "(60 minutes)"});
+	}
+
+	/***********************
+	 * TOUR ADD-ONS
+	 **********************/
+	if (TourAddOns.find().count() === 0) {		
+		TourAddOns.insert({title: "Service Learning (Farm with Farmers)", cost: 5, notes: ""});
+		TourAddOns.insert({title: "Service Learning (Compost and Composting)", cost: 5, notes: ""});
+		TourAddOns.insert({title: "Nature Mobile Activity", cost: 5, notes: ""});
+		TourAddOns.insert({title: "Bird Feeder Extravaganza", cost: 5, notes: ""});
 	}
 
 	/*
