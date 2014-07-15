@@ -41,10 +41,10 @@
 </template>
 
 <template name="dashboard">
-  <div class="container">
-    <div class="row">
-      <p>just a "dashboard" placeholder.</p>
-      <p>this is where you get redirected after logging in.</p>
-    </div><!-- /.row -->
-  </div><!-- /.container -->
+  <div class="container text-center" style="padding:20px;">
+    <a href="{{ pathFor 'farmops' }}"><button type="button" class="btn btn-success btn-lg">Operate!</button></a>
+  </div>
+  <div class="container text-center" style="padding:20px;">
+    <a href="{{ pathFor 'admin' }}"><button type="button" class="btn btn-danger btn-lg">ADMIN!</button></a>
+  </div>
 </template>
