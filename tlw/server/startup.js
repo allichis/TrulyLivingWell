@@ -99,227 +99,99 @@ Meteor.startup(function () {
 	 **********************/
 	if (Products.find().count() === 0) {
 		var items = [
-					 "Arugula",
-					 "Baby Bok Choy",
-					 "Basil",
-					 "Beets",
-					 "Broccolli",
-					 "Cabbage",
-					 "Carrots",
-					 "Chives",
-					 "Collards",
-					 "Daikon Radish",
-					 "Field Greens Mix",
-					 "Green Garlic",
-					 "Kale",
-					 "Micro Greens",
-					 "Mizuna",
-					 "Mustard Greens",
-					 "Napa Cabbage",
-					 "Oregano",
-					 "Parsley",
-					 "Pecans",
-					 "Peppermint",
-					 "Pickles",
-					 "Pineapple Sage",
-					 "Radish",
-					 "Rosemary",
-					 "Spearmint",
-					 "Spinach",
-					 "Sweet Potato",
-					 "Swiss Chard",
-					 "Tarragon",
-					 "Thyme",
-					 "Turnips",
-					 "Kohlrabi",
-					 "Rutabaga",
-					 "Salad Mix",
-					 "Broccoli",
-					 "Broccoli Leaves",
-					 "Green Onions",
-					 "Greenleaf Lettuce",
-					 "Romaine Lettuce",
-					 "Cilantro",
-					 "Parsley",
-					 "Carrots (baby)",
-					 "Broccoli Florets",
-					 "Fava Beans",
-					 "Green Beans",
-					 "Marjoram",
-					 "Turnip Greens",
-					 "Cucumber",
-					 "Garlic",
-					 "Onion",
-					 "Squash",
-					 "Lemon Balm",
-					 "Mint",
-					 "Tomato",
-					 "Zucchini",
-					 "Black Eye Peas",
-					 "Beans",
-					 "Dill",
-					 "Lettuce (Spring Mix)",
-					 "Malabar Spinach",
-					 "Patty Pan Squash",
-					 "Peas",
-					 "Sage",
-					 "Eggplant",
-					 "Eggplant, Black Beauty",
-					 "Eggplant, Japanese White",
-					 "Eggplant, Rosa Bianca",
-					 "Okra",
-					 "Lima Beans",
-					 "Stripped Cavern",
-					 "Heirloom Tomato",
-					 "Cherry Tomato",
-					 "Roma",
-					 "Sweet Potato Green",
-					 "Holy Basil",
-					 "Japanese White Eggplant",
-
-"Peppers, Bell",
-"Peppers, Chinese 5 Spice",
-"Peppers, Jalapeno",
-"Peppers, Cayenne",
-
+"Apples, Pink Ladies",
+"Arugula",
+"Bok Choy",
+"Bok Choy, Baby",
+"Beans, Fava",
+"Beans, Green",
+"Beans, Lima",
+"Beets",
+"Broccoli",
+"Broccoli Florets",
+"Broccoli Leaves",
+"Cabbage",
+"Cabbage Leaves",
+"Cabbage, Napa",
+"Carrots",
+"Carrots, Baby",
+"Cauliflower",
+"Cauliflower Greens",
+"Chives",
+"Collards",
+"Cucumber",
+"Eggplant, Black Beauty",
+"Eggplant, Japanese White",
+"Eggplant, Rosa Bianca",
+"Field Greens Mix",
+"Figs",
+"Garlic",
+"Garlic, Green",
+"Herbs, Basil",
+"Herbs, Cilantro",
+"Herbs, Culinary Salt",
+"Herbs, Dill",
+"Herbs, Fennel",
+"Herbs, Holy Basil",
+"Herbs, Hot Teas",
+"Herbs, Lemon Balm",
+"Herbs, Marjoram",
+"Herbs, Mint",
+"Herbs, Oregano",
+"Herbs, Parsley",
+"Herbs, Peppermint",
+"Herbs, Pineapple Sage",
+"Herbs, Rosemary",
+"Herbs, Sage",
+"Herbs, Silver Sage",
+"Herbs, Spearmint",
+"Herbs, Tarragon",
+"Herbs, Thyme",
+"Kale",
+"Kohlrabi",
+"Lettuce, Bibb",
+"Lettuce, Drunken Woman",
+"Lettuce, Green Leaf",
+"Lettuce, Romaine",
+"Micro Greens",
+"Mizuna",
+"Mustard Greens",
+"Okra",
+"Onions, Green",
+"Onions, White",
+"Onions, Yellow",
 "Peas, Black Eye",
 "Peas, Cow",
 "Peas, Edamame",
-
-
-
-"Garlic, Green",
-
-"Lettuce, Greenleaf",
-
-"Spinach, Malabar",
-
-"Squash, Crook Neck",
-
-"Squash, Patty Pan",
-
-"Squash, Butternut",
-
-"Squash, Zucchini",
-
-"Tomato, Cherry",
-
-"Tomato, Heirloom",
-
-"Tomato, Green",
-
-"Onion, Green",
-
-"Onion, White",
-
-"Onion, Yellow",
-
-"Beans, Limas",
-
-"Herbs, Thyme",
-
-"Herbs, Tarragon",
-
-"Herbs, Thyme (dried)",
-
-"Herbs, Tarragon (dried)",
-
-"Herbs, Basil (dried",
-
-"Herbs, Marjoram (dried)",
-
-"Herbs, Oregano (dried)",
-
-"Herbs, Holy Basil (dried)",
-
-"Herbs, Lemon Balm (dried)",
-
-"Herbs, Peppermint (dried)",
-
-"Herbs, Spearmint (dried)",
-
-"Herbs, Rosemary (dried)",
-
-"Herbs, Pineapple Sage (dried)",
-
-"Herbs, Monthly Flower Club Du",
-
-"Herbs, Silver Sage (dried)",
-
-"Greens, Sweet Potato Greens",
-
-"figs",
-
-"Herbs, Oregano (fresh)",
-
-"Herbs, Oregano (fresh)",
-
-"Herbs, Marjoram (fresh)",
-
+"Peas, Green",
+"Pecans",
+"Peppers, Bell",
+"Peppers, Cayenne",
+"Peppers, Chinese 5 Spice",
+"Peppers, Jalapeno",
+"Peppers, Jamaican Hot",
+"Pickles",
 "Potatoes, Yukon Gold",
-
-
-
-
-"Oil, Rosemary",
-
-"Oil, Garlic Chili",
-
-"Herbs, Peppermint (fresh)",
-
-"Potatoes, Sweet Potatoes",
-
-"Cabbage, Leaves",
-
-"Sprouts, Gourmet Blend",
-
-"Sprouts, Wheatgrass Shot",
-
-"Peppers, Jamaican Hot Peppers",
-
-"Mizuna (half pound",
-
-"Herbs, hot teas",
-
-
-
-"Herbs, hot herb teas",
-
-"Herbs, herbal culinary salt",
-
-
-
-"CSA, Full Share",
-
-"Lettuce, Romaine (head)",
-
-"Lettuce, Bibb (head)",
-
-"Herbs, Herb and Flower Potpour",
-
-"Peppers, Bell (Colors)",
-
-"Lettuce, Drunken Woman",
-
-"Braising Mix",
-
-"Herbs, Cilantro (fresh)",
-
-"Herbs, Fennel (fresh)",
-
-"Stir Fry Mix",
-
-"Lettuce, Mesclun Mix",
-
-"Apples",
-
-"Bok Choy",
-
-"Cauliflower Greens",
-
-"Cauliflower",
-
-"Tours, Service Learning"
+"Radish",
+"Radish, Daikon",
+"Rutabaga",
+"Spinach",
+"Spinach, Malabar",
+"Squash",
+"Squash, Butternut",
+"Squash, Crook Neck",
+"Squash, Patty Pan",
+"Squash, Zucchini",
+"Sweet Potato",
+"Sweet Potato Greens",
+"Swiss Chard",
+"Tomato, Cherry",
+"Tomato, Green",
+"Tomato, Heirloom",
+"Tomato, Roma",
+"Tomato, Stripped Cavern",
+"Turnips",
+"Turnip Greens",
 ];
 		
 		for (var i = 0; i < items.length; i++) {
