@@ -30,6 +30,7 @@ Meteor.subscribe("harvests");
 Meteor.subscribe("visittypes");
 Meteor.subscribe("tours");
 Meteor.subscribe("touraddons");
+Meteor.subscribe("monthlyreports");
 
 // do something any time a user logs in...
 Hooks.onLoggedIn = function() {

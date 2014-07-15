@@ -34,11 +34,15 @@ Meteor.publish("touraddons", function () {
 	return TourAddOns.find();
 });
 
+Meteor.publish("monthlyreports", function () {
+	return MonthlyReports.find();
+});
+
 Meteor.publish('filteredVols', function(filter) {
 	return filteredVolsQuery(filter);
 });
 
-_.each([Volunteers, Products, Visitors, VisitTypes, Tours, TourAddOns, Requests, HarvestLog], function (collection) {
+_.each([Volunteers, Products, Visitors, VisitTypes, Tours, TourAddOns, Requests, HarvestLog, MonthlyReports], function (collection) {
 	collection.allow({
 		insert: function() {
 			return true;

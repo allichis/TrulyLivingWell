@@ -110,6 +110,16 @@ Template.reportForm.events({
 	}
 });
 
+/*AutoForm.hooks({
+	reportUpdateForm: {
+		onSuccess: function () {
+			console.log("form submit success...");
+			Router.go('viewReport');
+			return false;
+		}
+	}
+});*/
+
 function updateProductInfo(template) {
 	var report = Session.get('reportSelected');
 	var reportId = report['_id'];
@@ -117,14 +127,19 @@ function updateProductInfo(template) {
 	var updates = {};
 	var i = 0;
 	productInfo.forEach(function(item) {
-		updates['productInfo.' + i + '.wholesaleUnits'] = template.find("#wholesaleUnitsInput_" + item['itemname']).value;
-		updates['productInfo.' + i + '.marketUnits'] = template.find("#marketUnitsInput_" + item['itemname']).value;
-		updates['productInfo.' + i + '.marketSales'] = template.find("#marketSalesInput_" + item['itemname']).value;
+		var wu = template.find("#wholesaleUnitsInput_" + item['itemname']).value;
+		var mu = template.find("#marketUnitsInput_" + item['itemname']).value;
+		var ms = template.find("#marketSalesInput_" + item['itemname']).value;
+		var ou = productInfo[i]['harvestedUnits'] - wu - mu;
+		updates['productInfo.' + i + '.wholesaleUnits'] = wu;
+		updates['productInfo.' + i + '.marketUnits'] = mu;
+		updates['productInfo.' + i + '.marketSales'] = ms;
+		updates['productInfo.' + i + '.otherUnits'] = ou;
 		i++;
 	});
 	
-	MonthlyReports.update(reportId, {$set: updates});
-	/*Meteor.call('updateReport', reportId, updates , function(error) {
+	//MonthlyReports.update(reportId, {$set: updates});
+	Meteor.call('updateReport', reportId, updates , function(error) {
 		if (error) {
 			// optionally use a meteor errors package
 			if (typeof Errors === "undefined")
@@ -133,12 +148,7 @@ function updateProductInfo(template) {
 				Errors.throw(error.reason);
 			}
 		}}
-	);*/
-	/*updates = {};
-	productInfo.forEach(function(index, item) {
-		updates['productInfo.' + index + '.otherUnits'] = report['productInfo.' + index + '.harvestedUnits'] - report['productInfo.' + index + '.wholesaleUnits'] - report['productInfo.' + i + '.marketUnits'];
-	});
-	MonthlyReports.update(reportId, {$set: updates});*/
+	);
 }
 
 Template.adminViewMonthlyReports.helpers(reportHelpers);
@@ -184,6 +194,7 @@ function getReportValues(month, year) {
 	values['year'] =  year;
 	values['employeeCount'] = 0;
 	values['employeeHours'] = 0;
+	values['csaNew'] = 0;
 	values['volunteerCount'] = getVolunteerCount(month,year);
 	values['volunteerHours'] = getVolunteerHours(month,year);
 	values['visitorCount'] = getVisitorTotal(month,year);
@@ -203,7 +214,10 @@ function getVolunteerCount(month, year) {
 	var end = new Date(year, month+1, 1);
 	var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}});
 	var vols = _.uniq(volTimes.fetch().map(function(timecard) { return timecard.volId}));
-	var numvols = vols.size;
+	var numvols = 0;
+	if(!vols.isEmpty) {
+		numvols = vols.size;
+	}
 	return numvols;
 }
 
