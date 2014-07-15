@@ -51,14 +51,14 @@
     </div><!-- /.container -->
     <div class="container">
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <h3>Employees</h3>
                 <ul class="list-group">
 	                <li class="list-group-item">Employee count:  {{employeeCount}}</li>
 	                <li class="list-group-item">Employee hours:  {{employeeHours}}</li>
                 </ul>
             </div>
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <h3>Volunteers</h3>
                 <ul class="list-group">
                 	<li class="list-group-item">Volunteer count:  {{volunteerCount}}</li>
@@ -68,7 +68,7 @@
         </div>
         
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <h3>Visitors</h3>
                 <ul class="list-group">
 	                <li class="list-group-item">Total Visitors:  {{visitorCount}}</li>
@@ -78,7 +78,7 @@
 	                <li class="list-group-item">Veterans:  {{veteranCount}}</li>
                 </ul>
             </div>
-            <div class="col-md-6">
+            <div class="col-sm-6">
                 <h3>Tours</h3>
                 <table class="table table-striped table-bordered">
                 	<thead>
@@ -100,7 +100,7 @@
         </div>
         
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-sm-4">
                 <h3>CSA</h3>
                 <ul class="list-group">
                 	<!--<li class="list-group-item">Total CSA:  {{csaTotal}}</li>-->
@@ -110,14 +110,14 @@
         </div>
 
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12">
                 <h3>Locations</h3>
                 Locations:  {{locationInfo}}
             </div>
         </div>
         
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-sm-12">
                 <h3>Products</h3>
                 <table class="table table-striped">
                 	<thead>
@@ -131,12 +131,12 @@
                 	<tbody>
                 	{{#each productInfo}}
                 		<tr>
-                			<td>{{this.itemname}}</td>
-                			<td>{{this.harvestedUnits}}</td>
-                			<td>{{this.wholesaleUnits}}</td>
-                			<td>{{this.marketUnits}}</td>
-                			<td>{{this.marketSales}}</td>
-                			<td>{{this.otherUnits}}</td>
+                			<td>{{itemname}}</td>
+                			<td>{{harvestedUnits}}</td>
+                			<td>{{wholesaleUnits}}</td>
+                			<td>{{marketUnits}}</td>
+                			<td>{{marketSales}}</td>
+                			<td>{{otherUnits}}</td>
                 		</tr>
                 	{{/each}}
                 	</tbody>

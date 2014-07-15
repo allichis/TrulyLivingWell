@@ -113,4 +113,8 @@ Meteor.methods({
 	deleteReport: function(id) {
 		MonthlyReports.remove(id);
 	},
+
+	updateReport: function(id, updates) {
+		MonthlyReports.updates(id, {$set: updates});
+	},
 });

@@ -36,11 +36,20 @@ var reportHelpers = {
 	years: function() {
 		var years = _.uniq(MonthlyReports.find({}, {fields: {year:1}})
 			.fetch()
-			.map(function(x){return x.year;}), true);
+			.map(function(x){return x.year;}));
 		return years;
 	},
 	yearFilter: function() {
 		return Session.get('yearFilter');
+	},
+	wholesaleUnitsInputId: function(item) {
+		return "wholesaleUnitsInput_" + item['itemname'];
+	},
+	marketUnitsInputId: function(item) {
+		return "marketUnitsInput_" + item['itemname'];
+	},
+	marketSalesInputId: function(item) {
+		return "marketSalesInput_" + item['itemname'];
 	},
 };
 
@@ -93,10 +102,44 @@ Template.reportForm.helpers(reportHelpers);
 
 Template.reportForm.events({
 	'click .btn-primary': function(event, template) {
-		// user clicked "submit", go to "viewReport" template
+		// user clicked "submit"
+		// get product info data that wasn't part of autoform
+		updateProductInfo(template);
+		// go to "viewReport" template
 		Router.go('viewReport');
 	}
 });
+
+function updateProductInfo(template) {
+	var report = Session.get('reportSelected');
+	var reportId = report['_id'];
+	var productInfo = report['productInfo'];
+	var updates = {};
+	var i = 0;
+	productInfo.forEach(function(item) {
+		updates['productInfo.' + i + '.wholesaleUnits'] = template.find("#wholesaleUnitsInput_" + item['itemname']).value;
+		updates['productInfo.' + i + '.marketUnits'] = template.find("#marketUnitsInput_" + item['itemname']).value;
+		updates['productInfo.' + i + '.marketSales'] = template.find("#marketSalesInput_" + item['itemname']).value;
+		i++;
+	});
+	
+	MonthlyReports.update(reportId, {$set: updates});
+	/*Meteor.call('updateReport', reportId, updates , function(error) {
+		if (error) {
+			// optionally use a meteor errors package
+			if (typeof Errors === "undefined")
+				Log.error('Error: ' + error.reason);
+			else {
+				Errors.throw(error.reason);
+			}
+		}}
+	);*/
+	/*updates = {};
+	productInfo.forEach(function(index, item) {
+		updates['productInfo.' + index + '.otherUnits'] = report['productInfo.' + index + '.harvestedUnits'] - report['productInfo.' + index + '.wholesaleUnits'] - report['productInfo.' + i + '.marketUnits'];
+	});
+	MonthlyReports.update(reportId, {$set: updates});*/
+}
 
 Template.adminViewMonthlyReports.helpers(reportHelpers);
 
@@ -159,7 +202,7 @@ function getVolunteerCount(month, year) {
 	var start = new Date(year, month, 1);
 	var end = new Date(year, month+1, 1);
 	var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}});
-	var vols = _.uniq(volTimes.fetch().map(function(timecard) { return timecard.volId}), true);
+	var vols = _.uniq(volTimes.fetch().map(function(timecard) { return timecard.volId}));
 	var numvols = vols.size;
 	return numvols;
 }
@@ -238,8 +281,8 @@ function getTourInfo(month, year) {
 	var tourInfo = [];
 	var start = new Date(year, month, 1);
 	var end = new Date(year, month+1, 1);
-	var visitsThisMonth = Visitors.find({$and: [{'date': {$gte: start, $lt: end}}, {'visitType': "Tour"}]}, {fields: {tourType:1}});
-	var tours = _.uniq(visitsThisMonth.fetch().map(function(visit) { return visit.tourType }), true);
+	var toursThisMonth = Visitors.find({$and: [{'date': {$gte: start, $lt: end}}, {'visitType': "Tour"}]}, {fields: {tourType:1}});
+	var tours = _.uniq(toursThisMonth.fetch().map(function(visit) { return visit.tourType }));
 	tours.forEach(function(tour) {
 		tourInfo.push(getTourTotals(tour, month, year));
 	});
@@ -294,7 +337,7 @@ function getProductsHarvested(month, year) {
 	var start = new Date(year, month, 1);
 	var end = new Date(year, month+1, 1);
 	var harvestsInDateRange = HarvestLog.find({'date': {$gte: start, $lt: end}}, {fields: {itemname:1}});
-	var products = _.uniq(harvestsInDateRange.fetch().map(function(log) { return log.itemname}), true);
+	var products = _.uniq(harvestsInDateRange.fetch().map(function(log) { return log.itemname}));
 	return products;
 }
 
