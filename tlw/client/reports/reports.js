@@ -311,6 +311,9 @@ function getTourPeople(tourname, month, year) {
 
 function getTourCost(tourname, month, year) {
 	var tour = Tours.find({'title': tourname}).fetch()[0];
+	if(!tour) {
+		return 0;
+	}
 	var cost = tour['cost'];
 	if(!cost) {
 		cost = 0;
