@@ -155,6 +155,7 @@ Schema.Visitors = new SimpleSchema({
 	},
 	addOns: {
 		type: [String],
+		defaultValue: [],
 		optional: true,
 		label: "Tour Add-Ons",
 	},
