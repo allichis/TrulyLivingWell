@@ -150,10 +150,10 @@
 
     </div><!-- div #printableArea -->
     <br>
-	<div class="container">
-		<a href="{{pathFor 'admin'}}"><button type="button" class="btn btn-primary">Done</button></a>
-		<button type="button" id="btn-printReport" class="btn btn-primary">Print</button>
-		<button type="button" id="btn-exportReport" class="btn btn-primary">Export</button>
+	<div class="container" style="padding:20px;">
+		<a href="{{pathFor 'admin'}}"><button type="button" class="btn btn-default btn-lg">Done</button></a>
+		<button type="button" id="btn-printReport" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-print" style="padding-right:10px"></span>Print</button>
+		<button type="button" id="btn-exportReport" class="btn btn-primary btn-lg"><span class="glyphicon glyphicon-floppy-save" style="padding-right:10px"></span>Save</button>
 	</div>
 
 </template>
@@ -177,8 +177,6 @@
 				</select>
 			</th>
 	        <th>Date</th>
-	        <th>Employees</th>
-	        <th>Employee Hours</th>
 	        <th>Volunteers</th>
 	        <th>Volunteer Hours</th>
 	        <th>Visitors</th>
@@ -193,8 +191,6 @@
 	            <a href="{{pathFor 'viewReport'}}"><span  class="glyphicon glyphicon-info-sign clickable"></span></a>	            
 	          </td>
 	          <td>{{displayMonth month}} {{year}}</td>
-	          <td>{{employeeCount}}</td>
-	          <td>{{employeeHours}}</td>
 	          <td>{{volunteerCount}}</td>
 	          <td>{{volunteerHours}}</td>
 	          <td>{{visitorCount}}</td>

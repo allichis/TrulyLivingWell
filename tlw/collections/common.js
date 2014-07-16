@@ -455,21 +455,21 @@ Schema.MonthlyReports = new SimpleSchema({
 		label: "Employees this month",
 		defaultValue: 0,
 		min: 0,
-		//optional: true,
+		optional: true,
 	},
 	employeeHours: {
 		type: Number,
 		label: "Employee hours worked",
 		defaultValue: 0,
 		min: 0,
-		//optional: true,
+		optional: true,
 	},
 	csaTotal: {
 		type: Number,
 		label: "Total CSA Subscriptions",
 		defaultValue: 0,
 		min: 0,
-		//optional: true,
+		optional: true,
 	},
 	csaNew: {
 		type: Number,
@@ -613,6 +613,10 @@ Schema.MonthlyReports = new SimpleSchema({
 		defaultValue: 0,
 		//optional: true,
 	},
+	"productInfo.$.index": {
+		type: Number,
+		optional: true,
+	}
 
 });
 

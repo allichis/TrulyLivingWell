@@ -27,43 +27,45 @@
                     {{> afQuickField name='csaNew'}}
                 </div>
             </div>
-
+        </fieldset>
             <div class="row">
                 <div class="col-md-4">
                     <h3>Products</h3>
                     <!-- {{> afArrayField name='productInfo' template='reportproducttable' label=false fields=['itemname', 'wholesaleUnits', 'marketUnits', 'marketSales']}} -->
-                    <!-- <form name="productInfoForm"> -->
+                    <form name="productInfoForm">
+                    <fieldset>
                     <table class="table table-striped">
                         <thead>
                             <th>Item</th>
+                            <th>Harvested Units</th>
                             <th>Wholesale Units</th>
                             <th>Market Units</th>
                             <th>Market Sales</th>
                         </thead>
                         <tbody>
-                        
-                        {{#each productInfo}}
+                        {{#each productsWithIndex}}
                             <tr>
                                 <td>{{itemname}}</td>
-                                <td><input id={{wholesaleUnitsInputId this}} name="wholesaleUnits" type="Number" value="{{wholesaleUnits}}"></td>
-                                <td><input id={{marketUnitsInputId this}} name="marketUnits" type="Number" value="{{marketUnits}}"></td>
-                                <td><input id={{marketSalesInputId this}} name="marketSales" type="Number" value="{{marketSales}}"></td>
-                                <!-- <td>{{> afFieldInput name='productInfo.0.wholesaleUnits' autoform=..}}</td>
-                                <td>{{> afFieldInput name='productInfo.0.marketUnits' autoform=..}}</td>
-                                <td>{{> afFieldInput name='productInfo.0.marketSales' autoform=..}}</td> -->
+                                <td>{{harvestedUnits}}</td>
+                                <td><input id={{wholesaleUnitsName}} name={{wholesaleUnitsName}} type="Number" min=0 value='{{wholesaleUnits}}'></td>
+                                <td><input id={{marketUnitsName}} name={{marketUnitsName}} type="Number" min=0 value='{{marketUnits}}'></td>
+                                <td><input id={{marketSalesName}} name={{marketSalesName}} type="Number" min=0 value='{{marketSales}}'></td>
+                                <!-- <td>{{> afFieldInput name=wholesaleUnitsName autoform=.. value=wholesaleUnits}}</td>
+                                <td>{{> afFieldInput name=marketUnitsName autoform=.. value=marketUnits}}</td>
+                                <td>{{> afFieldInput name=marketSalesName autoform=.. value=marketSales}}</td> -->
                             </tr>
                         {{/each}}
-
                         </tbody>
                     </table>
-                    <!-- </form> -->
+                    </fieldset>
+                    </form>
                 </div>
             </div>
-        </fieldset>
         <br>
-        <a href="{{pathFor 'admin'}}"><button type="button" class="btn btn-default">Cancel</button></a>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <a href="{{pathFor 'admin'}}"><button type="button" class="btn btn-default btn-lg">Cancel</button></a>
+        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
         {{/autoForm}}
+        <br>
     </div>
     {{/with}}
 </template>

@@ -42,21 +42,42 @@ var reportHelpers = {
 	yearFilter: function() {
 		return Session.get('yearFilter');
 	},
-	wholesaleUnitsInputId: function(item) {
-		return "wholesaleUnitsInput_" + item['itemname'];
+	wholesaleUnitsInputId: function() {
+		return 'wholesaleUnitsInput_' + this['itemname'];
 	},
-	marketUnitsInputId: function(item) {
-		return "marketUnitsInput_" + item['itemname'];
+	marketUnitsInputId: function() {
+		return 'marketUnitsInput_' + this['itemname'];
 	},
-	marketSalesInputId: function(item) {
-		return "marketSalesInput_" + item['itemname'];
+	marketSalesInputId: function() {
+		return 'marketSalesInput_' + this['itemname'];
 	},
+	wholesaleUnitsName: function() {
+		return 'productInfo.' + this['index'] + '.wholesaleUnits';
+	},
+	marketUnitsName: function() {
+		return 'productInfo.' + this['index'] + '.marketUnits';
+	},
+	marketSalesName: function() {
+		return 'productInfo.' + this['index'] + '.marketSales';
+	},
+	productsWithIndex: function() {
+	    return getReportProducts(this);
+	}
 };
 
 var setYearFilter = function(template){
 	var year = template.find(".year-filter").value;
 	Session.set("yearFilter", year);
 	//alert("year filter set to " + year);
+};
+
+function getReportProducts(report) {
+	var products = report.productInfo;
+	products.forEach(function(item) {
+		item['index'] = _.indexOf(products, item);
+	});
+	
+    return products;
 };
 
 Template.selectReport.helpers({
@@ -103,7 +124,7 @@ Template.viewReport.events({
 		printReport();
 	},
 	'click #btn-exportReport': function(event, tempate) {
-		exportReport(this);
+		exportReport();
 	},
 });
 
@@ -113,40 +134,76 @@ Template.reportForm.events({
 	'click .btn-primary': function(event, template) {
 		// user clicked "submit"
 		// get product info data that wasn't part of autoform
-		updateProductInfo(template);
+		//updateProductInfo();
+		// re-select this report (???)
+		//Session.set('reportSelected', Session.get('reportSelected'));
 		// go to "viewReport" template
-		Router.go('viewReport');
-	}
+		//Router.go('viewReport');
+	},
 });
 
 AutoForm.hooks({
 	reportUpdateForm: {
+		/*before: {
+			//insert: function(doc, template) {},
+			//update: function(docId, modifier, template) {},
+			//remove: function(docId, template) {},
+		},
+		after: {
+			//insert: function(error, result, template) {},
+			//update: function(error, result, template) {},
+			//remove: function(error, result, template) {},
+		},
+		onSubmit: function(insertDoc, updateDoc, currentDoc) {},*/
 		onSuccess: function () {
-			console.log("form submit success...");
-			//Router.go('viewReport');
+			console.log("autoform submit success...");
+			updateProductInfo();
+			Session.set('reportSelected', Session.get('reportSelected'));
+			Router.go('viewReport');
 			return false;
-		}
+		},
+		onError: function(operation, error, template) {
+			if (error) {
+				if (typeof Errors === "undefined")
+					Log.error(error);
+				else {
+					//Errors.throw(error.reason);
+					console.log(error);
+				}
+			}
+		},
 	}
 });
 
 function updateProductInfo(template) {
 	var report = Session.get('reportSelected');
 	var reportId = report['_id'];
-	var productInfo = report['productInfo'];
+	var products = getReportProducts(report);
 	var updates = {};
-	var i = 0;
-	productInfo.forEach(function(item) {
-		var wu = template.find("#wholesaleUnitsInput_" + item['itemname']).value;
-		var mu = template.find("#marketUnitsInput_" + item['itemname']).value;
-		var ms = template.find("#marketSalesInput_" + item['itemname']).value;
-		var ou = productInfo[i]['harvestedUnits'] - wu - mu;
-		updates['productInfo.' + i + '.wholesaleUnits'] = wu;
-		updates['productInfo.' + i + '.marketUnits'] = mu;
-		updates['productInfo.' + i + '.marketSales'] = ms;
-		updates['productInfo.' + i + '.otherUnits'] = ou;
-		i++;
+	var form = document.forms["productInfoForm"];
+	products.forEach(function(item) {
+		var wholesaleUnitsName = 'productInfo.' + item['index'] + '.wholesaleUnits';
+		var marketUnitsName = 'productInfo.' + item['index'] + '.marketUnits';
+		var marketSalesName = 'productInfo.' + item['index'] + '.marketSales';
+		var wu = form.elements[wholesaleUnitsName];
+		var mu = form.elements[marketUnitsName];
+		var ms = form.elements[marketSalesName];
+		if(wu) {
+			wu = wu.value;
+		} else { wu = 0; }
+		if(mu) {
+			mu = mu.value;
+		} else { mu = 0; }
+		if(ms) {
+			ms = ms.value;
+		} else {ms = 0; }
+		var ou = products[item['index']]['harvestedUnits'] - wu - mu;
+		updates[wholesaleUnitsName] = wu;
+		updates[marketUnitsName] = mu;
+		updates[marketSalesName] = ms;
+		updates['productInfo.' + item['index'] + '.otherUnits'] = ou;
 	});
-	
+
 	//MonthlyReports.update(reportId, {$set: updates});
 	Meteor.call('updateReport', reportId, updates , function(error) {
 		if (error) {
@@ -156,8 +213,12 @@ function updateProductInfo(template) {
 			else {
 				Errors.throw(error.reason);
 			}
-		}}
-	);
+		}
+		else {
+			console.log("report update success...");
+		}
+
+	});
 }
 
 Template.adminViewMonthlyReports.helpers(reportHelpers);
@@ -411,19 +472,58 @@ function printReport() {
 	 window.print();
 }
 
-function exportReport(e) {
+function exportReport() {
 	var report = Session.get('reportSelected');
-	var csv = json2csv(report, true, true);
-	var filename = "TLWReport_" + getMonthString(report.month) + report.year + ".csv";
-	//e.target.href = "data:text/csv;charset=utf-8," + escape(csv);
-    //e.target.download = "TLWReport_" + getMonthString(report.month) + report.year + ".csv";
+	var csv1 = reportTotalsToCsv(report);
+	alert(csv1);
+	//var csv2 = reportProductsToCsv(report);
+	var filename1 = "TLWReport_" + getMonthString(report.month) + report.year + "_totals.csv";
+	//var filename2 = "TLWReport_" + getMonthString(report.month) + report.year + "_products.csv";
+	var type = "text/csv;charset=utf-8";
 
-    var a = document.createElement('a');
-	//a.href = 'data:attachment/csv,' + csvString;
-	a.href = "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
-	a.target = "_blank";
-	a.download = filename;
-	//document.body.appendChild(a);
-	window.open(a);
-	//a.click(); 
+    var blob = new Blob([csv1], {type: "text/plain;charset=utf-8"});
+	saveAs(blob, filename1);
+
+	//var blob = new Blob([csv2], {type: "text/plain;charset=utf-8"});
+	//saveAs(blob, filename2);
+
+}
+
+function reportTotalsToCsv(report) {
+	var csv = '';
+	var header = '';
+
+	var excludeHeaders = ["_id", "reportID", "locationInfo", "productInfo", "tourInfo", "csaTotal"];
+
+	_.map(report, function(value, key) {
+		if(excludeHeaders.indexOf(key) === -1) {
+			if(header === '') {
+				header += ('"' + key + '"');
+			}
+			else {
+				header += (',"' + key + '"');
+			}
+		}
+	});
+	header += '\n'
+
+	_.map(report, function(value, key) {
+		if(excludeHeaders.indexOf(key) === -1) {
+			if(csv === '') {
+				csv += ('"' + value + '"');
+			}
+			else {
+				csv += (',"' + value + '"');
+			}
+		}
+	});
+	csv += '\n'
+
+	return header + csv;
+}
+
+function reportProductsToCsv(report) {
+	var csv = "";
+	var header = "";
+	return csv;
 }
