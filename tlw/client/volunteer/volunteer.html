@@ -1,13 +1,9 @@
 <template name="volunteer">
   <div class="container">
     <div class="row">
-      <div class="jumbotron">
-        <h1>Volunteers</h1>
-        <p>Welcome to volunteering at Truly Living Well!</p>
-      </div><!-- /.jumbotron -->
+      <h1>Volunteers</h1>
     </div><!-- /.row -->
     <div class="row">
-{{> bootstrapAlerts}}
       <div class="col-md-6">
         <h2>Ready to work?</h2>
         <a href="{{pathFor 'volsignin'}}"><button type="button" class="btn btn-default btn-large">Sign In / Sign Out</button></a>
@@ -26,40 +22,42 @@
       <h1>New volunteer registration page</h1>
     </div><!-- /.row -->
     <div class="row">
-      {{>quickForm collection="Volunteers" id="insertVolunteer" type="insert" template="bootstrap3-horizontal" label-class="col-sm-3" input-col-class="col-sm-9"}}
+      {{>quickForm collection="Volunteers" id="insertVolunteer" type="insert"}}
     </div><!-- /.row -->
   </div><!-- /.container -->
 </template>
 
-<template name="insertVolForm">
-  {{#autoForm collection="Volunteers" id="newVolForm" type="insert"}}
-  <fieldset>
-  </fieldset>
-  <button type="submit" class="btn btn-primary">Insert</button>
-  {{/autoForm}}
-</template>
-
 <template name="volsignin">
   <div class="container">
+
     {{#unless volFound}}
       <div class="row">
         <h1>Volunteer lookup</h1>
         <h3>Enter name or phone number:</h3>
+
         <div class="input-group">
-          <input type="text" class="form-control vol-phone-input" value="{{searchFilter}}">
+          <input type="text" class="form-control vol-phone-input" value="{{volSearchQuery}}">
           <span class="input-group-btn">
             <button class="btn btn-default" type="search"><span class="glyphicon glyphicon-search"></span></button>
           </span>
         </div><!-- /.input-group -->
+
       </div><!-- /.row -->
     {{/unless}}
-    {{#if signedIn}}
-      {{>signinSuccess}}
+
+    {{#if volFound}}
+      {{#each vol}}
+      <p>Welcome back, {{firstname}} {{lastname}}! ({{email}})</p>
+      <button class="btn btn-default" type="submit">Sign in</button>
+      <button class="btn btn-default" type="tryagain">Not you? Search again.</button>
+      {{/each}}
     {{/if}}
+
   </div><!-- /.container -->
 </template>
 
-<template name="signinSuccess">
+<template name="volSigninSuccess">
+<div class="container">
   <div class="row">
     <br><br>
     <p class="lead">Thanks for volunteering today!</p>
@@ -67,4 +65,5 @@
     <br><br>
     <a href="{{pathFor 'home'}}"><button class="btn btn-large btn-success">Home</button></a>
   </div>
+</div>
 </template>

@@ -16,6 +16,7 @@ Router.map(function() {
 	this.route('volunteer');	
 	this.route('newvol');	
 	this.route('volsignin');	
+	this.route('volSigninSuccess');
 	this.route('volsignout');
 
 	this.route('visitorCheckIn');
@@ -95,6 +96,7 @@ Router.onBeforeAction(IR_BeforeHooks.isLoggedIn, {
 			'volunteer',
 			'newvol',
 			'volsignin',
+			'volSigninSuccess',
 			'volsignout',
 			'visitorCheckIn',
 			'visitorForm',

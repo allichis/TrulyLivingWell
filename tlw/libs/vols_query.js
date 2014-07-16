@@ -9,14 +9,27 @@ searchVols = function (searchTerm) {
 		{'lastname': {$regex: searchTerm, $options: 'i'}},
 		{'phone': {$regex: searchTerm, $options: 'i'}},
 			]
-		}, {sort: {firstname: 1}, limit: queryLimit});
+			// probably change this sorting key...
+		}, {sort: {phone: 1}, limit: queryLimit});
+
+		// if a unique match is found, just return vols, which should only contain that volunteer record
 		if (volsFound.count() === 1) {
-			volSigning = volsFound.fetch();
-			Session.set('volSigning', volSigning);
+			return volsFound;
+		} else { 
+			return volsFound.count();
 		}
-	} else {
-		volsFound = Volunteers.find();
-		//Session.set('volSigning', undefined);
 	}
-	return volsFound;
+	return 0;
+};
+
+okToOpenTimecard = function(volId) {
+	if (VolunteerTimecards.find({'volId': volId, tcStatus: "Open"}).count() > 0) {
+		// open timecard exists, so return false
+		return false;
+	}
+	return true;
+};
+
+initTimecard = function(volId) {
+	return VolunteerTimecards.insert({volId: volId, location: "Wheat Street", tcStatus: "Open", timeOpened: new Date});
 };
