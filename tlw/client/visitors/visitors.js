@@ -1,3 +1,9 @@
+var today = function() {
+	var date = new Date();
+	date.setUTCHours(0,0,0,0);
+	return date;
+};
+
 Template.visitorCheckIn.helpers({
 	visitTypeOptions: function() {
 	    var options = [];
@@ -26,6 +32,9 @@ Template.visitorCheckIn.helpers({
 	    }
 	    return options;
 	},
+	today: function() {
+		return today();
+	}
 });
 
 Template.visitorForm.helpers({
