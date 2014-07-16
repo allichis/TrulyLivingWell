@@ -75,12 +75,15 @@ Template.volsignin.events({
 		setVolFilter(template);
 		return false;
 	},
+	'change select': function(event, template) {
+		Session.set("volLocation", $("#location option:selected").text()); 
+	},
 	'click [type="submit"]': function(event, template) {
 		if (!okToOpenTimecard(Session.get("uniqueVolId"))) {
 			console.log("already an open timecard.");
 		} else {
 			// should be ok, so create a new timecard
-			var tcId = initTimecard(Session.get("uniqueVolId"));
+			var tcId = initTimecard(Session.get("uniqueVolId"), Session.get("volLocation"));
 			Session.set("volNewTcId", tcId);
 			Router.go('volSigninSuccess');
 			Session.set("uniqueVolId", null);
@@ -93,6 +96,10 @@ Template.volsignin.events({
 		Session.get("searchError");
 	}
 });
+
+Template.volsignin.locations = function() {
+	return Locations.find();
+};
 
 Template.volsignin.rendered = function() {
 	var searchElement = document.getElementsByClassName('vol-phone-input');
@@ -114,5 +121,8 @@ Template.volSigninSuccess.helpers({
 		var readableTime = moment(timestamp).format("h:mm a");
 		var readableDate = moment(timestamp).format("MMMM Do, YYYY");
 		return readableTime + " on " + readableDate;
+	},
+	locLogged: function() {
+		return VolunteerTimecards.find({_id: Session.get("volNewTcId")}).fetch()[0].location;
 	}
 });

@@ -24,6 +24,7 @@ AutoForm.hooks({
 Meteor.subscribe("allProducts");
 Meteor.subscribe("locations");
 Meteor.subscribe("volunteers");
+Meteor.subscribe("volunteerTimecards");
 Meteor.subscribe("visitors");
 Meteor.subscribe("requests");
 Meteor.subscribe("harvests");

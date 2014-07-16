@@ -10,6 +10,10 @@ Meteor.publish("volunteers", function () {
 	return Volunteers.find();
 });
 
+Meteor.publish("volunteerTimecards", function () {
+	return VolunteerTimecards.find();
+});
+
 Meteor.publish("visitors", function () {
 	return Visitors.find();
 });
@@ -42,7 +46,7 @@ Meteor.publish('filteredVols', function(filter) {
 	return filteredVolsQuery(filter);
 });
 
-_.each([Volunteers, Products, Visitors, VisitTypes, Tours, TourAddOns, Requests, HarvestLog, MonthlyReports], function (collection) {
+_.each([Volunteers, VolunteerTimecards, Products, Visitors, VisitTypes, Tours, TourAddOns, Requests, HarvestLog, MonthlyReports], function (collection) {
 	collection.allow({
 		insert: function() {
 			return true;

@@ -50,7 +50,16 @@
     {{#if volFound}}
       {{#each vol}}
       <p>Welcome back, {{firstname}} {{lastname}}! ({{email}})</p>
-      <button class="btn btn-default" type="submit">Sign in</button>
+        <label>Choose your volunteer location:</label>
+        <select id = "location">
+          <br>
+          {{#each locations _id}}
+          <option value="{{_id}}">{{name}}</option>
+          {{/each}}
+        </select>
+        <br>
+      <button class="btn btn-primary" type="submit">Sign in</button>
+    <br><br><br><br>
       <button class="btn btn-default" type="tryagain">Not you? Search again.</button>
       {{/each}}
     {{/if}}
@@ -63,7 +72,7 @@
   <div class="row">
     <br><br>
     <p class="lead">Thanks for volunteering today!</p>
-    <br><p>You signed in to start volunteering at {{timeLogged}}.</p>
+    <br><p>You signed in to start volunteering at time: {{timeLogged}} and location {{locLogged}}.</p>
     <br><br>
     <a href="{{pathFor 'home'}}"><button class="btn btn-large btn-success">Home</button></a>
   </div>

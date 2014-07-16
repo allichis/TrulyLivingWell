@@ -30,6 +30,17 @@ okToOpenTimecard = function(volId) {
 	return true;
 };
 
-initTimecard = function(volId) {
-	return VolunteerTimecards.insert({volId: volId, location: "Wheat Street", tcStatus: "Open", timeOpened: new Date});
+initTimecard = function(volId, volLoc) {
+	// use function in harvest.js to select location
+	return VolunteerTimecards.insert({volId: volId, location: volLoc, tcStatus: "Open", timeOpened: new Date});
+};
+
+locationOptions = function() {
+	var options = [];
+	var locations = Locations.find().fetch();
+	for(i=0; i<locations.length; i++){
+		var locname = locations[i].name;
+		options.push({label: locname, value: locname})
+	}
+	return options;
 };
