@@ -1,4 +1,6 @@
 Session.setDefault("uniqueVolFound", false);
+Session.setDefault("searchError", -1);
+
 // update search filter no more than 2 times per second
 var setVolFilter = _.throttle(function(template) {
 	var search = template.find(".vol-phone-input").value;
@@ -40,7 +42,16 @@ Template.volsignin.helpers({
 				return true;
 			}
 			return false;
-		}
+		},
+		showSearchError: function() {
+			if (Session.get("searchError") == 0) {
+				return "No matching volunteers found. Please try another search term.";
+			} else if (Session.get("searchError") == 2) {
+				return "Found more than one matching volunteer record. Please try a different search term.";
+			} else {
+				return null;
+			}
+		},
 });
 
 Template.volsignin.events({
@@ -48,12 +59,13 @@ Template.volsignin.events({
 		var response = searchVols(Session.get("volSearchFilter"));
 		if (Match.test(response, Match.Integer)) {
 			if (response === 0) {
-				console.log("couldn't find any volunteers.");
+				Session.set("searchError", 0);
 			} else {
-				//assume response >1
-				console.log("found more than one volunteer");
+				Session.set("searchError", 2);
 			}
 		} else {
+			// assume unique vol match found
+			Session.set("searchErrorMsg", null);
 			vid = response.fetch()[0]._id;
 			Session.set("uniqueVolId", vid);
 			Session.set("uniqueVolFound", true);
@@ -78,6 +90,7 @@ Template.volsignin.events({
 	'click [type="tryagain"]': function(event, template) {
 		Session.set("uniqueVolId", null);
 		Session.set("uniqueVolFound", false);
+		Session.get("searchError");
 	}
 });
 
