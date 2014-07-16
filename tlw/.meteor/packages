@@ -20,3 +20,4 @@ moment
 bootstrap-alerts
 json2csv
 node-csv-npm
+filesaver
