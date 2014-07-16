@@ -42,15 +42,6 @@ var reportHelpers = {
 	yearFilter: function() {
 		return Session.get('yearFilter');
 	},
-	wholesaleUnitsInputId: function() {
-		return 'wholesaleUnitsInput_' + this['itemname'];
-	},
-	marketUnitsInputId: function() {
-		return 'marketUnitsInput_' + this['itemname'];
-	},
-	marketSalesInputId: function() {
-		return 'marketSalesInput_' + this['itemname'];
-	},
 	wholesaleUnitsName: function() {
 		return 'productInfo.' + this['index'] + '.wholesaleUnits';
 	},
@@ -135,8 +126,6 @@ Template.reportForm.events({
 		// user clicked "submit"
 		// get product info data that wasn't part of autoform
 		//updateProductInfo();
-		// re-select this report (???)
-		//Session.set('reportSelected', Session.get('reportSelected'));
 		// go to "viewReport" template
 		//Router.go('viewReport');
 	},
@@ -158,7 +147,7 @@ AutoForm.hooks({
 		onSuccess: function () {
 			console.log("autoform submit success...");
 			updateProductInfo();
-			Session.set('reportSelected', Session.get('reportSelected'));
+			//Session.set('reportSelected', Session.get('reportSelected'));
 			Router.go('viewReport');
 			return false;
 		},
@@ -365,15 +354,31 @@ function getTourInfo(month, year) {
 	var tourInfo = [];
 	var start = new Date(year, month, 1);
 	var end = new Date(year, month+1, 1);
-	var toursThisMonth = Visitors.find({$and: [{'date': {$gte: start, $lt: end}}, {'visitType': "Tour"}]}, {fields: {tourType:1}});
+	var toursThisMonth = Visitors.find({$and: [{'date': {$gte: start, $lt: end}}, {'visitType': "Tour"}]}, {fields: {tourType:1, addOns:1}});
+	
 	var tours = _.uniq(toursThisMonth.fetch().map(function(visit) { return visit.tourType }));
 	tours.forEach(function(tour) {
 		tourInfo.push(getTourTotals(tour, month, year));
 	});
+
+	var tourAddOns = [];
+	toursThisMonth.fetch().map(function(visit) {
+		if(visit['addOns']) {
+			for(i = 0; i < visit['addOns'].length; i++) {
+				tourAddOns.push(visit['addOns'][i]); 
+			}
+		}
+	});
+	tourAddOns = _.uniq(tourAddOns);
+
+	tourAddOns.forEach(function(addon) {
+		tourInfo.push(getTourAddOnTotals(addon, month, year));
+	});
+
 	return tourInfo;
 }
 
-// gets product totals for one product
+// gets tour totals for one tour
 function getTourTotals(tourname, month, year) {
 	tourTotals = {};
 	tourTotals['title'] = tourname;
@@ -395,6 +400,38 @@ function getTourPeople(tourname, month, year) {
 
 function getTourCost(tourname, month, year) {
 	var tour = Tours.find({'title': tourname}).fetch()[0];
+	if(!tour) {
+		return 0;
+	}
+	var cost = tour['cost'];
+	if(!cost) {
+		cost = 0;
+	}
+	return cost;
+}
+
+// gets tour add-on totals for one tour add-on
+function getTourAddOnTotals(addonname, month, year) {
+	tourTotals = {};
+	tourTotals['title'] = addonname;
+	tourTotals['totalpeople'] = getTourAddOnPeople(addonname, month, year);
+	tourTotals['totalcost'] = tourTotals['totalpeople'] * getTourAddOnCost(addonname);
+	return tourTotals;
+}
+
+function getTourAddOnPeople(addonname, month, year) {
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var visitors = Visitors.find({$and: [{'date': {$gte: start, $lt: end}}, {'addOns': addonname}]}).fetch();
+	var total = 0;
+	visitors.forEach(function(visit) {
+		total += (visit.numChildren + visit.numAdults + visit.numSeniors);
+	});
+	return total;
+}
+
+function getTourAddOnCost(addonname, month, year) {
+	var tour = TourAddOns.find({'title': addonname}).fetch()[0];
 	if(!tour) {
 		return 0;
 	}
