@@ -135,6 +135,9 @@ var modalHelpers = {
 	todayString: function() {
 		return dateToDateString(today());
 	},
+	today: function() {
+		return today();
+	}
 };
 
 var clickEvents = {
