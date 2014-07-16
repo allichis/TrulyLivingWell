@@ -15,7 +15,8 @@
       "moment-timezone": {},
       "bootstrap-alerts": {},
       "json2csv": {},
-      "node-csv-npm": {}
+      "node-csv-npm": {},
+      "filesaver": {}
     },
     "packages": {
       "bootstrap-3": {
@@ -87,6 +88,11 @@
         "git": "https://github.com/Dsyko/meteor-node-csv.git",
         "tag": "v0.3.6",
         "commit": "01be0e3e834a4f033121cb3fcc92c2697741170d"
+      },
+      "filesaver": {
+        "git": "https://github.com/Meloncon/meteor-filesaver.git",
+        "tag": "v0.0.3",
+        "commit": "a8dffab43edc88722138e6416b024fbf6b8fa44a"
       },
       "simple-schema": {
         "git": "https://github.com/aldeed/meteor-simple-schema.git",

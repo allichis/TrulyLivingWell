@@ -13,6 +13,7 @@
     "moment-timezone": {},
     "bootstrap-alerts": {},
     "json2csv": {},
-    "node-csv-npm": {}
+    "node-csv-npm": {},
+    "filesaver": {}
   }
 }
