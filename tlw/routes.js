@@ -58,6 +58,9 @@ Router.map(function() {
 	this.route('volunteersAdmin', {
 		layoutTemplate: 'layoutAdmin',
 	});
+	this.route('volunteerTimecardsAdmin', {
+		layoutTemplate: 'layoutAdmin',
+	});
 	this.route('visitorsAdmin', {
 		layoutTemplate: 'layoutAdmin',
 	});

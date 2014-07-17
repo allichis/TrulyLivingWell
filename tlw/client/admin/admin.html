@@ -10,6 +10,7 @@
         <li class="{{activeIfTemplateIs 'productsAdmin'}}"><a href="{{pathFor 'productsAdmin'}}">Products</a></li>
         <li class="{{activeIfTemplateIs 'locationsAdmin'}}"><a href="{{pathFor 'locationsAdmin'}}">Locations</a></li>
         <li class="{{activeIfTemplateIs 'volunteersAdmin'}}"><a href="{{pathFor 'volunteersAdmin'}}">Volunteers</a></li>
+        <li class="{{activeIfTemplateIs 'volunteerTimecardsAdmin'}}"><a href="{{pathFor 'volunteerTimecardsAdmin'}}">Volunteer Timecards</a></li>
         <li class="{{activeIfTemplateIs 'visitorsAdmin'}}"><a href="{{pathFor 'visitorsAdmin'}}">Visitors</a></li>
         <li class="{{activeIfTemplateIs 'visitTypesAdmin'}}"><a href="{{pathFor 'visitTypesAdmin'}}">Visit Types</a></li>
         <li class="{{activeIfTemplateIs 'requestsAdmin'}}"><a href="{{pathFor 'requestsAdmin'}}">Requests</a></li>
@@ -117,6 +118,47 @@
   {{> blankModal}}
   {{> updateVolunteerModal}}
   {{> deleteVolunteerModal}}
+</template>
+
+<template name="volunteerTimecardsAdmin">
+  <div class="container">
+    <div class="row products-search">
+      <div class="col-sm-offset-4 col-sm-8 col-md-offset-6 col-md-6 col-lg-offset-8 col-lg-4">
+        <h4>Volunteer Search <small>(Name)</small></h4>
+        <div class="input-group">
+          <input type="text" class="form-control search-input-filter" value="{{searchFilter}}">
+          <span class="input-group-btn">
+              <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Time In</th>
+          <th>Time Out</th>
+          <th>Location</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each volunteerTimecards}}
+          <tr>
+            <td>
+            </td>
+            <td>{{lastname}}, {{firstname}}</td>
+            <td>{{timeOpened}}</td>
+            <td>{{timeClosed}}</td>
+            <td>{{location}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
 </template>
 
 <template name="locationsAdmin">

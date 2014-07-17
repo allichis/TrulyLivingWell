@@ -221,6 +221,49 @@ Template.volunteersAdmin.events({
     },
 });
 
+Template.volunteerTimecardsAdmin.helpers({
+	volunteerTimecards: function() {
+		filter = Session.get("volunteersFilter");
+		if(!!filter) {
+			vols = Volunteers.find({$or: [{'lastname': {$regex: filter, $options: 'i'}}, {'firstname': {$regex: filter, $options: 'i'}}]}, {fields: {_id:1}});
+			volids = [];
+			vols.forEach(function(v) {
+				volids.push(v['_id']);
+			});
+			timecards = VolunteerTimecards.find({'volId': {$in: volids}}, {sort: {timeOpened:1}});
+			return timecards;
+		}
+		else
+			return VolunteerTimecards.find({}, {sort: {timeOpened:1}});
+	},
+	displaydate: function(date) {
+		return moment.utc(date).format("LL");
+	},
+	searchFilter: function() {
+		return Session.get("volunteersFilter");
+	},
+	lastname: function() {
+		id = this['volId'];
+		vol = Volunteers.find({'_id': id}, {fields: {lastname:1}}).fetch()[0];
+		name = vol['lastname'];
+		return name;
+	},
+	firstname: function() {
+		id = this['volId'];
+		vol = Volunteers.find({'_id': id}, {fields: {firstname:1}}).fetch()[0];
+		name = vol['firstname'];
+		return name;
+	},
+});
+
+
+Template.volunteerTimecardsAdmin.events({
+	'keyup .search-input-filter': function(event, template) {
+        setVolunteersFilter(template);
+        return false;
+    },
+});
+
 // search no more than 2 times per second
 var setVolunteersFilter = _.throttle(function(template) {
 	var search = template.find(".search-input-filter").value;
