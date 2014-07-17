@@ -290,7 +290,7 @@ function getVolunteerCount(locationname, month, year) {
 	var vols = _.uniq(volTimes.fetch().map(function(timecard) { return timecard.volId}));
 	var numvols = 0;
 	if(!vols.isEmpty) {
-		numvols = vols.size;
+		numvols = vols.length;
 	}
 	return numvols;
 }
@@ -310,7 +310,9 @@ function getVolunteerHours(locationname, month, year) {
 	}
 	var totalHours = 0;
 	volTimes.forEach(function(timecard) {
-		var hours = timecard.timeClosed - timecard.timeOpened;
+		timeopened = moment(timecard.timeOpened);
+		timeclosed = moment(timecard.timeClosed);
+		hours =  timeclosed.diff(timeopened, 'hours');
 		totalHours += hours;
 	});
 	return totalHours;
@@ -513,7 +515,14 @@ function getHarvestedUnits(productname, month, year) {
 }
 
 function getWholesaleUnits(productname, month, year) {
-	return 0;
+	var start = new Date(year, month, 1);
+	var end = new Date(year, month+1, 1);
+	var wholesaleRequestsInDateRange = Requests.find({$and: [{'date': {$gte: start, $lt: end}}, {'itemname': productname}, {'requestedFor': "Wholesale"}]}, {fields: {amount:1}}).fetch();
+	var total = 0;
+	wholesaleRequestsInDateRange.forEach(function(request) {
+		total += request.amount;
+	});
+	return total;
 }
 
 function getMarketUnits(productname, month, year) {
