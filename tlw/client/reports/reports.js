@@ -559,7 +559,6 @@ function printReport() {
 function exportReport() {
 	var report = Session.get('reportSelected');
 	var csv1 = reportTotalsToCsv(report);
-	alert(csv1);
 	//var csv2 = reportProductsToCsv(report);
 	var filename1 = "TLWReport_" + getMonthString(report.month) + report.year + "_totals.csv";
 	//var filename2 = "TLWReport_" + getMonthString(report.month) + report.year + "_products.csv";
