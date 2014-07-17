@@ -1,5 +1,7 @@
 Session.setDefault("uniqueVolFound", false);
 Session.setDefault("searchError", -1);
+Session.setDefault("openTcProblem", false);
+Session.setDefault("volLocation", "Wheat Street");
 
 // update search filter no more than 2 times per second
 var setVolFilter = _.throttle(function(template) {
@@ -14,15 +16,6 @@ Deps.autorun(function() {
 Template.volunteer.events({
 	'keyup input[type="text"]': function(event, template) {
 		Session.set('volsSearchQuery', event.target.value);
-	}
-});
-
-Template.volunteer.helpers({
-	searchResults: function() {
-		return Volunteers.search(Session.get('volsSearchQuery'));
-				   },
-	volsSearchQuery: function() {
-		return Session.get('volsSearchQuery');
 	}
 });
 
@@ -52,6 +45,12 @@ Template.volsignin.helpers({
 				return null;
 			}
 		},
+		openTcMessage: function() {
+			if (Session.get("openTcProblem")) {
+				return true;
+			}
+			return false;
+		},
 });
 
 Template.volsignin.events({
@@ -67,8 +66,16 @@ Template.volsignin.events({
 			// assume unique vol match found
 			Session.set("searchErrorMsg", null);
 			vid = response.fetch()[0]._id;
-			Session.set("uniqueVolId", vid);
-			Session.set("uniqueVolFound", true);
+				Session.set("uniqueVolId", vid);
+				Session.set("uniqueVolFound", true);
+
+			// if got a unique vol, check their timecards to prompt for 
+			// either signin or signout, depending.
+			if (okToOpenTimecard(vid)) {
+			} else {
+				Session.set("uniqueVolId", vid);
+				Router.go("volSignout");
+			}
 		}
 	},
 	'keyup .vol-phone-input': function(event, template) {
@@ -79,21 +86,29 @@ Template.volsignin.events({
 		Session.set("volLocation", $("#location option:selected").text()); 
 	},
 	'click [type="submit"]': function(event, template) {
-		if (!okToOpenTimecard(Session.get("uniqueVolId"))) {
-			console.log("already an open timecard.");
-		} else {
-			// should be ok, so create a new timecard
-			var tcId = initTimecard(Session.get("uniqueVolId"), Session.get("volLocation"));
-			Session.set("volNewTcId", tcId);
-			Router.go('volSigninSuccess');
-			Session.set("uniqueVolId", null);
-			Session.set("uniqueVolFound", false);
-		}
+		// open timecard with the selected location
+		var tcId = initTimecard(Session.get("uniqueVolId"), Session.get("volLocation"));
+		Session.set("volNewTcId", tcId);
+		Router.go('volSigninSuccess');
+		Session.set("uniqueVolId", null);
+		Session.set("uniqueVolFound", false);
 	},
 	'click [type="tryagain"]': function(event, template) {
 		Session.set("uniqueVolId", null);
 		Session.set("uniqueVolFound", false);
-		Session.get("searchError");
+		Session.set("searchError", null);
+	},
+});
+
+Template.volSignout.events({
+	'click [type="signout"]': function(event, template) {
+		// get the open timecard and update it
+		vid = Session.get("uniqueVolId");
+		closeTimecard(vid);
+		Session.set("uniqueVolId", null);
+		Session.set("uniqueVolFound", false);
+		Session.set("searchError", null);
+		Router.go("volunteer");
 	}
 });
 

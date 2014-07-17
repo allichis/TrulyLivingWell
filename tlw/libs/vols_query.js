@@ -35,12 +35,6 @@ initTimecard = function(volId, volLoc) {
 	return VolunteerTimecards.insert({volId: volId, location: volLoc, tcStatus: "Open", timeOpened: new Date});
 };
 
-locationOptions = function() {
-	var options = [];
-	var locations = Locations.find().fetch();
-	for(i=0; i<locations.length; i++){
-		var locname = locations[i].name;
-		options.push({label: locname, value: locname})
-	}
-	return options;
+closeTimecard = function(vid) {
+	return VolunteerTimecards.update({_id:VolunteerTimecards.findOne({volId: vid, tcStatus: "Open"})['_id']}, {$set: {'tcStatus': "Closed", timeClosed: new Date}});
 };

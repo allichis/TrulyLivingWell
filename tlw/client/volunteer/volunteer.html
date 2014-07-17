@@ -1,18 +1,21 @@
 <template name="volunteer">
   <div class="container">
+
     <div class="row">
-      <h1>Volunteers</h1>
+      <h1>Volunteering at Truly Living Well</h1>
     </div><!-- /.row -->
+
     <div class="row">
-      <div class="col-md-6">
-        <h2>Ready to work?</h2>
-        <a href="{{pathFor 'volsignin'}}"><button type="button" class="btn btn-default btn-large">Sign In / Sign Out</button></a>
-      </div><!-- /.col-md-6 -->
-      <div class="col-md-6">
-        <h2>New volunteer? Register now!</h2>
-        <a href="{{pathFor 'newvol'}}"><button type="button" class="btn btn-info btn-large">Register as new volunteer</button></a>
-      </div><!-- /.col-md-6 -->
+      <p class="lead">Ready to volunteer? Search for your volunteer record by name or phone number to sign in and out.</p>
+      <a href="{{pathFor 'volsignin'}}"><button type="button" class="btn btn-info btn-large">Sign In / Sign Out</button></a>
+    </div>
+
+    <br><br>
+    <div class="row">
+      <h2>Not registered yet?</h2>
+      <p class="lead"><a href="{{pathFor 'volAbout'}}">Find out more</a> or <a href="{{pathFor 'newvol'}}">Register to volunteer</a>.</p>
     </div><!-- /.row -->
+
   </div><!-- /.container -->
 </template>
 
@@ -67,14 +70,25 @@
   </div><!-- /.container -->
 </template>
 
+<template name="openTcPrompt">
+  <p>This message alerts you to the fact you already have an open timecard.</p>
+</template>
+
 <template name="volSigninSuccess">
 <div class="container">
   <div class="row">
     <br><br>
     <p class="lead">Thanks for volunteering today!</p>
-    <br><p>You signed in to start volunteering at time: {{timeLogged}} and location {{locLogged}}.</p>
+    <br><p>You signed in to start volunteering at time: {{timeLogged}} and at location: {{locLogged}}.</p>
     <br><br>
     <a href="{{pathFor 'home'}}"><button class="btn btn-large btn-success">Home</button></a>
   </div>
 </div>
+</template>
+
+<template name="volSignout">
+  <div class="container">
+    <p>Thanks for your help today!</p>
+    <button type="signout" class="btn btn-large btn-success">Sign out</button>
+  </div>
 </template>

@@ -14,10 +14,11 @@ Router.map(function() {
 		path: '/',
 	});
 	this.route('volunteer');	
+	this.route('volAbout');
 	this.route('newvol');	
 	this.route('volsignin');	
 	this.route('volSigninSuccess');
-	this.route('volsignout');
+	this.route('volSignout');
 
 	this.route('visitorCheckIn');
 	this.route('visitorForm');
@@ -94,10 +95,11 @@ Router.onBeforeAction(IR_BeforeHooks.isLoggedIn, {
 	except: ['home', 
 			'sign-in', 
 			'volunteer',
+			'volAbout',
 			'newvol',
 			'volsignin',
 			'volSigninSuccess',
-			'volsignout',
+			'volSignout',
 			'visitorCheckIn',
 			'visitorForm',
 			'visitors',
