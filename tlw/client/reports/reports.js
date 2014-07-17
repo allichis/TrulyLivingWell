@@ -308,14 +308,23 @@ function getVolunteerHours(locationname, month, year) {
 													{'location': locationname}, 
 													{'tcStatus': "Closed"}]}).fetch();
 	}
-	var totalHours = 0;
+	/*var totalHours = 0;
 	volTimes.forEach(function(timecard) {
 		timeopened = moment(timecard.timeOpened);
 		timeclosed = moment(timecard.timeClosed);
 		hours =  timeclosed.diff(timeopened, 'hours');
 		totalHours += hours;
 	});
-	return totalHours;
+	return totalHours;*/
+
+	var totalTime = 0;
+	volTimes.forEach(function(timecard) {
+		timeopened = moment(timecard.timeOpened);
+		timeclosed = moment(timecard.timeClosed);
+		timediff  = timeclosed.diff(timeopened);
+		totalTime += timediff;
+	});
+	return moment.duration(totalTime).asHours().toFixed(0);
 }
 
 function getVisitorTotal(month, year) {
