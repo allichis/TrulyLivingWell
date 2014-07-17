@@ -359,7 +359,7 @@ Schema.HarvestLog = new SimpleSchema({
 		type: Date,
 		autoValue: function() {
 	        var date = new Date;
-	        date.setUTCHours(0,0,0,0);
+	        //date.setUTCHours(0,0,0,0);
 
 	        if (this.isInsert) {
 	          return date;
