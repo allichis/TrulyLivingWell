@@ -254,8 +254,8 @@ function getReportValues(month, year) {
 	values['employeeCount'] = 0;
 	values['employeeHours'] = 0;
 	values['csaNew'] = 0;
-	values['volunteerCount'] = getVolunteerCount(month,year);
-	values['volunteerHours'] = getVolunteerHours(month,year);
+	values['volunteerCount'] = getVolunteerCount("all", month,year);
+	values['volunteerHours'] = getVolunteerHours("all", month,year);
 	values['visitorCount'] = getVisitorTotal(month,year);
 	values['veteranCount'] = getVisitorVeterans(month,year);
 	values['visitorCount_children'] = getVisitorChildren(month,year);
@@ -263,15 +263,25 @@ function getReportValues(month, year) {
 	values['visitorCount_seniors'] = getVisitorSeniors(month,year);
 	values['tourInfo'] = getTourInfo(month,year);
 	// location data
+	values['locationInfo'] = getLocationInfo(month,year);
 	// product data
 	values['productInfo'] = getProductInfo(month,year);
 	return values;
 }
 
-function getVolunteerCount(month, year) {
+function getVolunteerCount(locationname, month, year) {
 	var start = new Date(year, month, 1);
 	var end = new Date(year, month+1, 1);
-	var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}});
+	var volTimes;
+	if(locationname === "all") {
+		volTimes = VolunteerTimecards.find({$and: [{'timeOpened': {$gte: start, $lt: end}}, 
+													{'tcStatus': "Closed"}]});
+	}
+	else {
+		volTimes = VolunteerTimecards.find({$and: [{'timeOpened': {$gte: start, $lt: end}}, 
+													{'location': locationname}, 
+													{'tcStatus': "Closed"}]});
+	}
 	var vols = _.uniq(volTimes.fetch().map(function(timecard) { return timecard.volId}));
 	var numvols = 0;
 	if(!vols.isEmpty) {
@@ -280,16 +290,23 @@ function getVolunteerCount(month, year) {
 	return numvols;
 }
 
-function getVolunteerHours(month, year) {
+function getVolunteerHours(locationname, month, year) {
 	var start = new Date(year, month, 1);
 	var end = new Date(year, month+1, 1);
-	var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}}).fetch();
+	var volTimes;
+	if(locationname === "all") {
+		volTimes = VolunteerTimecards.find({$and: [{'timeOpened': {$gte: start, $lt: end}}, 
+													{'tcStatus': "Closed"}]}).fetch();
+	}
+	else {
+		volTimes = VolunteerTimecards.find({$and: [{'timeOpened': {$gte: start, $lt: end}}, 
+													{'location': locationname}, 
+													{'tcStatus': "Closed"}]}).fetch();
+	}
 	var totalHours = 0;
 	volTimes.forEach(function(timecard) {
-		if(timecard.tcStatus === "Closed") {
-			var hours = timecard.timeClosed - timecard.timeOpened;
-			totalHours += hours;
-		}
+		var hours = timecard.timeClosed - timecard.timeOpened;
+		totalHours += hours;
 	});
 	return totalHours;
 }
@@ -413,7 +430,7 @@ function getTourCost(tourname, month, year) {
 // gets tour add-on totals for one tour add-on
 function getTourAddOnTotals(addonname, month, year) {
 	tourTotals = {};
-	tourTotals['title'] = addonname;
+	tourTotals['title'] = "Add-On: " + addonname;
 	tourTotals['totalpeople'] = getTourAddOnPeople(addonname, month, year);
 	tourTotals['totalcost'] = tourTotals['totalpeople'] * getTourAddOnCost(addonname);
 	return tourTotals;
@@ -476,9 +493,6 @@ function getProductTotals(productname, month, year) {
 	productTotals['otherUnits'] = productTotals['harvestedUnits'] 
 									- productTotals['wholesaleUnits'] 
 									- productTotals['marketUnits'];
-	//var newid = ProductTotals.insert(productTotals);
-	//var object = ProductTotals.findOne({'_id': newid});
-	//return object;
 	return productTotals;
 }
 
@@ -503,6 +517,25 @@ function getMarketUnits(productname, month, year) {
 
 function getMarketSales(productname, month, year) {
 	return 0;
+}
+
+function getLocationInfo(month, year) {
+	var locationInfo = [];
+	
+	var locations = Locations.find({}, {fields: {name:1}});
+	locations.forEach(function(location) {
+		locationInfo.push(getLocationTotals(location['name'], month, year));
+	});
+
+	return locationInfo;
+}
+
+function getLocationTotals(locationname, month, year) {
+	locationTotals = {};
+	locationTotals['location'] = locationname;
+	locationTotals['volunteerCount'] = getVolunteerCount(locationname, month, year);
+	locationTotals['volunteerHours'] = getVolunteerHours(locationname, month, year);
+	return locationTotals;
 }
 
 function printReport() {

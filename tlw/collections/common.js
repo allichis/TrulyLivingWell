@@ -554,7 +554,7 @@ Schema.MonthlyReports = new SimpleSchema({
 		optional: true,
 	},
 	"locationInfo.$.location": {
-		type: Schema.Locations,
+		type: String,
 		label: "Location",
 	},
 	"locationInfo.$.volunteerCount": {

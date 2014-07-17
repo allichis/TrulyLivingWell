@@ -70,6 +70,28 @@
         </div>
         
         <div class="row">
+            <div class="col-sm-12">
+                <h3>Locations</h3>
+                <table class="table table-bordered">
+                	<thead>
+                		<th>Location name</th>
+                		<th>Volunteer count</th>
+                		<th>Volunteer hours</th>
+                	</thead>
+                	<tbody>
+                	{{#each locationInfo}}
+                		<tr>
+                			<td>{{location}}</td>
+                			<td>{{volunteerCount}}</td>
+                			<td>{{volunteerHours}}</td>
+                		</tr>
+                	{{/each}}
+                	</tbody>
+                </table>        
+            </div>
+        </div>
+        
+        <div class="row">
             <div class="col-sm-4">
                 <h3>Visitors</h3>
                 <ul class="list-group">
@@ -108,13 +130,6 @@
                 	<!--<li class="list-group-item">Total CSA:  {{csaTotal}}</li>-->
                 	<li class="list-group-item">New CSA:  {{csaNew}}</li>
                 </ul>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-sm-12">
-                <h3>Locations</h3>
-                Locations:  {{locationInfo}}
             </div>
         </div>
         
