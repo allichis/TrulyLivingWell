@@ -47,13 +47,14 @@ Template.adminThisMonthOverview.helpers({
 		var year = date.getFullYear();
 		var start = new Date(year, month, 1);
 		var end = new Date(year, month+1, 1);
-		var volTimes = VolunteerTimecards.find({timeOpened: {$gte: start, $lt: end}}).fetch();
+		var volTimes = VolunteerTimecards.find({$and: [{'timeOpened': {$gte: start, $lt: end}},, 
+													{'tcStatus': "Closed"}]}).fetch();
 		var totalHours = 0;
 		volTimes.forEach(function(timecard) {
-			if(timecard.tcStatus === "Closed") {
-				var hours = timecard.timeClosed - timecard.timeOpened;
-				totalHours += hours;
-			}
+			timeopened = moment(timecard.timeOpened);
+			timeclosed = moment(timecard.timeClosed);
+			hours =  timeclosed.diff(timeopened, 'hours');
+			totalHours += hours;
 		});
 		return totalHours;
 	},
