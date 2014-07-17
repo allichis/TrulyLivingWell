@@ -254,6 +254,16 @@ Template.volunteerTimecardsAdmin.helpers({
 		name = vol['firstname'];
 		return name;
 	},
+	totalTime: function() {
+		if(this['tcStatus'] === "Closed") {
+			timeopened = moment(this.timeOpened);
+			timeclosed = moment(this.timeClosed);
+			h = timeclosed.diff(timeopened, 'hours');
+			m = timeclosed.diff(timeopened, 'minutes');
+			s = timeclosed.diff(timeopened, 'seconds');
+			return h + "h " + m + "m " + s + "s";
+		}
+	},
 });
 
 
