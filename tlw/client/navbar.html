@@ -21,6 +21,9 @@
           <li class="{{ activeIfTemplateIs 'farmops'}}"><a href="{{pathFor 'farmops'}}">Farm</a></li>
           <li class="{{ activeIfTemplateIs 'admin'}}"><a href="{{pathFor 'admin'}}">Admin</a></li>
         </ul>
+      <div class="nav navbar-nav navbar-right">
+        {{>loginButtons}}
+      </div>
       </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->
   </nav>
