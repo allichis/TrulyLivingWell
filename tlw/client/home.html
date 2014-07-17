@@ -6,11 +6,23 @@
       </div><!-- /.jumbotron -->
     </div><!-- /.row -->
     <div class="container text-center">
-        <a href="{{ pathFor 'volunteer' }}" style="padding:10px;"><button type="button" class="btn btn-success btn-lg">Volunteer!</button></a>
-        <!-- <a href="{{ pathFor 'visitorForm' }}"><button type="button" class="btn btn-success btn-lg">Schedule a Visit!</button></a> -->
-        <a href="{{ pathFor 'visitorCheckIn' }}" style="padding:10px;"><button type="button" class="btn btn-success btn-lg">Visitor Check-In!</button></a>
-        <a href="{{ pathFor 'farmops' }}" style="padding:10px;"><button type="button" class="btn btn-primary btn-lg">Farm!</button></a>
-        <a href="{{ pathFor 'admin' }}" style="padding:10px;"><button type="button" class="btn btn-danger btn-lg">ADMIN!</button></a>
+      <div class="row">
+        
+          <div class="col-sm-3" style="margin-top:4px; margin-bottom:4px;">
+            <a href="{{ pathFor 'volunteer' }}"><button type="button" class="btn btn-success btn-lg" align="center">Volunteer!</button></a>
+          </div>
+          <div class="col-sm-3" style="margin-top:4px; margin-bottom:4px;">
+            <!-- <a href="{{ pathFor 'visitorForm' }}"><button type="button" class="btn btn-success btn-lg">Schedule a Visit!</button></a> -->
+            <a href="{{ pathFor 'visitorCheckIn' }}"><button type="button" class="btn btn-success btn-lg">Visitor Check-In!</button></a>
+          </div>
+          <div class="col-sm-3" style="margin-top:4px; margin-bottom:4px;">
+            <a href="{{ pathFor 'farmops' }}"><button type="button" class="btn btn-primary btn-lg">Farm!</button></a>
+          </div>
+          <div class="col-sm-3" style="margin-top:4px; margin-bottom:4px;">
+            <a href="{{ pathFor 'admin' }}"><button type="button" class="btn btn-danger btn-lg">ADMIN!</button></a>
+          </div>
+        
+      </div>
     </div>
   </div>
 </template>
