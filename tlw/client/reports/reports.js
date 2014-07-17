@@ -146,9 +146,12 @@ AutoForm.hooks({
 		onSubmit: function(insertDoc, updateDoc, currentDoc) {},*/
 		onSuccess: function () {
 			console.log("autoform submit success...");
+
+			updatedreport = MonthlyReports.findOne(Session.get('reportSelected')['_id']);
+			Session.set('reportSelected',updatedreport);
 			updateProductInfo();
-			//Session.set('reportSelected', Session.get('reportSelected'));
 			Router.go('viewReport');
+
 			return false;
 		},
 		onError: function(operation, error, template) {
@@ -205,6 +208,8 @@ function updateProductInfo(template) {
 		}
 		else {
 			console.log("report update success...");
+			updatedreport = MonthlyReports.findOne(Session.get('reportSelected')['_id']);
+			Session.set('reportSelected',updatedreport);
 		}
 
 	});
