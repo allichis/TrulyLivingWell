@@ -255,14 +255,18 @@ Template.volunteerTimecardsAdmin.helpers({
 		return name;
 	},
 	totalTime: function() {
+		timeopened = moment(this.timeOpened);
+		timeclosed = moment(new Date);
 		if(this['tcStatus'] === "Closed") {
-			timeopened = moment(this.timeOpened);
 			timeclosed = moment(this.timeClosed);
-			h = timeclosed.diff(timeopened, 'hours');
-			m = timeclosed.diff(timeopened, 'minutes');
-			s = timeclosed.diff(timeopened, 'seconds');
-			return h + "h " + m + "m " + s + "s";
 		}
+		h = timeclosed.diff(timeopened, 'hours');
+		timeclosed.subtract('hours',h);
+		m = timeclosed.diff(timeopened, 'minutes');
+		timeclosed.subtract('minutes',m);
+		s = timeclosed.diff(timeopened, 'seconds');
+		return h + "h " + m + "m " + s + "s";
+		//return moment.duration(timeclosed-timeopened).humanize();
 	},
 });
 
