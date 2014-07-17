@@ -230,11 +230,11 @@ Template.volunteerTimecardsAdmin.helpers({
 			vols.forEach(function(v) {
 				volids.push(v['_id']);
 			});
-			timecards = VolunteerTimecards.find({'volId': {$in: volids}}, {sort: {timeOpened:1}});
+			timecards = VolunteerTimecards.find({'volId': {$in: volids}}, {sort: {timeOpened:-1}});
 			return timecards;
 		}
 		else
-			return VolunteerTimecards.find({}, {sort: {timeOpened:1}});
+			return VolunteerTimecards.find({}, {sort: {timeOpened:-1}});
 	},
 	displaydate: function(date) {
 		return moment.utc(date).format("LL");
