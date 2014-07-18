@@ -10,4 +10,4 @@ How to install and run the app
 
 3. Clone the repository: `git clone git://github.com/allichis/TrulyLivingWell.git`
 
-4. Run with Meteorite: `mrt`
+4. Run with Meteorite: Execute `mrt` in the cloned project folder. The app can also be run by running `meteor` in that folder, but use Meteorite the first time to ensure that all the required packages are fetched.
